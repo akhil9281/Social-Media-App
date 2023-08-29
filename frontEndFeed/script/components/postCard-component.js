@@ -3,12 +3,12 @@ angular.module("feedApp")
         return {
             restrict: "E",
             scope: {
-                data: "="
+                post: "="
                 // Two-way binding for the data attribute
             },
             templateUrl: "script/components/postCard.html",
 
-            controller: ["$scope", "feedService", function(feedService, $scope) {
+            controller: ["$scope", "feedService", function($scope, feedService) {
 
                 $scope.commentList = [];
                 $scope.countOfLikes = 0;
@@ -16,35 +16,49 @@ angular.module("feedApp")
                 $scope.showLikeUsername = false;
                 $scope.showComments = false;
                 $scope.loadingComment = false;
+                $scope.comment = {};
+                $scope.like = {};
 
-                /* $scope.init = function() {
+                $scope.start = function() {
                     console.log("in postCard init");
-                    
-                    
-                }; */
+                    $scope.getLikes();
+                    $scope.getComments();
+                };
 
                 $scope.getComments = function() {
                     console.log("in postCard getComments");
-                    $scope.commentList = feedService.getComments(data.id)[0];
+                    feedService.getComments($scope.post.id)
+                        .then(function(value) {
+                            $scope.commentList = value;
+                        });
                     $scope.loadingComment = false;
                 };
 
                 $scope.getLikes = function() {
                     console.log("in postCard getLikes");
-                    $scope.countOfLikes = feedService.numOfLikes(data.id);
+                    feedService.numOfLikes($scope.post.id)
+                        .then(function(value) {
+                            $scope.countOfLikes = value;
+                        });
                 };
 
                 $scope.likePost = function(like) {
                     console.log("in postCard likePost");
                     feedService.likePost(like);
+                    $scope.countOfLikes = feedService.numOfLikes($scope.post.id).data[0];
                 };
 
                 $scope.makeComment = function(comment) {
                     console.log("in postCard makeComment");
-                    feedService.createComment(comment, data.id);
-                    $scope.getComments(data.id);
+                    feedService.createComment(comment, $scope.post.id);
+                    $scope.getComments($scope.post.id);
                 };
 
+                $scope.delete = function() {
+                    console.log("in postCard delete");
+                    feedService.deletePost($scope.post.id);
+                    $scope.getComments();
+                };
 
                 
             }]

@@ -74,9 +74,9 @@ angular.module("feedApp").service("feedService", ["$http","$rootScope", function
                 })
         },
 
-        deletePost: function(post) {
+        deletePost: function(postId) {
             return $http
-                .delete(baseUrl + "deletePost" + post.id)
+                .delete(baseUrl + "/deletePost/" + postId)
                 .then(function(response) {
                     return response.data;
                 })
@@ -112,8 +112,8 @@ angular.module("feedApp").service("feedService", ["$http","$rootScope", function
                 })
                 .then(function(response) {
                     console.log("inside getComments service");
-                    console.log(response);
-                    return response.data;
+                    console.log(response.data);
+                    return response.data.data[0];
                 })
                 .catch(function(error) {
                     if (error.response) {
@@ -212,8 +212,10 @@ angular.module("feedApp").service("feedService", ["$http","$rootScope", function
                 })
                 .then(function(response) {
                     console.log("inside numOfLikes in service");
-                    console.log(response);
-                    return response.data;
+                    
+                    let data = response.data;
+                    console.log(data.data);
+                    return data.data[0];
                 })
                 .catch(function(error) {
                     if (error.response) {
