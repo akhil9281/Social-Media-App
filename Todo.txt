@@ -1,0 +1,5 @@
+1. like, comment, user - controller
+
+2. UI better
+
+3. trim the excess
