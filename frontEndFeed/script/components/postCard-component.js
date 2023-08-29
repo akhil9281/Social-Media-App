@@ -3,7 +3,8 @@ angular.module("feedApp")
         return {
             restrict: "E",
             scope: {
-                post: "="
+                post: "=",
+                postList: "="
                 // Two-way binding for the data attribute
             },
             templateUrl: "script/components/postCard.html",
@@ -27,6 +28,9 @@ angular.module("feedApp")
 
                 $scope.getComments = function() {
                     console.log("in postCard getComments");
+                    $scope.commentList = [];
+                    $scope.comment.userName = "";
+                    $scope.comment.commentData = "";
                     feedService.getComments($scope.post.id)
                         .then(function(value) {
                             $scope.commentList = value;
@@ -50,6 +54,7 @@ angular.module("feedApp")
 
                 $scope.makeComment = function(comment) {
                     console.log("in postCard makeComment");
+                    $scope.loadingComment = true;
                     feedService.createComment(comment, $scope.post.id);
                     $scope.getComments($scope.post.id);
                 };
@@ -57,9 +62,7 @@ angular.module("feedApp")
                 $scope.delete = function() {
                     console.log("in postCard delete");
                     feedService.deletePost($scope.post.id);
-                    $scope.getComments();
                 };
-
                 
             }]
         };

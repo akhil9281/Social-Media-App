@@ -76,7 +76,7 @@ angular.module("feedApp").service("feedService", ["$http","$rootScope", function
 
         deletePost: function(postId) {
             return $http
-                .delete(baseUrl + "/deletePost/" + postId)
+                .delete(baseUrl + "/deletePost?postId=" + postId)
                 .then(function(response) {
                     return response.data;
                 })
@@ -138,12 +138,7 @@ angular.module("feedApp").service("feedService", ["$http","$rootScope", function
 
         createComment: function(newComment, postID) {
             return $http
-            .post(baseUrl + "/url/" + postID, {
-                params: {
-                    userName: newComment.userName,
-                    commentData: newComment.data
-                }
-            })
+            .post(baseUrl + "/createComment/" + postID + "?userName=" + newComment.userName + "&commentData=" + newComment.commentData)
             .then(function(response) {
                 console.log(response);
                 return response.data;

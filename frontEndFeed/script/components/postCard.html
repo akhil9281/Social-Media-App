@@ -1,91 +1,109 @@
-<div class="row card border-danger" ng-init="start()">
-    <div>
-        <div class="card-header container-space-between">
-            <div class="row">
-                <div class="col-6 postUser">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
-                        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"></path>
-                        <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"></path>
-                    </svg> {{post["createdBy"]}}
-                </div>
-                <div class="col-6 text-end">
-                    <button type="button" class="btn btn-outline-danger">
-                        {{post.type || uppercase}}
-                    </button>
-                </div>
-            </div>
-        </div>
-        <div class="card-body">
-            <p id="content" class="card-text">
-                {{post["body"]}}
-            </p>
-        </div>
-        <div class="card-footer container">
-            <div class="d-flex gap-2 mb-3"> <!-- LIKE BUTTON -->
-                <div class="col">
-                    <button class="btn btn-outline-danger" type="button" id="likeButton" ng-click="getLikes()">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
-                            <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
-                        </svg> <span> &nbsp {{ countOfLikes}} </span>
-                    </button>
-
-                    <button class="btn btn-outline-info" type="button" id="commentButton" ng-click="showComments = !showComments">
-                        Comment
-                    </button>
-                </div>
-                <div class="col-6"></div>
-                <div class="align-end"> <!-- delete BUTTON -->                    
-                    <button class="btn btn-danger" ng-click="delete()">
-                        Delete
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!--------------------------------------------- All Comments ------------------------------------------------------------------>
-    <div id="commentsFeed" ng-show="showComments">
-        <ul ng-repeat="comment in commentList">
-            <li>
-                {{comment}}
-                <!-- <comment-card data="comment">
-                </comment-card> -->
-            </li>
-        </ul>
-        <div>
-            <form class="textBox" name="commentForm" novalidate>
-                <textarea class="form-control textArea" id="commentUserName" placeholder="Enter user name" ng-model="comment.userName" rows="1"required>                           
-                </textarea>
-                <textarea class="form-control textArea" id="commentData" rows="3" placeholder="What are your thoughts on this?" ng-model="comment.commentData" required>                            
-                </textarea>
-                <div class="row" style="width: 100%; margin-left: 0.5rem; margin-right: 1rem">
-                    <div class="col-6"></div>
-                    <div class="col">
-                        <button type="button" class="col btn btn-danger" ng-click="comment.userName = ''; comment.commentData = '';">
-                        Cancel
-                        </button>
-                        <button type="button" class="col btn btn-primary" ng-click="makeComment(comment); loadingComment= true;">                        
-                        Post
-                        <div ng-show="loadingComment" class="small-loader">
-                            <div class="spinner"></div>
-                        </div>                            
+<div class="row card border-danger container" style="margin: 0; padding: 0;" ng-init="start()">
+    <div class="col">
+        
+        <div class="row">
+            <div class="card-header container-space-between">
+                <div class="row">
+                    <div class="col-6 postUser">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"></path>
+                            <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"></path>
+                        </svg> {{post["createdBy"]}}
+                    </div>
+                    <div class="col-6 text-end">
+                        <button type="button" class="btn btn-outline-danger">
+                            {{post.type || uppercase}}
                         </button>
                     </div>
                 </div>
-            </form>
+            </div>
+            <div class="card-body">
+                <p id="content" class="card-text">
+                    {{post["body"]}}
+                </p>
+            </div>
+            <div class="card-footer container">
+                <div class="d-flex gap-2 mb-3" style="margin: 0;"> <!-- LIKE BUTTON -->
+                    <div class="col">
+                        <button class="btn btn-outline-danger" type="button" id="likeButton" ng-click="getLikes()">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+                                <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
+                            </svg> <span> &nbsp {{ countOfLikes}} </span>
+                        </button>
+
+                        <button class="btn btn-outline-info" type="button" id="commentButton" ng-click="showComments = !showComments; getComments()">
+                            Comment
+                        </button>
+                    </div>
+                    <div class="col-6"></div>
+                    <div class="align-end"> <!-- delete BUTTON -->                    
+                        <button class="btn btn-danger" ng-click="delete()">
+                            Delete
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
 
-    <!--------------------------------------------- Like Form ------------------------------------------------------------------>
+        <!--------------------------------------------- All Comments ------------------------------------------------------------------>
+        <div class="row" id="commentsFeed" ng-show="showComments">
+            <ul ng-repeat="comment in commentList">
+                <li>
+                    {{comment}}
+                    <!-- <comment-card data="comment">
+                    </comment-card> -->
+                </li>
+            </ul>
+            <div >
+                <form class="textBox" name="feedForm" novalidate>
+                    <textarea class="form-control textArea" id="commentUserName" placeholder="Enter username" ng-model="comment.userName" rows="1"required>                           
+                    </textarea>
+                    
+                    <textarea class="form-control textArea" id="commentData" rows="3" placeholder="What are your thoughts on this?" ng-model="comment.commentData" required>                            
+                    </textarea>
 
-    <div id="likeForm" ng-show="showLikeUsername">
-        <form class="textBox" name="likeForm" novalidate>
-            <textarea class="form-control textArea" id="likeUserName" placeholder="Enter user name" ng-model="like.userName" rows="1"required>                           
-            </textarea>
-            <button type="button" class="col btn btn-primary" ng-click="like.postId = data.id ; likePost(like); showLikeUsername = false;">                        
-                LIKE
-        </form>
+                    <div class="row" style="width: 100%; margin: 0.5rem">
+                        
+                        <div class="col-6"></div>
+                        <div class="col text-end">
+                            <button type="button" class="col btn btn-danger" ng-click="comment.userName = ''; comment.commentData = '';">
+                            Cancel
+                            </button>
+                            <button type="button" class="col btn btn-primary" ng-click="makeComment(comment)">                        
+                            Post
+                            <div ng-show="loadingComment" class="small-loader">
+                                <div class="spinner"></div>
+                            </div>                            
+                            </button>
+                        </div>
+                    </div>
+                    <p>ak1</p>
 
+                    <div class="row justify-content-flex-end">
+                        <div class="col">
+                            <button type="button" class="col btn btn-danger" ng-click="comment.userName = ''; comment.commentData = '';">
+                                Cancel
+                            </button>
+                            <button type="button" class="col btn btn-primary" ng-click="makeComment(comment)">                        
+                                Post                           
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!--------------------------------------------- Like Form ------------------------------------------------------------------>
+
+        <div class="row" id="likeForm" ng-show="showLikeUsername">
+            <form class="textBox" name="likeForm" novalidate>
+                <textarea class="form-control textArea" id="likeUserName" placeholder="Enter user name" ng-model="like.userName" rows="1"required>                           
+                </textarea>
+                <button type="button" class="col btn btn-primary" ng-click="like.postId = data.id ; likePost(like); showLikeUsername = false;">                        
+                    LIKE
+            </form>
+
+        </div>
     </div>
 
 </div>

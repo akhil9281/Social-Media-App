@@ -1,4 +1,4 @@
-<div ng-controller="feedController" ng-init="init()">
+<div ng-controller="getLikeController" ng-init="init()">
     
     <div class="container" >
         <div class="row align-center">
@@ -10,26 +10,11 @@
                 <!-- POST BOX -->
                 <div style="margin: 0.5em; border: 2px solid red; padding: 1em; background-color: orange; border-radius: 1.5em;">
                     <form class="textBox" name="feedForm" novalidate>
-                        <textarea class="form-control textArea" id="feedPostUserName" placeholder="Enter user name" ng-model="post.userName" rows="1"required>                           
+                        <textarea class="form-control textArea" id="feedPostUserName" placeholder="Enter user name" ng-model="like.userName" rows="1"required>                           
                         </textarea>
-                        <textarea class="form-control textArea" id="feedPostData" rows="3" placeholder="What are you sharing today?" ng-model="post.postData" required>                            
-                        </textarea>
-
-
-                        <!-- <br style="height: 25%;"> -->
-
-
+                        
                         <div class="row" style="width: 100%; margin-left: 0.5rem; margin-right: 1rem">
-                            <div class="col">
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" id="PostChoice" ng-model="post.postType" value="Post">
-                                    <label class="form-check-label" for="PostChoice">Post</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" ng-model="post.postType" id="QuestionChoice" value="Question">
-                                    <label class="form-check-label" for="QuestionChoice">Question</label>
-                                </div>
-                            </div>
+                        
                             <div class="col-6"></div>
                             <div class="col text-end">
                                 <button type="button" class="col btn btn-danger" ng-click="post.userName = ''; post.postData = '';">
@@ -50,7 +35,7 @@
                 <div>
                     <ul ng-repeat="post in feed track by post.id">
                         <li >
-                            <post-card post="post" postList="feed">  </post-card>
+                            <post-card post="post">  </post-card>
                         </li>
                     </ul>
                 </div>
