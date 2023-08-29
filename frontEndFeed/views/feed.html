@@ -1,0 +1,103 @@
+<div ng-controller="feedController" ng-init="init()">
+    
+    <div class="container" >
+        <div class="row ">
+            <!-- <div class="col sidebar-first">
+                
+            </div> --> 
+
+            <div class="col main-bar" style="display: flexbox;">
+                <!-- POST BOX -->
+                <div>
+                    <form class="textBox" name="feedForm" novalidate>
+                        <textarea class="form-control textArea" id="feedPostUserName" placeholder="Enter user name" ng-model="post.userName" rows="1"required>                           
+                        </textarea>
+                        <textarea class="form-control textArea" id="feedPostData" rows="3" placeholder="What are you sharing today?" ng-model="post.postData" required>                            
+                        </textarea>
+                        <div class="row" style="width: 100%; margin-left: 0.5rem; margin-right: 1rem">
+                            <div class="col">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" id="PostChoice" ng-model="post.postType" value="Post">
+                                    <label class="form-check-label" for="PostChoice">Post</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" ng-model="post.postType" id="QuestionChoice" value="Question">
+                                    <label class="form-check-label" for="QuestionChoice">Question</label>
+                                </div>
+                            </div>
+                            <div class="col-6"></div>
+                            <div class="col">
+                                <button type="button" class="col btn btn-danger" ng-click="post.userName = ''; post.postData = '';">
+                                Cancel
+                                </button>
+                                <button type="button" class="col btn btn-primary" ng-click="addPost(post)">                        
+                                Post
+                                <div ng-show="loading1" class="small-loader">
+                                    <div class="spinner"></div>
+                                </div>                            
+                                </button>
+                            </div>
+                        </div>
+                      </form>      
+                </div>
+                <!-- POST FEED -->
+                <div>
+                    <ul ng-repeat="post in feed track by post.id">
+                        <li >
+                            <post-card data="post">  </post-card>
+                        </li>
+                    </ul>
+                </div>
+
+                <div name="zeroPostsCard" class="container text-center" ng-show="zeroPost">
+                    <div class="row justify-content-md-center" style="size: 2em;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-emoji-dizzy-fill" viewBox="0 0 16 16">
+                            <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zM4.146 5.146a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 1 1 .708.708l-.647.646.647.646a.5.5 0 1 1-.708.708L5.5 7.207l-.646.647a.5.5 0 1 1-.708-.708l.647-.646-.647-.646a.5.5 0 0 1 0-.708zm5 0a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .708.708l-.647.646.647.646a.5.5 0 0 1-.708.708l-.646-.647-.646.647a.5.5 0 1 1-.708-.708l.647-.646-.647-.646a.5.5 0 0 1 0-.708zM8 13a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/>
+                          </svg>
+                    </div>
+                    <div class="col-md-auto">
+                        <span style="font-size: 2em;">WOW.. Such empty !!</span>
+                    </div>
+
+                </div>
+
+                <div name="noMorePostsCard" class="container text-center" ng-show="!morePost">
+                    <div class="row justify-content-md-center" style="size: 2em;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heartbreak-fill" viewBox="0 0 16 16">
+                            <path d="M8.931.586 7 3l1.5 4-2 3L8 15C22.534 5.396 13.757-2.21 8.931.586ZM7.358.77 5.5 3 7 7l-1.5 3 1.815 4.537C-6.533 4.96 2.685-2.467 7.358.77Z"/>
+                          </svg>
+                    </div>
+                    <div class="col-md-auto">
+                        <span style="font-size: 2em; color: black;">No More Posts !!</span>
+                    </div>
+                </div>
+
+                <!-- 
+                <div class="row">
+                    <div class="col-6" ng-click="showPost = true; ">
+                        <button style="border-radius: 3rem; height: 4rem; width: 70%">
+                            <i class="fa fa-question-circle fa-lg" aria-hidden="true"></i>
+                            &nbsp; Add Post
+                        </button>
+                    </div>
+
+                    <div class="col-6" ng-click="showQuestion = true; ">
+                        <button style="border-radius: 3rem; height: 4rem; width: 70%">
+                            <i class="fa fa-question-circle fa-lg" aria-hidden="true"></i>
+                            &nbsp; Ask Quesion
+                        </button>
+                    </div>
+                </div> 
+                -->
+
+            </div>
+
+            <!-- <div class="col sidebar-second">
+
+            </div> -->
+        </div>
+    </div>      
+   
+
+
+</div>
