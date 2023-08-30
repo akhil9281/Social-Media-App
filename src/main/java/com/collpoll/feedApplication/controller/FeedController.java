@@ -145,6 +145,20 @@ public class FeedController {
         }
     }
 
+    @DeleteMapping("/deleteComment/{commentId}")
+    public ResponseEntity<Object> deleteComment(@PathVariable Long commentId) {
+        try {
+            if (!commentService.commentExists((commentId)))
+                return ResponseHandler.generateResponse("No such Comment exists", HttpStatus.BAD_REQUEST);
+
+            commentService.deleteComment(commentId);
+            return ResponseHandler.generateResponse("Successfully Deleted Comment", HttpStatus.OK);
+        }
+        catch (Exception e) {
+            return ResponseHandler.generateResponse("Unable to delete Comment - " + commentId, HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+        }
+    }
+
     @GetMapping("/getLikes")
     public ResponseEntity<Object> getLikesForPost(@RequestParam Long postId) {
         try {

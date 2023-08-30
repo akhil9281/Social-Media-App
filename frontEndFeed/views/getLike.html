@@ -1,4 +1,4 @@
-<div ng-controller="getLikeController" ng-init="init()">
+<div ng-controller="feedController">
     
     <div class="container" >
         <div class="row align-center">
@@ -10,17 +10,17 @@
                 <!-- POST BOX -->
                 <div style="margin: 0.5em; border: 2px solid red; padding: 1em; background-color: orange; border-radius: 1.5em;">
                     <form class="textBox" name="feedForm" novalidate>
-                        <textarea class="form-control textArea" id="likeUserName" placeholder="Enter user name" ng-model="user.userName" rows="1"required>                           
+                        <textarea class="form-control textArea" id="likeUserName" placeholder="Enter user name" ng-model="userName" rows="1"required>                           
                         </textarea>
                         
                         <div class="row text-end" style="width: 100%; margin-left: 0.5rem; margin-right: 1rem">
                         
                             <!-- <div class="col-6"></div> -->
                             <div class="col text-end">
-                                <button type="button" class="col btn btn-danger" ng-click="user.userName = ''">
+                                <button type="button" class="col btn btn-danger" ng-click="userName = ''">
                                 Clear
                                 </button>
-                                <button type="button" class="col btn btn-info" ng-click="addPost(post)">                        
+                                <button type="button" class="col btn btn-info" ng-click="getPostsLikedByUser(userName)">                        
                                 Search
                                     <div ng-show="isLoading" class="small-loader">
                                         <div class="spinner"></div>
@@ -32,6 +32,9 @@
                 </div>
                 <br style="height: 25%;">
                 <!-- POST FEED -->
+                <div class="h2">
+                    <span>All Posts Liked By User - &nbsp <strong>{{userName}}</strong> &nbsp : </span>
+                </div>
                 <div>
                     <ul ng-repeat="post in feed track by post.id">
                         <li >
@@ -41,25 +44,29 @@
                 </div>
 
                 <div name="zeroPostsCard" class="container text-center" ng-show="zeroPost">
-                    <div class="row justify-content-md-center" style="size: 2em;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-emoji-dizzy-fill" viewBox="0 0 16 16">
-                            <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zM4.146 5.146a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 1 1 .708.708l-.647.646.647.646a.5.5 0 1 1-.708.708L5.5 7.207l-.646.647a.5.5 0 1 1-.708-.708l.647-.646-.647-.646a.5.5 0 0 1 0-.708zm5 0a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .708.708l-.647.646.647.646a.5.5 0 0 1-.708.708l-.646-.647-.646.647a.5.5 0 1 1-.708-.708l.647-.646-.647-.646a.5.5 0 0 1 0-.708zM8 13a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/>
-                          </svg>
-                    </div>
-                    <div class="col-md-auto">
-                        <span style="font-size: 2em;">WOW.. Such empty !!</span>
+                    <div class="row">
+                        <div class="col justify-content-md-center" style="size: 2em;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-emoji-dizzy-fill" viewBox="0 0 16 16">
+                                <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zM4.146 5.146a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 1 1 .708.708l-.647.646.647.646a.5.5 0 1 1-.708.708L5.5 7.207l-.646.647a.5.5 0 1 1-.708-.708l.647-.646-.647-.646a.5.5 0 0 1 0-.708zm5 0a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .708.708l-.647.646.647.646a.5.5 0 0 1-.708.708l-.646-.647-.646.647a.5.5 0 1 1-.708-.708l.647-.646-.647-.646a.5.5 0 0 1 0-.708zM8 13a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/>
+                              </svg>
+                        </div>
+                        <div class="col-md-auto">
+                            <span style="font-size: 2em;">WOW.. Such empty !!</span>
+                        </div>
                     </div>
 
                 </div>
 
                 <div name="noMorePostsCard" class="container text-center" ng-show="!morePost">
-                    <div class="row justify-content-md-center" style="size: 2em;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heartbreak-fill" viewBox="0 0 16 16">
-                            <path d="M8.931.586 7 3l1.5 4-2 3L8 15C22.534 5.396 13.757-2.21 8.931.586ZM7.358.77 5.5 3 7 7l-1.5 3 1.815 4.537C-6.533 4.96 2.685-2.467 7.358.77Z"/>
-                          </svg>
-                    </div>
-                    <div class="col-md-auto">
-                        <span style="font-size: 2em; color: black;">No More Posts !!</span>
+                    <div class="row">
+                        <div class="col justify-content-md-center" style="size: 2em;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-heartbreak-fill" viewBox="0 0 16 16">
+                                <path d="M8.931.586 7 3l1.5 4-2 3L8 15C22.534 5.396 13.757-2.21 8.931.586ZM7.358.77 5.5 3 7 7l-1.5 3 1.815 4.537C-6.533 4.96 2.685-2.467 7.358.77Z"/>
+                              </svg>
+                        </div>
+                        <div class="col-md-auto">
+                            <span style="font-size: 2em; color: black;">No More Posts !!</span>
+                        </div>
                     </div>
                 </div>
 

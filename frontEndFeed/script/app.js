@@ -28,7 +28,7 @@ myApp.config(['$routeProvider', '$locationProvider', ($routeProvider, $locationP
     })
     .when('/like', {
         templateUrl: 'views/getLike.html',
-        controller: 'getLikeController'
+        controller: 'feedController'
     })
     .otherwise({
         redirectTo: '/home'

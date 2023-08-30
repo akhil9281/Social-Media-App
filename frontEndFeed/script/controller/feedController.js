@@ -13,24 +13,25 @@ angular.module("feedApp")
             $scope.feedLoadNumber = 0;
 
             posts = feedService.getPosts($scope.feedLoadNumber)
-                .then( function(feed) {
+                .then( function(value) {
                     $scope.feedLoadNumber++;
                     console.log(feed);
                                         
                     $scope.feed = [];
-                    $scope.feed = feed.data[0];
+                    $scope.feed = value.data[0];
                     console.log("inside controller");
                     console.log($scope.feed);
                     if ($scope.feed.length === 0) {
                         $scope.noPosts();
                     }
                     $scope.zeroPost = false;
-                    return feed;
+                    $scope.isLoading = false;
+                    return value;
                 })
                 .catch(function(error) {
                     throw new Error("Failed to getAll post");
                 });
-                $scope.isLoading = false;
+                
         }
     }
 
@@ -169,6 +170,27 @@ angular.module("feedApp")
             .catch(function (error) {
                 throw new Error("Failed to get likes for the post!" + error);
             });
+    }
+
+    $scope.getPostsLikedByUser = function(userName) {
+        $scope.isLoading = true;
+        feedService.likesByUser(userName)
+            .then(function(value) {
+                $scope.feed = [];
+                    $scope.feed = value.data[0];
+                    console.log("inside controller");
+                    console.log($scope.feed);
+                    if ($scope.feed.length === 0) {
+                        $scope.noPosts();
+                    }
+                    $scope.zeroPost = false;
+                    $scope.isLoading = false;
+                    return value;
+                })
+                .catch(function(error) {
+                    throw new Error("Failed to getAll post");
+                });
+                
     }
 
 }]);

@@ -76,4 +76,8 @@ public class CommentService {
     public boolean commentExists(Long commentId) {
         return commentRepo.existsById(commentId)
     }
+
+    public void deleteComment(Long commentId) {
+        commentRepo.deleteById(commentId);
+    }
 }

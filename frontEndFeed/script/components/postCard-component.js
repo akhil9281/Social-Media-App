@@ -63,6 +63,10 @@ angular.module("feedApp")
                     console.log("in postCard delete");
                     feedService.deletePost($scope.post.id);
                 };
+
+                $scope.reloadComments = function() {
+                    setTimeout($scope.getComments(), 7000);
+                }
                 
             }]
         };

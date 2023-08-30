@@ -1,0 +1,97 @@
+<div class="row card border-warning container" style="margin: 0; padding: 0; border-left: 0; border-right: 0;">
+    <div class="col">
+        
+        <div class="row">
+            <div class="card-header container-space-between">
+                <div class="row">
+                    <div class="col-6 postUser">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"></path>
+                            <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"></path>
+                        </svg> {{comment["createdBy"]}}
+                    </div>
+                    <!-- <div class="col-6 text-end">
+                        <button type="button" class="btn btn-outline-danger">
+                            {{post.type || uppercase}}
+                        </button>
+                    </div> -->
+                </div>
+            </div>
+            <div class="card-body">
+                <p id="content" class="card-text">
+                    {{comment["body"]}}
+                </p>
+            </div>
+            <div class="card-footer container">
+                <div class="d-flex gap-2 mb-3" style="margin: 0;">
+                    <div class="col">
+                        
+                        <button class="btn btn-outline-primary" type="button" id="editButton" ng-click="showEditForm = !showEditForm;">
+                            Edit
+                        </button>
+
+                    </div>
+                    <div class="col-6"></div>
+                    <div class="align-end"> <!-- delete BUTTON -->                    
+                        <button class="btn btn-danger" ng-click="delete()">
+                            Delete
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--------------------------------------------- All Comments ------------------------------------------------------------------>
+        <div class="row" id="commentsFeed" ng-show="showEditForm">
+            <div >
+                <form class="textBox" name="editForm" novalidate>
+                    <textarea class="form-control textArea" id="commentUserName" placeholder= "Enter correct UserName" ng-model="editComment.userName" rows="1"required>                           
+                    </textarea>
+                    
+                    <textarea class="form-control textArea" id="commentData" rows="3" placeholder={{comment.body}} ng-model="editComment.commentData" required>                            
+                    </textarea>
+
+                    <div class="row" style="width: 100%; margin: 0.5rem">
+                        
+                        <div class="col-6"></div>
+                        <div class="col text-end">
+                            <button type="button" class="col btn btn-danger" ng-click="editComment.userName = ''; editComment.commentData = '';">
+                            Cancel
+                            </button>
+                            <button type="button" class="col btn btn-primary" ng-click="updateComment(editComment)">                        
+                            Edit Post
+                            <div ng-show="loadingComment" class="small-loader">
+                                <div class="spinner"></div>
+                            </div>                            
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- <div class="row justify-content-flex-end">
+                        <div class="col">
+                            <button type="button" class="col btn btn-danger" ng-click="comment.userName = ''; comment.commentData = '';">
+                                Cancel
+                            </button>
+                            <button type="button" class="col btn btn-primary" ng-click="makeComment(comment)">                        
+                                Post                           
+                            </button>
+                        </div>
+                    </div> -->
+                </form>
+            </div>
+        </div>
+
+        <!--------------------------------------------- Like Form ------------------------------------------------------------------>
+
+        <!-- <div class="row" id="likeForm" ng-show="showLikeUsername">
+            <form class="textBox" name="likeForm" novalidate>
+                <textarea class="form-control textArea" id="likeUserName" placeholder="Enter user name" ng-model="like.userName" rows="1"required>                           
+                </textarea>
+                <button type="button" class="col btn btn-primary" ng-click="like.postId = data.id ; likePost(like); showLikeUsername = false;">                        
+                    LIKE
+            </form>
+
+        </div> -->
+    </div>
+
+</div>
