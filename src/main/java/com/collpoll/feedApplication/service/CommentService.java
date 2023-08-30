@@ -2,7 +2,6 @@ package com.collpoll.feedApplication.service;
 
 import com.collpoll.feedApplication.Handler.ResponseHandler;
 import com.collpoll.feedApplication.entity.Comment;
-import com.collpoll.feedApplication.entity.Post;
 import com.collpoll.feedApplication.repository.CommentRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,8 +29,7 @@ public class CommentService {
         Integer userId = userName.hashCode();
 
         if(!postService.postExists(postId))
-            return ResponseHandler.generateResponse("Invalid PostID, no such post exists", HttpStatus.BAD_REQUEST,
-                    null);
+            return ResponseHandler.generateResponse("Invalid PostID, no such post exists", HttpStatus.BAD_REQUEST);
 
         try {
             if (!userService.existsById(userId)) {
@@ -44,7 +42,7 @@ public class CommentService {
             return ResponseHandler.generateResponse("Comment made successfully", HttpStatus.CREATED, newComment);
         }
         catch (Exception e) {
-            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR, null);
+            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -74,7 +72,7 @@ public class CommentService {
     }
 
     public boolean commentExists(Long commentId) {
-        return commentRepo.existsById(commentId)
+        return commentRepo.existsById(commentId);
     }
 
     public void deleteComment(Long commentId) {

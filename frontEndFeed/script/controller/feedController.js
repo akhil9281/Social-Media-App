@@ -14,12 +14,13 @@ angular.module("feedApp")
 
             posts = feedService.getPosts($scope.feedLoadNumber)
                 .then( function(value) {
-                    $scope.feedLoadNumber++;
-                    console.log(feed);
+                    console.log("inside controller");
+                    $scope.feedLoadNumber = $scope.feedLoadNumber+1;
+                    console.log("AK", $scope.feedLoadNumber);
                                         
                     $scope.feed = [];
                     $scope.feed = value.data[0];
-                    console.log("inside controller");
+                    
                     console.log($scope.feed);
                     if ($scope.feed.length === 0) {
                         $scope.noPosts();
@@ -94,7 +95,7 @@ angular.module("feedApp")
 // ALL Questions CRUD
 
     //ADD Questions
-    $scope.addQuestion = function(newQuestion) {
+    /* $scope.addQuestion = function(newQuestion) {
         $scope.addPost(newQuestion);
         /* feedService.addQuestion(newQuestion)
             .then(function(newQuestion) {
@@ -103,7 +104,7 @@ angular.module("feedApp")
             })
             .catch(function(error) {
                 throw new Error("Failed to create new Question");
-            }) */
+            }) 
     }
 
     //DELETE Question
@@ -116,19 +117,18 @@ angular.module("feedApp")
             })
             .catch(function(error) {
                 throw new Error("Error in deleting the Question");
-            }) */
-    }
+            })
+    } */
 
 // ALL Comments CRUD
 
     //READ Comments
     $scope.getComments = function(postID) {
         $scope.comments = [];
-        feedService.getAllCommentsOfPost(postID)
+        feedService.getComments(postID)
             .then( function(commentsData) {
-                for (let i = 0; i < commentsData.data[0].length; i++) {
-                    $scope.comments.push(commentsData.data[0][i]);
-                }
+                $scope.comments.concat(commentsData);
+                return comments;
             })
             .catch(function(error) {
                 throw new Error("Failed to get comments for the post!" + error);

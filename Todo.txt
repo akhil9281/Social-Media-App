@@ -1,4 +1,4 @@
-1. like, comment, user - controller
+1. user - controller
 
 2. UI better
 

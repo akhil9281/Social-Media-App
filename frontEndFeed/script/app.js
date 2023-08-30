@@ -7,24 +7,19 @@ myApp.config(['$routeProvider', '$locationProvider', ($routeProvider, $locationP
 
     $routeProvider
     .when('/home', {
-        templateUrl: 'views/home.html',
-        controller: 'homeController'
+        templateUrl: 'views/home.html'
     })
     .when('/feed', {
         templateUrl: 'views/feed.html'/* ,
         controller: 'feedController' */
-    })
-    .when('/questions', {
-        templateUrl: 'views/questions.html',
-        controller: 'questionController'
     })
     .when('/post', {
         templateUrl: 'views/getPosts.html',
         controller: 'getPostController'
     })
     .when('/comments', {
-        templateUrl: 'views/getComments.html',
-        controller: 'getCommentsController'
+        templateUrl: 'views/getComments.html'/* ,
+        controller: 'getCommentsController' */
     })
     .when('/like', {
         templateUrl: 'views/getLike.html',

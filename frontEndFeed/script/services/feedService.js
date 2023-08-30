@@ -18,16 +18,10 @@ angular.module("feedApp").service("feedService", ["$http","$rootScope", function
                     }
                 })
                 .then(function (response) {
-                    console.log("akhil");
-                    console.log(response);
+                    console.log(response.data);
+                    console.log("successfully FOUND the Feed Data");
+                    return response.data;
                     
-                    if (response.status === 200) {
-                        console.log("successfully FOUND the Feed Data");
-                        return response.data;
-                    }
-                    else {
-                        throw new Error("Failed to get the Feed!");
-                    } 
                 })
                 .catch(function(error) {
                     if (error.response) {
@@ -130,7 +124,7 @@ angular.module("feedApp").service("feedService", ["$http","$rootScope", function
                 })
                 .then(function(response) {
                     console.log("inside getComments service");
-                    console.log(response.data);
+                    console.log(response.data.data[0]);
                     return response.data.data[0];
                 })
                 .catch(function(error) {

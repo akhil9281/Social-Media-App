@@ -36,7 +36,7 @@
                     <span>All Posts Liked By User - &nbsp <strong>{{userName}}</strong> &nbsp : </span>
                 </div>
                 <div>
-                    <ul ng-repeat="post in feed track by post.id">
+                    <ul class="hide" ng-repeat="post in feed track by post.id">
                         <li >
                             <post-card post="post">  </post-card>
                         </li>

@@ -12,6 +12,6 @@
 	size: 1em;
 }
 
-ul li::marker {
-	display:none;
-}
+ ul {
+	list-style-type: none;
+} 
