@@ -19,35 +19,24 @@ import java.util.Optional;
 @Service
 public class LikedService {
 
-    @Autowired
-    UserService userService;
+    final UserService userService;
 
-    @Autowired
-    PostService postService;
+    final PostService postService;
 
-    @Autowired
-    LikedRepo likedRepo;
+    final LikedRepo likedRepo;
 
-    public ResponseEntity<Object> createLike(String userName, Long postId) {
+    public LikedService(UserService userService, PostService postService, LikedRepo likedRepo) {
+        this.userService = userService;
+        this.postService = postService;
+        this.likedRepo = likedRepo;
+    }
+
+    public Liked createLike(String userName, Long postId) {
         Integer userId = userName.hashCode();
+        LikedPrimaryKey newLikeKey = new LikedPrimaryKey(postId, userId);
+        Liked newLiked = new Liked(newLikeKey);
 
-        if(!postService.postExists(postId))
-            throw new InvalidParameterException("Invalid PostID, no such post exists");
-
-        try {
-            if (!userService.existsById(userId)) {
-                userService.createNewUser(userName);
-            }
-
-            LikedPrimaryKey newLikeKey = new LikedPrimaryKey(postId, userId);
-            Liked newLiked = new Liked(newLikeKey);
-            likedRepo.save(newLiked);
-
-            return ResponseHandler.generateResponse("Comment made successfully", HttpStatus.CREATED, newLiked);
-        }
-        catch (Exception e) {
-            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR, null);
-        }
+        return likedRepo.save(newLiked);
     }
 
     public List<Post> getAllLikesByUser(String userName) {

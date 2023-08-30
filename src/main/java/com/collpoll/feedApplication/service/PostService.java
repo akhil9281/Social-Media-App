@@ -15,11 +15,14 @@ import java.util.Optional;
 @Service
 public class PostService {
 
-    @Autowired
-    UserService userService;
+    final UserService userService;
 
-    @Autowired
-    PostRepo postRepo;
+    final PostRepo postRepo;
+
+    public PostService(UserService userService, PostRepo postRepo) {
+        this.userService = userService;
+        this.postRepo = postRepo;
+    }
 
 
     public Post createPost(String userName, PostType postType, String postData) {

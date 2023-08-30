@@ -8,8 +8,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserService {
 
-    @Autowired
-    UserRepo userRepo;
+    final UserRepo userRepo;
+
+    public UserService(UserRepo userRepo) {
+        this.userRepo = userRepo;
+    }
 
     public boolean existsById(Integer userId) {
         return userRepo.existsById(userId);

@@ -16,34 +16,23 @@ import java.util.Optional;
 @Service @Transactional
 public class CommentService {
 
-    @Autowired
-    UserService userService;
+    final UserService userService;
 
-    @Autowired
-    PostService postService;
+    final PostService postService;
 
-    @Autowired
-    CommentRepo commentRepo;
+    final CommentRepo commentRepo;
 
-    public ResponseEntity<Object> createComment(String userName, Long postId, String commentData) {
-        Integer userId = userName.hashCode();
+    public CommentService(UserService userService, PostService postService, CommentRepo commentRepo) {
+        this.userService = userService;
+        this.postService = postService;
+        this.commentRepo = commentRepo;
+    }
 
-        if(!postService.postExists(postId))
-            return ResponseHandler.generateResponse("Invalid PostID, no such post exists", HttpStatus.BAD_REQUEST);
+    public Comment createComment(String userName, Long postId, String commentData) {
+        Comment newComment = new Comment(postId, commentData, userName, userName.hashCode());
+        return commentRepo.save(newComment);
 
-        try {
-            if (!userService.existsById(userId)) {
-                userService.createNewUser(userName);
-            }
 
-            Comment newComment = new Comment(postId, commentData, userName, userName.hashCode());
-            commentRepo.save(newComment);
-
-            return ResponseHandler.generateResponse("Comment made successfully", HttpStatus.CREATED, newComment);
-        }
-        catch (Exception e) {
-            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
     }
 
     public List<Comment> getAllCommentsByUser(String userName) {
