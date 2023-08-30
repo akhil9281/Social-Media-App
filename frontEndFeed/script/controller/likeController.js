@@ -1,5 +1,5 @@
 angular.module("feedApp")
-.controller("getLikeController", ['feedService', '$scope', '$route', function(feedService, $scope, $route) {
+.controller("getLikeController", ['feedService', '$scope', function(feedService, $scope) {
 
     $scope.feed = [];
     $scope.isLoading = false;
@@ -11,11 +11,12 @@ angular.module("feedApp")
 
     }
 
-    $scope.search = function(userName) {
+    $scope.getPostsLikedByUser = function(userName) {
         $scope.isLoading = true;
         feedService.likesByUser(userName)
         .then(function(value) {
-            $scope.feed = value;
+            $scope.feed = [];
+            $scope.feed = value.data[0];
             $scope.isLoading = false;
             if (value.length == 0) {
                 zeroPost = true;

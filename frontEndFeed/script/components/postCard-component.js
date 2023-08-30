@@ -31,8 +31,8 @@ angular.module("feedApp")
                     $scope.comment.commentData = "";
                     feedService.getComments($scope.post.id)
                         .then(function(value) {
-                            console.log("pcgc", value);
-                            $scope.commentList = (value);
+                            console.log("postCarController-getComments:", value);
+                            $scope.commentList = value;
                             return $scope.commentList;
                         });
                     $scope.loadingComment = false;
@@ -56,7 +56,10 @@ angular.module("feedApp")
                 $scope.makeComment = function(newComment) {
                     console.log("in postCard makeComment");
                     $scope.loadingComment = true;
-                    feedService.createComment(newComment, $scope.post.id);
+                    feedService.createComment(newComment, $scope.post.id)
+                        .then(function(value) {
+                            console.log("response of makeComment", value);
+                        });
                     $scope.getComments();
                 };
 

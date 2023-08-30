@@ -14,16 +14,12 @@ myApp.config(['$routeProvider', '$locationProvider', ($routeProvider, $locationP
         controller: 'feedController' */
     })
     .when('/post', {
-        templateUrl: 'views/getPosts.html',
-        controller: 'getPostController'
-    })
-    .when('/comments', {
-        templateUrl: 'views/getComments.html'/* ,
-        controller: 'getCommentsController' */
+        templateUrl: 'views/getUserPosts.html',
+        controller: 'getUserPostController'
     })
     .when('/like', {
         templateUrl: 'views/getLike.html',
-        controller: 'feedController'
+        controller: 'getLikeController'
     })
     .otherwise({
         redirectTo: '/home'

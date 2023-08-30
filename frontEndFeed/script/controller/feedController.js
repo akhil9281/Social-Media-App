@@ -1,5 +1,5 @@
 angular.module("feedApp")
-.controller('feedController',['feedService', '$scope', function(feedService, $scope) {
+.controller('feedController',['feedService', '$scope', '$window', function(feedService, $scope, $window) {
 
     $scope.feed = [];
     $scope.isLoading = false;
@@ -14,19 +14,20 @@ angular.module("feedApp")
 
             posts = feedService.getPosts($scope.feedLoadNumber)
                 .then( function(value) {
-                    console.log("inside controller");
+                    console.log("feedController - INIT");
                     $scope.feedLoadNumber = $scope.feedLoadNumber+1;
-                    console.log("AK", $scope.feedLoadNumber);
+                    console.log($scope.feedLoadNumber);
                                         
                     $scope.feed = [];
                     $scope.feed = value.data[0];
                     
                     console.log($scope.feed);
-                    if ($scope.feed.length === 0) {
-                        $scope.noPosts();
-                    }
                     $scope.zeroPost = false;
                     $scope.isLoading = false;
+
+                    if ($scope.feed.length === 0) {
+                        $scope.noPosts();
+                    }                
                     return value;
                 })
                 .catch(function(error) {
@@ -34,26 +35,28 @@ angular.module("feedApp")
                 });
                 
         }
+        $scope.post.userName = '';
+        $scope.post.postData = '';
     }
 
     $scope.loadMorePosts = function() {
         if (!$scope.isLoading) {
             $scope.isLoading = true;
             
-            feedService.feedService.getPosts($scope.feedLoadNumber)
-                .then(function(posts) {
+            feedService.getPosts($scope.feedLoadNumber)
+                .then(function(value) {
                     $scope.feedLoadNumber++;
-                    if (posts.data[0].length === 0) {
-                        feedService.noMorePosts();
+                    if (value.data[0].length == 0) {
+                        $scope.noMorePosts();
                     }
                     else {
                         $scope.morePosts = true;
-                        $scope.feed.concat(posts.data[0]);
+                        angular.extend($scope.feed, $scope.feed.concat(value.data[0]));
                     }
                     $scope.isLoading = false;
                 })
                 .catch(function(error) {
-                    throw new Error("Failed to get more Posts");
+                    $scope.noMorePosts();
                 });
         }
     }
@@ -91,33 +94,6 @@ angular.module("feedApp")
             })
     }
 
-// ALL Questions CRUD
-
-    //ADD Questions
-    /* $scope.addQuestion = function(newQuestion) {
-        $scope.addPost(newQuestion);
-        /* feedService.addQuestion(newQuestion)
-            .then(function(newQuestion) {
-                console.log("new Question successfully added - " + newQuestion);
-                $scope.initQuestion();
-            })
-            .catch(function(error) {
-                throw new Error("Failed to create new Question");
-            }) 
-    }
-
-    //DELETE Question
-    $scope.deleteQuestion = function(question) {
-        $scope.deletePost(question)
-        /* feedService.deleteQuestion(question)
-            .then(function() {
-                console.log("Question deleted successfully");
-                $scope.init();
-            })
-            .catch(function(error) {
-                throw new Error("Error in deleting the Question");
-            })
-    } */
 
 // ALL Comments CRUD
 
@@ -190,6 +166,25 @@ angular.module("feedApp")
                     throw new Error("Failed to getAll post");
                 });
                 
-    }
+    };
+
+    $scope.checkScroll = function() {
+        var windowHeight = 'innerHeight' in $window ? $window.innerHeight : document.documentElement.offsetHeight;
+        var body = document.body, html = document.documentElement;
+        var docHeight = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight,  html.scrollHeight, html.offsetHeight);
+        var windowBottom = windowHeight + $window.pageYOffset;
+
+        if (windowBottom >= docHeight) {
+            $scope.loadMorePosts();
+        }
+    };
+
+    // Attach the checkScroll function to the 'scroll' event
+    angular.element($window).on('scroll', $scope.checkScroll);
+
+    // Remove the event listener when the controller is destroyed
+    $scope.$on('$destroy', function() {
+        angular.element($window).off('scroll', $scope.checkScroll);
+    });
 
 }]);

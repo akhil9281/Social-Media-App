@@ -30,7 +30,7 @@
                             </svg> <span> &nbsp; {{ countOfLikes}} </span>
                         </button>
 
-                        <button class="btn btn-outline-info" type="button" id="commentButton" ng-click="showComments = !showComments; getComments()">
+                        <button class="btn btn-outline-info" type="button" id="commentButton" ng-click="showLikeForm = false; showComments = !showComments; getComments()">
                             Comment
                         </button>
                     </div>
@@ -72,37 +72,19 @@
                     </textarea>
 
                     <div class="row" style="width: 100%; margin: 0.5rem">
-                        
                         <div class="col-6"></div>
-                        <div class="col text-end">
+                        <div class="col-6 text-end">
                             <button type="button" class="col btn btn-danger" ng-click="newComment.userName = ''; newComment.commentData = '';">
                             Cancel
                             </button>
                             <button type="button" class="col btn btn-primary" ng-click="makeComment(newComment);">                        
-                            Post
-                            <!-- <div ng-show="loadingComment" class="small-loader">
-                                <div class="spinner"></div>
-                            </div> -->                            
+                            Post                            
                             </button>
                         </div>
                     </div>
                 </form>
             </div>
         </div>
-        6
-        
-        
-        5
-        
-        <!-- <div class="row" name="likeForm" ng-show=showLikeUsername>         
-                <form class="textBox" id="likeForm" novalidate>
-                    <textarea class="form-control textArea" id="likeUserName" placeholder="Enter user name" ng-model="like.userName" rows="1" required>                           
-                    </textarea>
-                    <button type="button" class="col btn btn-primary" ng-click="like.postId = data.id ; likePost(like); showLikeUsername = false;">                        
-                        LIKE
-                    </button>
-                </form>
-        </div>  -->
     </div>
 
 </div>

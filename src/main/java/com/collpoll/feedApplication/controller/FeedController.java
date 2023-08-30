@@ -59,7 +59,7 @@ public class FeedController {
     public ResponseEntity<Object> getAllPostsByUser(@RequestParam String userName) {
         try {
             if (!userService.userExists(userName)) {
-                return ResponseHandler.generateResponse(HttpStatus.BAD_REQUEST, "no such User found");
+                return ResponseHandler.generateResponse(HttpStatus.OK, "no such User found");
             }
             List<Post> allPostsByUser = postService.getAllPostsByUser(userName);
             return ResponseHandler.generateResponse("List of all the Posts by user - " + userName, HttpStatus.OK, allPostsByUser);

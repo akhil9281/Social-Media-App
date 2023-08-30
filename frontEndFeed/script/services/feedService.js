@@ -4,11 +4,6 @@ angular.module("feedApp").service("feedService", ["$http","$rootScope", function
 
     return {
 
-        getNum: function() {
-            var num = Math.floor(Math.random() * 100);
-            return num;
-        },
-
         getPosts: function(feedLoadNumber) {
             return $http
                 .get(baseUrl + "/allPosts", {
@@ -22,6 +17,45 @@ angular.module("feedApp").service("feedService", ["$http","$rootScope", function
                     console.log("successfully FOUND the Feed Data");
                     return response.data;
                     
+                })
+                .catch(function(error) {
+                    if (error.response) {
+                        if (error.response.status === 500) {
+                          console.error("Unable to get Comments due to Internal Error", error);
+                          alert("Unable to get Comments due to Internal Error");
+                        }
+                        else if (error.response.status === 400) {
+                            console.error("Bad Request, no such post exists");
+                            alert("Bad Request, no such post exists");
+                        }
+                        else {
+                            console.error("An error occurred while getting Comments", error);
+                            alert("An error occurred while getting Comments");
+                        }
+                    } 
+                    else if (error.request) {
+                        console.error("No response received from the server.", error);
+                        alert("No response received from the server.");
+                    } 
+                    else {
+                        console.error("An error occurred while making the request.", error);
+                        alert("An error occurred while making the request.");
+                    }
+                });
+        },
+
+        getPostsByUser: function(username) {
+            return $http
+                .get(baseUrl + "/allPostsByUser", {
+                    cache: false,
+                    params: {
+                        userName: username
+                    }
+                })
+                .then(function (response) {
+                    console.log(response.data);
+                    console.log("successfully FOUND the Feed Data");
+                    return response.data;
                 })
                 .catch(function(error) {
                     if (error.response) {
@@ -334,11 +368,8 @@ angular.module("feedApp").service("feedService", ["$http","$rootScope", function
                     }
                 })
                 .then(function(response) {
-                    console.log("inside likesByUser in service");
-                    
-                    let data = response.data;
-                    console.log(data.data);
-                    return data.data[0];
+                    console.log("inside likesByUser in service:", response.data);
+                    return response.data;
                 })
                 .catch(function(error) {
                     if (error.response) {
