@@ -189,7 +189,7 @@ public class FeedController {
     }
 
     @PostMapping("/createLike/{postId}")
-    public ResponseEntity<Object> createLike(@RequestParam String userName, @PathVariable Long postId) {
+    public ResponseEntity<Object> createLike(@RequestBody String userName, @PathVariable Long postId) {
         if(!postService.postExists(postId))
             return ResponseHandler.generateResponse(HttpStatus.BAD_REQUEST, "no such Post found");
 

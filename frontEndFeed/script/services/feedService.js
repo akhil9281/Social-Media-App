@@ -253,12 +253,7 @@ angular.module("feedApp").service("feedService", ["$http","$rootScope", function
 
         likePost: function(like) {
             return $http
-                .post(baseUrl + "url", {
-                    params: {
-                        postID: like.postId,
-                        userName: like.userName
-                    }
-                })
+                .post(baseUrl + "/createLike/" + like.postId, like.userName)
                 .then(function(response) {
                     console.log(response);
                     return response.data;

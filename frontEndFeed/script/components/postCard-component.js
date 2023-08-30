@@ -5,7 +5,6 @@ angular.module("feedApp")
             scope: {
                 post: "=",
                 postList: "="
-                // Two-way binding for the data attribute
             },
             templateUrl: "script/components/postCard.html",
 
@@ -13,11 +12,10 @@ angular.module("feedApp")
 
                 $scope.commentList = [];
                 $scope.countOfLikes = 0;
-                $scope.showLikeUsername = false;
+                $scope.showLikeForm = false; 
                 $scope.showComments = false;
                 $scope.loadingComment = false;
                 $scope.comment = {};
-                $scope.like = {};
 
                 $scope.start = function() {
                     console.log("in postCard init");
@@ -43,7 +41,6 @@ angular.module("feedApp")
 
                 $scope.getLikes = function() {
                     console.log("in postCard getLikes");
-                    $scope.showLikeUsername = true;
                     feedService.numOfLikes($scope.post.id)
                         .then(function(value) {
                             $scope.countOfLikes = value;
@@ -67,10 +64,6 @@ angular.module("feedApp")
                     console.log("in postCard delete");
                     feedService.deletePost($scope.post.id);
                 };
-
-                /* $scope.reloadComments = function() {
-                    setTimeout($scope.getComments(), 7000);
-                } */
                 
             }]
         };
