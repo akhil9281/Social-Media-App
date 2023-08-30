@@ -49,9 +49,8 @@
         <div class="row" id="commentsFeed" ng-show="showComments">
             <ul ng-repeat="comment in commentList">
                 <li>
-                    {{comment}}
-                    <!-- <comment-card data="comment">
-                    </comment-card> -->
+                    <comment-card comment="comment">
+                    </comment-card>
                 </li>
             </ul>
             <div >

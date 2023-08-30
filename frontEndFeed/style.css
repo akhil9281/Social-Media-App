@@ -12,6 +12,6 @@
 	size: 1em;
 }
 
-li::marker {
+ul li::marker {
 	display:none;
 }

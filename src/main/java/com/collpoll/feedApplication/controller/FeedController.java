@@ -159,6 +159,20 @@ public class FeedController {
         }
     }
 
+    @PutMapping("/updateComment/{commentId}")
+    public ResponseEntity<Object> updateComment(@PathVariable Long commentId, @RequestBody String commentBody) {
+        try {
+            if (!commentService.commentExists((commentId)))
+                return ResponseHandler.generateResponse("No such post exists", HttpStatus.BAD_REQUEST);
+
+            Comment comment = commentService.updateComment(commentId, commentBody);
+            return ResponseHandler.generateResponse("Successfully updated Comment - " + commentId, HttpStatus.OK, comment);
+        }
+        catch (Exception e) {
+            return ResponseHandler.generateResponse("Unable to update Comment", HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+        }
+    }
+
     /*Todo
         1. try catch in controller
         2. Constructor injection

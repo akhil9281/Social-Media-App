@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.security.InvalidParameterException;
 import java.util.List;
+import java.util.Optional;
 
 @Service @Transactional
 public class CommentService {
@@ -58,5 +59,21 @@ public class CommentService {
 
     public List<Comment> getAllCommentsForPost(Long postId) {
         return commentRepo.findAllByPostIdOrderByCreatedAt(postId);
+    }
+
+    public Comment updateComment(Long id, String newBody) {
+        Comment newComment = null;
+
+        Optional<Comment> comment = commentRepo.findById(id);
+        if (comment.isPresent())
+            newComment = comment.get();
+        assert newComment != null;
+        newComment.setBody(newBody);
+
+        return commentRepo.save(newComment);
+    }
+
+    public boolean commentExists(Long commentId) {
+        return commentRepo.existsById(commentId)
     }
 }

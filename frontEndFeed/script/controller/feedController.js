@@ -1,15 +1,11 @@
 angular.module("feedApp")
-.controller('feedController',['feedService', '$scope', function(feedService, $scope) {
+.controller('feedController',['feedService', '$scope', '$route', function(feedService, $scope, $route) {
 
     $scope.feed = [];
     $scope.isLoading = false;
     $scope.feedLoadNumber = 0;
     $scope.morePosts = true;
     $scope.zeroPost = false;
-
-    $scope.button = function () {
-        angular.element(document. querySelector("#randomP")).text(feedService.getNum());
-    };
 
     $scope.init = function() {
         if (!$scope.isLoading) {
@@ -20,11 +16,7 @@ angular.module("feedApp")
                 .then( function(feed) {
                     $scope.feedLoadNumber++;
                     console.log(feed);
-                    /* for(let i = 0; i < dat.data[0].length; i++) {
-                        console.log(dat.data[0][i]);
-                        $scope.feed.push(dat.data[0][i]);
-                    } */
-                    
+                                        
                     $scope.feed = [];
                     $scope.feed = feed.data[0];
                     console.log("inside controller");
@@ -65,10 +57,12 @@ angular.module("feedApp")
 
     $scope.noPosts = function() {
         $scope.zeroPost = true;
+        setTimeout($route.reload(), 1000);
     }
 
     $scope.noMorePosts = function() {
         $scope.morePosts = false;
+        setTimeout($route.reload(), 10000);
     }
 // ALL POST CRUD
 

@@ -36,10 +36,10 @@
                                 Cancel
                                 </button>
                                 <button type="button" class="col btn btn-primary" ng-click="addPost(post)">                        
-                                Post
-                                <div ng-show="loading1" class="small-loader">
-                                    <div class="spinner"></div>
-                                </div>                            
+                                    Post
+                                    <div ng-show="isLoading" class="small-loader">
+                                        <div class="spinner"></div>
+                                    </div>                            
                                 </button>
                             </div>
                         </div>
@@ -67,7 +67,7 @@
 
                 </div>
 
-                <div name="noMorePostsCard" class="container text-center" ng-show="!morePost">
+                <div name="noMorePostsCard" class="container text-center" ng-show="!morePosts">
                     <div class="row justify-content-md-center" style="size: 2em;">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heartbreak-fill" viewBox="0 0 16 16">
                             <path d="M8.931.586 7 3l1.5 4-2 3L8 15C22.534 5.396 13.757-2.21 8.931.586ZM7.358.77 5.5 3 7 7l-1.5 3 1.815 4.537C-6.533 4.96 2.685-2.467 7.358.77Z"/>

@@ -10,4 +10,6 @@ public interface CommentRepo extends JpaRepository<Comment, Long> {
     List<Comment> findAllByCreatedByIdOrderByCreatedAt(Integer userId);
 
     List<Comment> findAllByPostIdOrderByCreatedAt(Long postId);
+
+
 }

@@ -10,21 +10,21 @@
                 <!-- POST BOX -->
                 <div style="margin: 0.5em; border: 2px solid red; padding: 1em; background-color: orange; border-radius: 1.5em;">
                     <form class="textBox" name="feedForm" novalidate>
-                        <textarea class="form-control textArea" id="feedPostUserName" placeholder="Enter user name" ng-model="like.userName" rows="1"required>                           
+                        <textarea class="form-control textArea" id="likeUserName" placeholder="Enter user name" ng-model="user.userName" rows="1"required>                           
                         </textarea>
                         
-                        <div class="row" style="width: 100%; margin-left: 0.5rem; margin-right: 1rem">
+                        <div class="row text-end" style="width: 100%; margin-left: 0.5rem; margin-right: 1rem">
                         
-                            <div class="col-6"></div>
+                            <!-- <div class="col-6"></div> -->
                             <div class="col text-end">
-                                <button type="button" class="col btn btn-danger" ng-click="post.userName = ''; post.postData = '';">
-                                Cancel
+                                <button type="button" class="col btn btn-danger" ng-click="user.userName = ''">
+                                Clear
                                 </button>
-                                <button type="button" class="col btn btn-primary" ng-click="addPost(post)">                        
-                                Post
-                                <div ng-show="loading1" class="small-loader">
-                                    <div class="spinner"></div>
-                                </div>                            
+                                <button type="button" class="col btn btn-info" ng-click="addPost(post)">                        
+                                Search
+                                    <div ng-show="isLoading" class="small-loader">
+                                        <div class="spinner"></div>
+                                    </div>                            
                                 </button>
                             </div>
                         </div>
