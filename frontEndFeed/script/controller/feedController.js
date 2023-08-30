@@ -1,5 +1,5 @@
 angular.module("feedApp")
-.controller('feedController',['feedService', '$scope', '$route', function(feedService, $scope, $route) {
+.controller('feedController',['feedService', '$scope', function(feedService, $scope) {
 
     $scope.feed = [];
     $scope.isLoading = false;
@@ -50,6 +50,7 @@ angular.module("feedApp")
                         $scope.morePosts = true;
                         $scope.feed.concat(posts.data[0]);
                     }
+                    $scope.isLoading = false;
                 })
                 .catch(function(error) {
                     throw new Error("Failed to get more Posts");
@@ -59,12 +60,10 @@ angular.module("feedApp")
 
     $scope.noPosts = function() {
         $scope.zeroPost = true;
-        setTimeout($route.reload(), 1000);
     }
 
     $scope.noMorePosts = function() {
         $scope.morePosts = false;
-        setTimeout($route.reload(), 10000);
     }
 // ALL POST CRUD
 

@@ -5,21 +5,16 @@
             <div class="card-header container-space-between">
                 <div class="row">
                     <div class="col-6 postUser">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
-                            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"></path>
-                            <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"></path>
-                        </svg> {{comment["createdBy"]}}
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-rolodex" viewBox="0 0 16 16">
+                            <path d="M8 9.05a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"/>
+                            <path d="M1 1a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h.5a.5.5 0 0 0 .5-.5.5.5 0 0 1 1 0 .5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5.5.5 0 0 1 1 0 .5.5 0 0 0 .5.5h.5a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H6.707L6 1.293A1 1 0 0 0 5.293 1H1Zm0 1h4.293L6 2.707A1 1 0 0 0 6.707 3H15v10h-.085a1.5 1.5 0 0 0-2.4-.63C11.885 11.223 10.554 10 8 10c-2.555 0-3.886 1.224-4.514 2.37a1.5 1.5 0 0 0-2.4.63H1V2Z"/>
+                          </svg> &nbsp;&nbsp; {{comment.createdBy}}
                     </div>
-                    <!-- <div class="col-6 text-end">
-                        <button type="button" class="btn btn-outline-danger">
-                            {{post.type || uppercase}}
-                        </button>
-                    </div> -->
                 </div>
             </div>
             <div class="card-body">
                 <p id="content" class="card-text">
-                    {{comment["body"]}}
+                    &nbsp;&nbsp;{{comment["body"]}}
                 </p>
             </div>
             <div class="card-footer container">
@@ -41,17 +36,16 @@
             </div>
         </div>
 
-        <!--------------------------------------------- All Comments ------------------------------------------------------------------>
         <div class="row" id="commentsFeed" ng-show="showEditForm">
             <div >
                 <form class="textBox" name="editForm" novalidate>
-                    <textarea class="form-control textArea" id="commentUserName" placeholder= "Enter correct UserName" ng-model="editComment.userName" rows="1"required>                           
+                    <textarea class="form-control textArea" id="commentUserName" placeholder= {{comment.userName}} ng-model="editComment.userName" rows="1"required>                           
                     </textarea>
                     
                     <textarea class="form-control textArea" id="commentData" rows="3" placeholder={{comment.body}} ng-model="editComment.commentData" required>                            
                     </textarea>
 
-                    <div class="row" style="width: 100%; margin: 0.5rem">
+                    <!-- <div class="row" style="width: 100%; margin: 0.5rem">
                         
                         <div class="col-6"></div>
                         <div class="col text-end">
@@ -65,33 +59,22 @@
                             </div>                            
                             </button>
                         </div>
-                    </div>
+                    </div> -->
 
-                    <!-- <div class="row justify-content-flex-end">
+                    <div class="row justify-content-flex-end">
                         <div class="col">
-                            <button type="button" class="col btn btn-danger" ng-click="comment.userName = ''; comment.commentData = '';">
+                            <button type="button" class="col btn btn-danger" ng-click="editComment.userName = ''; editComment.commentData = '';">
                                 Cancel
                             </button>
-                            <button type="button" class="col btn btn-primary" ng-click="makeComment(comment)">                        
-                                Post                           
+                            <button type="button" class="col btn btn-primary" ng-click="updateComment(editComment)">                        
+                                EditPost                           
                             </button>
                         </div>
-                    </div> -->
+                    </div> 
                 </form>
             </div>
         </div>
 
-        <!--------------------------------------------- Like Form ------------------------------------------------------------------>
-
-        <!-- <div class="row" id="likeForm" ng-show="showLikeUsername">
-            <form class="textBox" name="likeForm" novalidate>
-                <textarea class="form-control textArea" id="likeUserName" placeholder="Enter user name" ng-model="like.userName" rows="1"required>                           
-                </textarea>
-                <button type="button" class="col btn btn-primary" ng-click="like.postId = data.id ; likePost(like); showLikeUsername = false;">                        
-                    LIKE
-            </form>
-
-        </div> -->
     </div>
 
 </div>

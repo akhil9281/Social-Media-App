@@ -6,18 +6,14 @@
                 
             </div>
 
-            <div class="col-8 main-bar" style="display: flexbox;">
+            <div class="col-8 main-bar container">
                 <!-- POST BOX -->
                 <div style="margin: 0.5em; border: 2px solid red; padding: 1em; background-color: orange; border-radius: 1.5em;">
                     <form class="textBox" name="feedForm" novalidate>
-                        <textarea class="form-control textArea" id="feedPostUserName" placeholder="Enter user name" ng-model="post.userName" rows="1"required>                           
+                        <textarea class="form-control textArea" id="feedPostUserName" placeholder="Enter user name" ng-model="post.userName" rows="1"required>
                         </textarea>
                         <textarea class="form-control textArea" id="feedPostData" rows="3" placeholder="What are you sharing today?" ng-model="post.postData" required>                            
                         </textarea>
-
-
-                        <!-- <br style="height: 25%;"> -->
-
 
                         <div class="row" style="width: 100%; margin-left: 0.5rem; margin-right: 1rem">
                             <div class="col">
@@ -57,7 +53,7 @@
 
                 <div name="zeroPostsCard" class="container text-center" ng-show="zeroPost">
                     <div class="row justify-content-md-center" style="size: 2em;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-emoji-dizzy-fill" viewBox="0 0 16 16">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-emoji-dizzy-fill" viewBox="0 0 16 16">
                             <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zM4.146 5.146a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 1 1 .708.708l-.647.646.647.646a.5.5 0 1 1-.708.708L5.5 7.207l-.646.647a.5.5 0 1 1-.708-.708l.647-.646-.647-.646a.5.5 0 0 1 0-.708zm5 0a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .708.708l-.647.646.647.646a.5.5 0 0 1-.708.708l-.646-.647-.646.647a.5.5 0 1 1-.708-.708l.647-.646-.647-.646a.5.5 0 0 1 0-.708zM8 13a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/>
                           </svg>
                     </div>
@@ -67,15 +63,16 @@
 
                 </div>
 
-                <div name="noMorePostsCard" class="container text-center" ng-show="!morePosts">
+                <div name="zeroPostsCard" class="container text-center" ng-show="!morePosts">
                     <div class="row justify-content-md-center" style="size: 2em;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heartbreak-fill" viewBox="0 0 16 16">
-                            <path d="M8.931.586 7 3l1.5 4-2 3L8 15C22.534 5.396 13.757-2.21 8.931.586ZM7.358.77 5.5 3 7 7l-1.5 3 1.815 4.537C-6.533 4.96 2.685-2.467 7.358.77Z"/>
-                          </svg>
+                        <div class="col">
+                            <span style="font-size: 2em;">No More Posts !!</span>
+                        </div>
                     </div>
                     <div class="col-md-auto">
-                        <span style="font-size: 2em; color: black;">No More Posts !!</span>
+                        
                     </div>
+
                 </div>
 
             </div>

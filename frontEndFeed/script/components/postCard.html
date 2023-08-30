@@ -1,6 +1,5 @@
 <div class="row card border-danger container" style="margin: 0; padding: 0;" ng-init="start()">
     <div class="col">
-        
         <div class="row">
             <div class="card-header container-space-between">
                 <div class="row">
@@ -47,13 +46,14 @@
 
         <!-- All Comments -->
         <div class="row" id="commentsFeed" ng-show="showComments">
-            <ul class="hide" ng-repeat="comment in commentList track by comment.id">
-                <li>
-                    {{comment}}
-                    <!-- <comment-card comment="comment">
-                    </comment-card> -->
-                </li>
-            </ul>
+            <div style="padding: 0;">
+                <ul class="hide" style="padding: 0;" ng-repeat="comment in commentList track by comment.id">
+                    <li style="padding: 0.5em 0em;">
+                        <comment-card comment="comment">
+                        </comment-card>
+                    </li>
+                </ul>
+            </div>
             <div >
                 <form class="textBox" name="feedForm" novalidate>
                     <textarea class="form-control textArea" id="commentUserName" placeholder="Enter username" ng-model="newComment.userName" rows="1" required>                           
@@ -82,7 +82,7 @@
             <p>5</p>
         </div>
 
-        <!--                                  Like Form                                   -->
+        <!--  Like Form -->
         
         <div class="row" id="likeForm" ng-show=true>
             <div>

@@ -12,20 +12,18 @@ angular.module("feedApp")
             controller: ["$scope", "feedService", function($scope, feedService) {
 
                 $scope.commentList = [];
-                    $scope.countOfLikes = 0;
-                    $scope.errorFlag = false;
-                    $scope.showLikeUsername = false;
-                    $scope.showComments = false;
-                    $scope.loadingComment = false;
-                    $scope.comment = {};
-                    $scope.like = {};
+                $scope.countOfLikes = 0;
+                $scope.showLikeUsername = false;
+                $scope.showComments = false;
+                $scope.loadingComment = false;
+                $scope.comment = {};
+                $scope.like = {};
 
                 $scope.start = function() {
-                    
-
                     console.log("in postCard init");
                     $scope.getLikes();
                     $scope.getComments();
+                    console.log("start - commetlist", $scope.commentList);
                 };
 
                 $scope.getComments = function() {
@@ -36,9 +34,11 @@ angular.module("feedApp")
                     feedService.getComments($scope.post.id)
                         .then(function(value) {
                             console.log("pcgc", value);
-                            $scope.commentList.concat(value);
+                            $scope.commentList = (value);
+                            return $scope.commentList;
                         });
                     $scope.loadingComment = false;
+                    return $scope.commentList;
                 };
 
                 $scope.getLikes = function() {

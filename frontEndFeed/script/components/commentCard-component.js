@@ -13,7 +13,6 @@ angular.module("feedApp")
 
                 $scope.errorFlag = false;
                 $scope.loadingComment = false;
-                $scope.comment = {};
                 $scope.like = {};
 
                 $scope.updateComment = function(editedComment) {
