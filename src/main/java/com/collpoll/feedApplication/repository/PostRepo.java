@@ -1,6 +1,7 @@
 package com.collpoll.feedApplication.repository;
 
 import com.collpoll.feedApplication.entity.Post;
+import com.collpoll.feedApplication.entity.PostType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -16,5 +17,7 @@ public interface PostRepo extends JpaRepository<Post, Long> {
     List<Post> findNextPosts(@Param("pageSize") Integer pageSize, @Param("num") Integer num);
 
     List<Post> findAllByCreatedByIdOrderByCreatedAtDesc(Integer userId);
+
+    List<Post> findAllByType(PostType postType);
 }
 

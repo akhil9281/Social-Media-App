@@ -1,0 +1,31 @@
+<div ng-controller="sideBarController" ng-init="init()">
+    <div class="col">
+        <div class="row"> <!-- Post CARD -->
+            <div class="card">
+                <div class="card-header bg-black text-light">
+                    <span>Most Liked Post !!</span>
+                        <post-card post="mostLikedPost">
+
+                        </post-card>
+                </div>
+            </div>
+        </div>
+
+        <div class="row"> <!-- Question CARD -->
+            <div class="card">
+                <div class="card-header bg-black text-light">
+                    <span>Most Discussed Question !!</span>
+                </div>
+                <div class="card-body ">
+                    <post-card post="mostDiscussedQuestion">
+
+                    </post-card>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+
+        </div>
+    </div>
+</div>

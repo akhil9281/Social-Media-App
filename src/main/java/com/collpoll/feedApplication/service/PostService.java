@@ -35,10 +35,20 @@ public class PostService {
         return postRepo.existsById(postId);
     }
 
-    public List<Post> getAllPosts(Integer loadNumber) {
+    public List<Post> getFeed(Integer loadNumber) {
         int pageSize = 5;
-        List<Post> allPosts = postRepo.findNextPosts(pageSize, loadNumber*pageSize);
+        List<Post> feed = postRepo.findNextPosts(pageSize, loadNumber*pageSize);
+        return feed;
+    }
+
+    public List<Post> getAllPosts() {
+        List<Post> allPosts = postRepo.findAllByType(PostType.Post);
         return allPosts;
+    }
+
+    public List<Post> getAllQuestions() {
+        List<Post> allQuestions = postRepo.findAllByType(PostType.Question);
+        return allQuestions;
     }
 
 
@@ -52,6 +62,7 @@ public class PostService {
     public Optional<Post> getPost(Long postId) {
         return postRepo.findById(postId);
     }
+
 
     public void deletePost(Long postId) {
         postRepo.deleteById(postId);

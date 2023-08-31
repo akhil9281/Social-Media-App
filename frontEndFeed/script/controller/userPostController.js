@@ -16,11 +16,11 @@ angular.module("feedApp")
             $scope.userPostFeed = [];
             $scope.userPostFeed = value.data[0];
             $scope.isLoading = false;
-            if (value.data.length == 0) {
-                zeroPost = true;
+            if (value.data[0].length == 0) {
+                $scope.zeroPost = true;
             }
             else {
-                zeroPost = false;
+                $scope.zeroPost = false;
             }
         })
     }

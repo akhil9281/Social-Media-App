@@ -1,17 +1,11 @@
 package com.collpoll.feedApplication.service;
 
-import com.collpoll.feedApplication.Handler.ResponseHandler;
-import com.collpoll.feedApplication.entity.Comment;
 import com.collpoll.feedApplication.entity.Liked;
 import com.collpoll.feedApplication.entity.LikedPrimaryKey;
 import com.collpoll.feedApplication.entity.Post;
 import com.collpoll.feedApplication.repository.LikedRepo;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -49,7 +43,7 @@ public class LikedService {
         return allPostsLikedByUser;
     }
 
-    public Integer getLikesForPost(Long postId) {
+    public Integer getCountOfLikesForPost(Long postId) {
         return likedRepo.countLikedByLikedPrimaryKey_PostId(postId);
     }
 

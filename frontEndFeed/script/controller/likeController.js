@@ -9,7 +9,7 @@ angular.module("feedApp")
 
     $scope.init = function() {
 
-    }
+    };
 
     $scope.getPostsLikedByUser = function(userName) {
         $scope.isLoading = true;
@@ -25,6 +25,6 @@ angular.module("feedApp")
                 zeroPost = false;
             }
         })
-    }
+    };
 
 }])

@@ -54,11 +54,13 @@
             </form>
         </div>
         <!-- All Comments -->
-        <div class="row" id="commentsFeed" ng-show="showComments">
+        <div class="row" id="commentsFeed">
             <div style="background: rgb(108, 117, 125); background-clip: padding-box;">
+                
                 <ul style="padding: 0;" ng-repeat="comment in commentList track by comment.id">
                     <li style="padding: 0.5em 0em;">
-                        <comment-card comment="comment">
+                        {{comment}}
+                        <comment-card comment="comment" commentList="commentList">
                         </comment-card>
                     </li>
                 </ul>

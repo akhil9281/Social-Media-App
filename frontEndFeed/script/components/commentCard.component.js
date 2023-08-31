@@ -7,7 +7,7 @@ angular.module("feedApp")
                 commentList: "="
                 // Two-way binding for the data attribute
             },
-            templateUrl: "script/components/commentCard.html",
+            templateUrl: "script/components/commentCard.component.html",
 
             controller: ["$scope", "feedService", function($scope, feedService) {
 

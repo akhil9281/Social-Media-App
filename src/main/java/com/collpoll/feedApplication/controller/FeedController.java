@@ -13,7 +13,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.InvalidParameterException;
 import java.util.List;
 
 @RestController
@@ -46,7 +45,7 @@ public class FeedController {
     @GetMapping("/allPosts")
     public ResponseEntity<Object> getAllPosts(@RequestParam Integer loadNumber) {
         try {
-            List<Post> allPostList = postService.getAllPosts(loadNumber);
+            List<Post> allPostList = postService.getFeed(loadNumber);
             return ResponseHandler.generateResponse("List of all the Posts in descending order by creation time", HttpStatus.OK, allPostList);
         }
         catch (Exception e) {
@@ -94,6 +93,42 @@ public class FeedController {
         }
         catch (Exception e) {
             return ResponseHandler.generateResponse("Unable to delete Post", HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+        }
+    }
+
+    @GetMapping("/mostLikedPost")
+    public ResponseEntity<Object> getMostLikePost() {
+        try {
+            List<Post> postList = postService.getAllPosts();
+            Post mostLikePost = null;
+            int max = -1;
+            for (Post post: postList) {
+                if (likedService.getCountOfLikesForPost(post.getId()) > max)
+                    mostLikePost = post;
+            }
+
+            return ResponseHandler.generateResponse("Found the most liked post", HttpStatus.OK, mostLikePost);
+        }
+        catch (Exception e) {
+            return ResponseHandler.generateResponse("Unable to get MostLikedPost", HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+        }
+    }
+
+    @GetMapping("/mostDiscussedQuestion")
+    public ResponseEntity<Object> getMostDiscussedQuestion() {
+        try {
+            List<Post> postList = postService.getAllQuestions();
+            Post mostDiscussedQuestion = null;
+            int max = -1;
+            for (Post post: postList) {
+                if (commentService.getCountOfCommentsForPost(post.getId()) > max)
+                    mostDiscussedQuestion = post;
+            }
+
+            return ResponseHandler.generateResponse("Found the most liked post", HttpStatus.OK, mostDiscussedQuestion);
+        }
+        catch (Exception e) {
+            return ResponseHandler.generateResponse("Unable to get MostLikedPost", HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
 
@@ -215,7 +250,7 @@ public class FeedController {
             if (!postService.postExists((postId)))
                 return ResponseHandler.generateResponse("No such post exists", HttpStatus.BAD_REQUEST);
 
-            int num = likedService.getLikesForPost(postId);
+            int num = likedService.getCountOfLikesForPost(postId);
             return ResponseHandler.generateResponse("Successfully retrieved number of likes for Post", HttpStatus.OK, num);
         }
         catch (Exception e) {

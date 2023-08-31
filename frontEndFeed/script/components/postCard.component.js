@@ -6,7 +6,7 @@ angular.module("feedApp")
                 post: "=",
                 postList: "="
             },
-            templateUrl: "script/components/postCard.html",
+            templateUrl: "script/components/postCard.component.html",
 
             controller: ["$scope", "feedService", function($scope, feedService) {
 

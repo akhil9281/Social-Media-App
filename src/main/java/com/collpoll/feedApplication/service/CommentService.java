@@ -64,4 +64,9 @@ public class CommentService {
             commentRepo.deleteById((comment.getId()));
         }
     }
+
+    public Integer getCountOfCommentsForPost(Long postId) {
+        int count = commentRepo.countCommentsByPostId(postId);
+        return count;
+    }
 }
