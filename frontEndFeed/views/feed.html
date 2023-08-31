@@ -3,7 +3,55 @@
     <div class="container" >
         <div class="row align-center">
             <div class="col-3 sidebar-first">
-              <div ng-include="'views/sidebarLeft.html'"></div>
+              <!-- <div ng-include="'views/sidebarLeft.html'"></div> -->
+
+              <div class="col">
+
+                <div class="row"> <!-- Post CARD -->
+                    <div class="card" style="padding: 0;">
+                        <div class="card-header bg-black text-light">
+                            <span>Most Liked Post !!</span>
+                                <post-card post="mostLikedPost">
+        
+                                </post-card>
+                        </div>
+                    </div>
+                </div>
+
+                
+                    <div class="row"> <!-- Question CARD -->
+                        <div class="card" style="padding: 0;">
+                            <div class="card-header bg-black text-light">
+                                <span>Most Discussed Question !!</span>
+                                    <post-card post="mostDiscussedQuestion">
+            
+                                    </post-card>
+                            </div>
+                        </div>
+                    </div>
+        
+                <div class="row">
+                    <br>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <div class="single_advisor_profile wow fadeInUp" data-wow-delay="0.3s" style="visibility: visible; animation-delay: 0.3s; animation-name: fadeInUp;">
+                          <!-- Team Thumb-->
+                          <div class="advisor_thumb"><img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="">
+                            <!-- Social Info-->
+                            <div class="social-info"><a href="#"><i class="fa fa-facebook"></i></a><a href="#"><i class="fa fa-twitter"></i></a><a href="#"><i class="fa fa-linkedin"></i></a></div>
+                          </div>
+                          <!-- Team Details-->
+                          <div class="single_advisor_details_info">
+                            <h6>Akhil</h6>
+                            <p class="designation">Product Engineer Intern</p>
+                          </div>
+                        </div>
+                      </div>
+                </div>
+            </div>
+
             </div>
 
             <div class="col-6 main-bar container">
@@ -30,7 +78,7 @@
                             </div>
                             <!-- <div class="col-6"></div> -->
                             <div class="col text-end">
-                                <button type="button" class="col btn btn-danger" ng-click="postUserName = ''; postData = '';">
+                                <button type="button" class="col btn btn-danger" ng-click="postUserName = ''; postData = ''; postType = '';">
                                     Cancel
                                 </button>
                                 <button type="button" class="col btn btn-primary" ng-click="addPost(postType)">                        

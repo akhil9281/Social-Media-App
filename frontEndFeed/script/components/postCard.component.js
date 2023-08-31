@@ -19,8 +19,10 @@ angular.module("feedApp")
 
                 $scope.start = function() {
                     console.log("in postCard init");
-                    $scope.getLikes();
-                    $scope.getComments();
+                    setTimeout(function() {
+                        $scope.getLikes();
+                        $scope.getComments();
+                    }, 2000);                    
                     console.log("start - commetlist", $scope.commentList);
                 };
 

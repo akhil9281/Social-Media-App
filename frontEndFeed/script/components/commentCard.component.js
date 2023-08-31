@@ -5,12 +5,13 @@ angular.module("feedApp")
             scope: {
                 comment: "=",
                 commentList: "="
-                // Two-way binding for the data attribute
             },
-            templateUrl: "script/components/commentCard.component.html",
+            templateUrl: "./commentCard.component.html",
 
             controller: ["$scope", "feedService", function($scope, feedService) {
 
+                console.log("AAA");
+                
                 $scope.errorFlag = false;
                 $scope.loadingComment = false;
                 $scope.like = {};

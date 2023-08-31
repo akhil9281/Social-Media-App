@@ -103,7 +103,8 @@ public class FeedController {
             Post mostLikePost = null;
             int max = -1;
             for (Post post: postList) {
-                if (likedService.getCountOfLikesForPost(post.getId()) > max)
+                int countOfLikes = likedService.getCountOfLikesForPost(post.getId());
+                if (countOfLikes > max)
                     mostLikePost = post;
             }
 
@@ -121,7 +122,8 @@ public class FeedController {
             Post mostDiscussedQuestion = null;
             int max = -1;
             for (Post post: postList) {
-                if (commentService.getCountOfCommentsForPost(post.getId()) > max)
+                int countOfComments = commentService.getCountOfCommentsForPost(post.getId());
+                if (countOfComments > max)
                     mostDiscussedQuestion = post;
             }
 

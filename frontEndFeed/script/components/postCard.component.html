@@ -1,4 +1,4 @@
-<div class="row card border-danger container" style="margin: 0; padding: 0;" ng-init="start()">
+<div class="row card border-danger container postCard" style="margin: 0; padding: 0;" ng-init="start()">
     <div class="col">
         <div class="row text-light bg-secondary">
             <div class="card-header container-space-between">
@@ -7,7 +7,7 @@
                         <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
                             <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"></path>
                             <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"></path>
-                        </svg> {{post["createdBy"]}}
+                        </svg> &nbsp; {{post["createdBy"]}}
                     </div>
                     <div class="col-6 text-end">
                         <button type="button" class="btn btn-danger">
@@ -22,7 +22,7 @@
                 </p>
             </div>
             <div class="card-footer container">
-                <div class="d-flex gap-2" style="margin: 0;"> <!-- LIKE BUTTON -->
+                <div class="d-flex justify-content-around" style="margin: 0;"> <!-- LIKE BUTTON -->
                     <div class="col">
                         <button class="btn btn-danger" type="button" id="likeButton" ng-click="likeClicked()">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
@@ -34,11 +34,13 @@
                             Comment
                         </button>
                     </div>
-                    <div class="col-6"></div>
-                    <div class="align-end">                  
-                        <button class="btn btn-danger" ng-click="delete()">
-                            Delete
-                        </button>
+                    <!-- <div class="col-6"></div> -->
+                    <div class="col-2">   
+                        <div class="row align-end">             
+                            <button class="btn btn-danger" style="padding: 6px;" ng-click="delete()">
+                                Delete
+                            </button>
+                        </div>  
                     </div>
                 </div>
             </div>
@@ -59,9 +61,9 @@
                 
                 <ul style="padding: 0;" ng-repeat="comment in commentList track by comment.id">
                     <li style="padding: 0.5em 0em;">
-                        {{comment}}
+                        
                         <comment-card comment="comment" commentList="commentList">
-                        </comment-card>
+                        </comment-card>AK
                     </li>
                 </ul>
             </div>

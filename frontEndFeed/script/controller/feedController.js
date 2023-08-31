@@ -6,9 +6,13 @@ angular.module("feedApp")
     $scope.feedLoadNumber = 0;
     $scope.morePosts = true;
     $scope.zeroPost = false;
+    $scope.mostLikedPost = {};
+    $scope.mostDiscussedQuestion = {};
     
 
     $scope.init = function() {
+        $scope.getMostLikedPost();
+        $scope.getMostDiscussedQuestion();
         if (!$scope.isLoading) {
             $scope.isLoading = true;
             $scope.feedLoadNumber = 0;
@@ -39,6 +43,24 @@ angular.module("feedApp")
         }
         
     }
+
+    $scope.getMostLikedPost = function() {
+        $scope.mostLikedPost = {};
+        feedService.getMostLikedPost()
+        .then(function(value) {
+            console.log("mostLikedPost - ", value.data[0]);
+            $scope.mostLikedPost = value.data[0];            
+        })
+    };
+
+    $scope.getMostDiscussedQuestion = function() {
+        $scope.mostDiscussedQuestion = {};
+        feedService.getMostDiscussedQuestion()
+        .then(function(value) {
+            console.log("mostDiscussedPost - ", value.data[0]);
+            $scope.mostDiscussedQuestion = value.data[0];            
+        })
+    };
 
     $scope.loadMorePosts = function() {
         if (!$scope.isLoading) {
