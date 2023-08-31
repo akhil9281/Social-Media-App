@@ -9,5 +9,7 @@ import java.util.List;
 public interface LikedRepo extends JpaRepository<Liked, Long> {
     List<Liked> findAllByLikedPrimaryKeyMadeByOrderByCreatedAt(Integer userId);
 
+    List<Liked> findAllByLikedPrimaryKeyPostId(Long postId);
+
     Integer countLikedByLikedPrimaryKey_PostId(Long postId);
 }

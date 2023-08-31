@@ -1,4 +1,4 @@
-<div ng-controller="feedController" ng-init="init()">
+<div class="feed" ng-controller="feedController" ng-init="init()">
     
     <div class="container" >
         <div class="row align-center">
@@ -10,30 +10,30 @@
                 <!-- POST BOX -->
                 <div style="margin: 0.5em; border: 2px solid red; padding: 1em; background-color: orange; border-radius: 1.5em;">
                     <form class="textBox" name="feedForm" novalidate>
-                        <textarea class="form-control textArea" id="feedPostUserName" placeholder="Enter user name" ng-model="post.userName" rows="1"required>
+                        <textarea class="form-control textArea" id="feedPostUserName" placeholder="Enter user name" ng-model="postUserName" rows="1"required>
                         </textarea>
-                        <textarea class="form-control textArea" id="feedPostData" rows="3" placeholder="What are you sharing today?" ng-model="post.postData" required>                            
+                        <textarea class="form-control textArea" id="feedPostData" rows="3" placeholder="What are you sharing today?" ng-model="postData" required>                            
                         </textarea>
 
                         <div class="row" style="width: 100%; margin-left: 0.5rem; margin-right: 1rem">
                             <div class="col">
                                 <div class="row">
                                     <div class="form-check col-2">
-                                        <input class="form-check-input" type="radio" id="PostChoice" ng-model="post.postType" value="Post">
+                                        <input class="form-check-input" type="radio" id="PostChoice" ng-model="postType" value="Post">
                                         <label class="form-check-label" for="PostChoice">Post</label>
                                     </div>
                                     <div class="form-check col-2">
-                                        <input class="form-check-input" type="radio" ng-model="post.postType" id="QuestionChoice" value="Question">
+                                        <input class="form-check-input" type="radio" ng-model="postType" id="QuestionChoice" value="Question">
                                         <label class="form-check-label" for="QuestionChoice">Question</label>
                                     </div>
                                 </div>
                             </div>
                             <!-- <div class="col-6"></div> -->
                             <div class="col text-end">
-                                <button type="button" class="col btn btn-danger" ng-click="post.userName = ''; post.postData = '';">
+                                <button type="button" class="col btn btn-danger" ng-click="postUserName = ''; postData = '';">
                                     Cancel
                                 </button>
-                                <button type="button" class="col btn btn-primary" ng-click="addPost(post)">                        
+                                <button type="button" class="col btn btn-primary" ng-click="addPost(postType)">                        
                                     Post
                                     <div ng-show="isLoading" class="small-loader">
                                         <div class="spinner"></div>
@@ -44,7 +44,6 @@
                       </form>      
                 </div>
                 <br style="height: 25%;">
-                <!-- POST FEED -->
                 <div>
                     <ul style="padding-left: 0;" class="hide" ng-repeat="post in feed track by post.id">
                         <li >
@@ -67,7 +66,12 @@
 
                 <div name="zeroPostsCard" class="container text-center" ng-show="!morePosts">
                     <div class="row justify-content-md-center" style="size: 2em;">
-                        <div class="col">
+                        <div class="col text-end">
+                            <span class="material-symbols-outlined" style="font-size: 300%;">
+                                sentiment_sad
+                            </span>
+                        </div>
+                        <div class="col text-start">
                             <span style="font-size: 2em;">No More Posts !!</span>
                         </div>
                     </div>

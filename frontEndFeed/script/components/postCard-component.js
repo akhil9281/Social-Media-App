@@ -24,6 +24,20 @@ angular.module("feedApp")
                     console.log("start - commetlist", $scope.commentList);
                 };
 
+                $scope.likeClicked = function() {
+                    $scope.showComments = false; 
+                    $scope.showLikeForm = !$scope.showLikeForm; 
+                    $scope.getLikes();
+                }
+
+                $scope.commentClicked = function() {
+                    console.log("Comment button clicked");
+                    $scope.showLikeForm = false; 
+                    $scope.showComments = !$scope.showComments;
+                    console.log($scope.showComments);
+                    $scope.getComments();
+                }
+
                 $scope.getComments = function() {
                     console.log("in postCard getComments");
                     $scope.commentList = [];
@@ -49,8 +63,13 @@ angular.module("feedApp")
 
                 $scope.likePost = function(like) {
                     console.log("in postCard likePost");
-                    feedService.likePost(like);
-                    $scope.countOfLikes = feedService.numOfLikes($scope.post.id).data[0];
+                    feedService.likePost(like)
+                        .then(function(value) {
+                            console.log("Successfylly liked - " + $scope.post.id);
+                            return value;
+                    });
+                    $scope.likeClicked();
+
                 };
 
                 $scope.makeComment = function(newComment) {

@@ -1,30 +1,19 @@
 package com.collpoll.feedApplication.service;
 
-import com.collpoll.feedApplication.Handler.ResponseHandler;
 import com.collpoll.feedApplication.entity.Comment;
 import com.collpoll.feedApplication.repository.CommentRepo;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.security.InvalidParameterException;
 import java.util.List;
 import java.util.Optional;
 
 @Service @Transactional
 public class CommentService {
 
-    final UserService userService;
-
-    final PostService postService;
-
     final CommentRepo commentRepo;
 
-    public CommentService(UserService userService, PostService postService, CommentRepo commentRepo) {
-        this.userService = userService;
-        this.postService = postService;
+    public CommentService( CommentRepo commentRepo) {
         this.commentRepo = commentRepo;
     }
 
@@ -66,5 +55,13 @@ public class CommentService {
 
     public void deleteComment(Long commentId) {
         commentRepo.deleteById(commentId);
+    }
+
+    public void deleteCommentsOfPost(Long postId) {
+        List<Comment> commentList = commentRepo.findAllByPostIdOrderByCreatedAt(postId);
+
+        for (Comment comment: commentList) {
+            commentRepo.deleteById((comment.getId()));
+        }
     }
 }

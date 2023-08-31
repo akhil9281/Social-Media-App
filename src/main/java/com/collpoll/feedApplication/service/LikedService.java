@@ -19,14 +19,11 @@ import java.util.Optional;
 @Service
 public class LikedService {
 
-    final UserService userService;
-
     final PostService postService;
 
     final LikedRepo likedRepo;
 
-    public LikedService(UserService userService, PostService postService, LikedRepo likedRepo) {
-        this.userService = userService;
+    public LikedService(PostService postService, LikedRepo likedRepo) {
         this.postService = postService;
         this.likedRepo = likedRepo;
     }
@@ -54,5 +51,11 @@ public class LikedService {
 
     public Integer getLikesForPost(Long postId) {
         return likedRepo.countLikedByLikedPrimaryKey_PostId(postId);
+    }
+
+    public void deleteLikesOfPost(Long postId) {
+        List<Liked> likedList = likedRepo.findAllByLikedPrimaryKeyPostId(postId);
+        for (Liked like: likedList)
+            likedRepo.deleteById(like.getId());
     }
 }

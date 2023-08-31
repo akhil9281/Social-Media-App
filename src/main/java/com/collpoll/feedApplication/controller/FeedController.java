@@ -88,6 +88,8 @@ public class FeedController {
                 return ResponseHandler.generateResponse("No such post exists", HttpStatus.BAD_REQUEST);
 
             postService.deletePost(postId);
+            commentService.deleteCommentsOfPost(postId);
+            likedService.deleteLikesOfPost(postId);
             return ResponseHandler.generateResponse("Successfully Deleted Post", HttpStatus.OK);
         }
         catch (Exception e) {

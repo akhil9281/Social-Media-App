@@ -1,12 +1,8 @@
 package com.collpoll.feedApplication.service;
 
-import com.collpoll.feedApplication.Handler.ResponseHandler;
 import com.collpoll.feedApplication.entity.Post;
 import com.collpoll.feedApplication.entity.PostType;
 import com.collpoll.feedApplication.repository.PostRepo;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,9 +15,10 @@ public class PostService {
 
     final PostRepo postRepo;
 
+
     public PostService(UserService userService, PostRepo postRepo) {
         this.userService = userService;
-        this.postRepo = postRepo;
+        this.postRepo = postRepo;;
     }
 
 

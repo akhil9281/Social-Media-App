@@ -6,6 +6,7 @@ angular.module("feedApp")
     $scope.feedLoadNumber = 0;
     $scope.morePosts = true;
     $scope.zeroPost = false;
+    
 
     $scope.init = function() {
         if (!$scope.isLoading) {
@@ -33,10 +34,10 @@ angular.module("feedApp")
                 .catch(function(error) {
                     throw new Error("Failed to getAll post");
                 });
-                
+            $scope.postUserName = "";
+            $scope.postData = "";    
         }
-        $scope.post.userName = '';
-        $scope.post.postData = '';
+        
     }
 
     $scope.loadMorePosts = function() {
@@ -71,7 +72,12 @@ angular.module("feedApp")
 // ALL POST CRUD
 
     //ADD Posts
-    $scope.addPost = function(newPost) {
+    $scope.addPost = function(postType) {
+        let newPost = {
+            userName: $scope.postUserName,
+            postType: postType,
+            postData: $scope.postData
+        };
         feedService.addPost(newPost)
             .then(function(newPost) {
                 console.log("new Post successfully added - " + newPost);
