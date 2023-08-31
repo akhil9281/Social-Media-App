@@ -29,7 +29,7 @@ angular.module("feedApp")
                 $scope.likeClicked = function() {
                     $scope.showComments = false; 
                     $scope.showLikeForm = !$scope.showLikeForm; 
-                    $scope.getLikes();
+                    
                 }
 
                 $scope.commentClicked = function() {
@@ -68,10 +68,10 @@ angular.module("feedApp")
                     feedService.likePost(like)
                         .then(function(value) {
                             console.log("Successfylly liked - " + $scope.post.id);
-                            return value;
+                            $scope.likeClicked();
+                            $scope.getLikes();
                     });
-                    $scope.likeClicked();
-
+                    
                 };
 
                 $scope.makeComment = function(newComment) {
@@ -80,8 +80,9 @@ angular.module("feedApp")
                     feedService.createComment(newComment, $scope.post.id)
                         .then(function(value) {
                             console.log("response of makeComment", value);
+                            $scope.getComments();
                         });
-                    $scope.getComments();
+                    
                 };
 
                 $scope.delete = function() {

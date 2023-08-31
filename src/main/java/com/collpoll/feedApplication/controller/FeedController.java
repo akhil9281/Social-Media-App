@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -58,7 +59,7 @@ public class FeedController {
     public ResponseEntity<Object> getAllPostsByUser(@RequestParam String userName) {
         try {
             if (!userService.userExists(userName)) {
-                return ResponseHandler.generateResponse(HttpStatus.OK, "no such User found");
+                return ResponseHandler.generateResponse("no such User found", HttpStatus.OK, new ArrayList<Post>());
             }
             List<Post> allPostsByUser = postService.getAllPostsByUser(userName);
             return ResponseHandler.generateResponse("List of all the Posts by user - " + userName, HttpStatus.OK, allPostsByUser);
@@ -87,12 +88,13 @@ public class FeedController {
                 return ResponseHandler.generateResponse("No such post exists", HttpStatus.BAD_REQUEST);
 
             postService.deletePost(postId);
-            commentService.deleteCommentsOfPost(postId);
             likedService.deleteLikesOfPost(postId);
+            commentService.deleteCommentsOfPost(postId);
+
             return ResponseHandler.generateResponse("Successfully Deleted Post", HttpStatus.OK);
         }
         catch (Exception e) {
-            return ResponseHandler.generateResponse("Unable to delete Post", HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+            return ResponseHandler.generateResponse("Unable to delete Post", HttpStatus.INTERNAL_SERVER_ERROR, e.getStackTrace());
         }
     }
 
@@ -104,8 +106,10 @@ public class FeedController {
             int max = -1;
             for (Post post: postList) {
                 int countOfLikes = likedService.getCountOfLikesForPost(post.getId());
-                if (countOfLikes > max)
+                if (countOfLikes > max) {
+                    max = countOfLikes;
                     mostLikePost = post;
+                }
             }
 
             return ResponseHandler.generateResponse("Found the most liked post", HttpStatus.OK, mostLikePost);
@@ -123,8 +127,10 @@ public class FeedController {
             int max = -1;
             for (Post post: postList) {
                 int countOfComments = commentService.getCountOfCommentsForPost(post.getId());
-                if (countOfComments > max)
+                if (countOfComments > max) {
+                    max = countOfComments;
                     mostDiscussedQuestion = post;
+                }
             }
 
             return ResponseHandler.generateResponse("Found the most liked post", HttpStatus.OK, mostDiscussedQuestion);

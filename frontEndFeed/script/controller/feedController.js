@@ -8,11 +8,14 @@ angular.module("feedApp")
     $scope.zeroPost = false;
     $scope.mostLikedPost = {};
     $scope.mostDiscussedQuestion = {};
+    $scope.quote = {};
     
 
     $scope.init = function() {
         $scope.getMostLikedPost();
         $scope.getMostDiscussedQuestion();
+        $scope.getQuote();
+
         if (!$scope.isLoading) {
             $scope.isLoading = true;
             $scope.feedLoadNumber = 0;
@@ -61,6 +64,15 @@ angular.module("feedApp")
             $scope.mostDiscussedQuestion = value.data[0];            
         })
     };
+
+    $scope.getQuote = function() {
+        $scope.quote = {};
+        feedService.getQuote()
+            .then(function(value) {
+                console.log("Quote is - ", value);
+                $scope.quote = value[0];
+            })
+    }
 
     $scope.loadMorePosts = function() {
         if (!$scope.isLoading) {

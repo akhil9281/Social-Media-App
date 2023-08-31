@@ -4,6 +4,21 @@ angular.module("feedApp").service("feedService", ["$http","$rootScope", function
 
     return {
 
+        getQuote: function() {
+            return $http
+                .get("https://api.quotable.io/quotes/random?tags=technology|famous-quotes|character|courage|failure|future|history|leadership|mathematics|perseverance|power-quotes|science|success|wisdom", {
+                    cache: false
+                })
+                .then(function(response) {
+                    console.log("Found the QUOTE - ", response);
+                    return response.data;
+                })
+                .catch(function(error) {
+                    console.error("An error occurred while making the request.", error);
+                    alert("An error occurred while making the request.");
+                })
+        },
+
         getPosts: function(feedLoadNumber) {
             return $http
                 .get(baseUrl + "/allPosts", {
@@ -327,7 +342,7 @@ angular.module("feedApp").service("feedService", ["$http","$rootScope", function
             return $http
                 .delete(baseUrl + "/deleteComment/" + commentId)
                 .then(function(response) {
-                    return response.data;
+                    return response;
                 })
                 .catch(function(error) {
                     if (error.response) {

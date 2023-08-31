@@ -7,7 +7,7 @@
                     <div class="col-6 postUser">
                         <span class="material-symbols-outlined">
                             account_box
-                        </span> &nbsp; CCCC {{comment.createdBy}}
+                        </span> &nbsp; {{comment.createdBy}}
                     </div>
                 </div>
             </div>
@@ -17,19 +17,19 @@
                 </p>
             </div>
             <div class="card-footer container">
-                <div class="d-flex gap-2" style="margin: 0;">
-                    <div class="col">
-                        
+                <div class="d-flex justify-content-around" style="margin: 0;">
+                    <div class="col">                     
                         <button class="btn btn-outline-primary" type="button" id="editButton" ng-click="showEditForm = !showEditForm;">
                             Edit
                         </button>
-
                     </div>
-                    <div class="col-6"></div>
-                    <div class="align-end"> <!-- delete BUTTON -->                    
-                        <button class="btn btn-danger" ng-click="delete()">
-                            Delete
-                        </button>
+                    <!-- <div class="col-6"></div> -->
+                    <div class="col-3">   
+                        <div class="row align-end">             
+                            <button class="btn btn-danger" ng-click="delete()">
+                                Delete
+                            </button>
+                        </div>  
                     </div>
                 </div>
             </div>
@@ -38,35 +38,18 @@
         <div class="row" id="commentsFeed" ng-show="showEditForm">
             <div >
                 <form class="textBox" name="editForm" novalidate>
-                    <!-- <textarea class="form-control textArea" readonly id="commentUserName" placeholder= {{comment.createdBy}} ng-model="editComment.userName" rows="1"required>                           
-                    </textarea> -->
+                    
                     <input style="margin-left: 10px;" type="text" readonly class="form-control-plaintext" id="staticUserName" value={{comment.createdBy}}>
                     
-                    <textarea class="form-control textArea" id="commentData" rows="3" placeholder={{comment.body}} ng-model="editComment.commentData" required>                            
+                    <textarea class="form-control textArea" id="commentData" rows="3" placeholder={{comment.body}} ng-model="editCommentData" required>                            
                     </textarea>
-
-                    <!-- <div class="row" style="width: 100%; margin: 0.5rem">
-                        
-                        <div class="col-6"></div>
-                        <div class="col text-end">
-                            <button type="button" class="col btn btn-danger" ng-click="editComment.userName = ''; editComment.commentData = '';">
-                            Cancel
-                            </button>
-                            <button type="button" class="col btn btn-primary" ng-click="updateComment(editComment)">                        
-                            Edit Post
-                            <div ng-show="loadingComment" class="small-loader">
-                                <div class="spinner"></div>
-                            </div>                            
-                            </button>
-                        </div>
-                    </div> -->
 
                     <div class="row justify-content-flex-end">
                         <div class="col">
-                            <button type="button" class="col btn btn-danger" ng-click="editComment.userName = ''; editComment.commentData = '';">
+                            <button type="button" class="col btn btn-danger" ng-click="; editCommentData = '';">
                                 Cancel
                             </button>
-                            <button type="button" class="col btn btn-primary" ng-click="updateComment(editComment)">                        
+                            <button type="button" class="col btn btn-primary" ng-click="updateComment(editCommentData)">                        
                                 EditPost                           
                             </button>
                         </div>

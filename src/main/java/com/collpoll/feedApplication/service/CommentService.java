@@ -58,6 +58,11 @@ public class CommentService {
     }
 
     public void deleteCommentsOfPost(Long postId) {
+
+        int count = commentRepo.countCommentsByPostId(postId);
+        if (count == 0)
+            return;
+
         List<Comment> commentList = commentRepo.findAllByPostIdOrderByCreatedAt(postId);
 
         for (Comment comment: commentList) {

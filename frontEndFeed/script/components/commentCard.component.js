@@ -6,24 +6,18 @@ angular.module("feedApp")
                 comment: "=",
                 commentList: "="
             },
-            templateUrl: "./commentCard.component.html",
+            templateUrl: "script/components/commentCard.component.html",
 
             controller: ["$scope", "feedService", function($scope, feedService) {
 
-                console.log("AAA");
-                
                 $scope.errorFlag = false;
                 $scope.loadingComment = false;
                 $scope.like = {};
+                $scope.editCommentData = "";
 
-                $scope.updateComment = function(editedComment) {
-                    if (editedComment.userName != comment.createdBy) {
-                        console.error("Given username doesn't match with the username of the CommentMaker");
-                        alert("Wrong username, unautherized to edit");
-                        return;
-                    }
-                    editedComment.commentId = $scope.comment.id;
-                    feedService.updateComment($scope.comment.id, editedComment.commentData)
+                $scope.updateComment = function(editedCommentData) {
+                    $scope.showEditForm = false;
+                    feedService.updateComment($scope.comment.id, editedCommentData)
                         .then(function(value) {
                             $scope.comment.body = value.body;
                         })

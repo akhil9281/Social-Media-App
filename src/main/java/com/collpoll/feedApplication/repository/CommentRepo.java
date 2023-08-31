@@ -13,4 +13,5 @@ public interface CommentRepo extends JpaRepository<Comment, Long> {
 
     Integer countCommentsByPostId(Long postId);
 
+
 }

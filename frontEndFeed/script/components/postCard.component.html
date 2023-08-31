@@ -56,18 +56,27 @@
             </form>
         </div>
         <!-- All Comments -->
-        <div class="row" id="commentsFeed">
+        <div class="row" id="commentsFeed" ng-show="showComments">
             <div style="background: rgb(108, 117, 125); background-clip: padding-box;">
-                
+
+                <!-- <post-card-replica comment="comment" ng-repeat="comment in commentList">
+                    <comment-card >
+
+                    </comment-card>
+                </post-card-replica> -->
+
+
                 <ul style="padding: 0;" ng-repeat="comment in commentList track by comment.id">
+                    
                     <li style="padding: 0.5em 0em;">
                         
-                        <comment-card comment="comment" commentList="commentList">
-                        </comment-card>AK
+                        <comment-card comment="comment">
+                        </comment-card>
+                        
                     </li>
                 </ul>
             </div>
-            <div >
+            <div > YG
                 <form class="textBox" name="feedForm" novalidate>
                     <textarea class="form-control textArea" id="commentUserName" placeholder="Enter username" ng-model="newComment.userName" rows="1" required>                           
                     </textarea>
@@ -87,7 +96,7 @@
                         </div>
                     </div>
                 </form>
-            </div>
+            </div> 
         </div>
     </div>
 

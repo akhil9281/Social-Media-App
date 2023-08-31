@@ -6,33 +6,7 @@
               <!-- <div ng-include="'views/sidebarLeft.html'"></div> -->
 
               <div class="col">
-
-                <div class="row"> <!-- Post CARD -->
-                    <div class="card" style="padding: 0;">
-                        <div class="card-header bg-black text-light">
-                            <span>Most Liked Post !!</span>
-                                <post-card post="mostLikedPost">
-        
-                                </post-card>
-                        </div>
-                    </div>
-                </div>
-
-                
-                    <div class="row"> <!-- Question CARD -->
-                        <div class="card" style="padding: 0;">
-                            <div class="card-header bg-black text-light">
-                                <span>Most Discussed Question !!</span>
-                                    <post-card post="mostDiscussedQuestion">
-            
-                                    </post-card>
-                            </div>
-                        </div>
-                    </div>
-        
-                <div class="row">
-                    <br>
-                </div>
+                <!-- My Card -->
 
                 <div class="row">
                     <div class="col">
@@ -50,6 +24,33 @@
                         </div>
                       </div>
                 </div>
+
+                <div class="row">
+                    <br>
+                </div>
+
+                <div class="row"> <!-- Post CARD -->
+                    <div class="card" style="padding: 0;">
+                        <div class="card-header bg-black text-light">
+                            <span>Most Liked Post !!</span>
+                                <post-card post="mostLikedPost">
+        
+                                </post-card>
+                        </div>
+                    </div>
+                </div>
+
+                    <div class="row"> <!-- Question CARD -->
+                        <div class="card" style="padding: 0;">
+                            <div class="card-header bg-black text-light">
+                                <span>Most Discussed Question !!</span>
+                                    <post-card post="mostDiscussedQuestion">
+            
+                                    </post-card>
+                            </div>
+                        </div>
+                    </div>
+                        
             </div>
 
             </div>
@@ -66,11 +67,11 @@
                         <div class="row" style="width: 100%; margin-left: 0.5rem; margin-right: 1rem">
                             <div class="col">
                                 <div class="row">
-                                    <div class="form-check col-2">
+                                    <div class="form-check col-3">
                                         <input class="form-check-input" type="radio" id="PostChoice" ng-model="postType" value="Post">
                                         <label class="form-check-label" for="PostChoice">Post</label>
                                     </div>
-                                    <div class="form-check col-2">
+                                    <div class="form-check col-3">
                                         <input class="form-check-input" type="radio" ng-model="postType" id="QuestionChoice" value="Question">
                                         <label class="form-check-label" for="QuestionChoice">Question</label>
                                     </div>
@@ -132,7 +133,19 @@
             </div>
 
             <div class="col-3 sidebar-second">
-
+                <div class="row">
+                    <div class="card bg-danger card-hover mb-9">
+                      <div class="card-body text-center px-md-5 px-lg-6 my-2">
+                        <div class="card-icon-border-large border-danger mtn-80">
+                          <i class="fa fa-quote-left text-danger" aria-hidden="true"></i>
+                        </div>
+                        <blockquote class="blockquote blockquote-sm mt-2">
+                          <p class="font-normal mb-5"> {{quote.content}} </p>
+                          <footer class="blockquote-footer text-uppercase text-white fst-italic"> <cite>{{quote.author}}</cite></footer>
+                        </blockquote>
+                      </div>
+                    </div>
+                  </div>
             </div>
         </div>
     </div>      
