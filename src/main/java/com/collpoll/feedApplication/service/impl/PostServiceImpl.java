@@ -1,30 +1,31 @@
-package com.collpoll.feedApplication.service;
+package com.collpoll.feedApplication.service.impl;
 
 import com.collpoll.feedApplication.entity.Post;
 import com.collpoll.feedApplication.entity.PostType;
 import com.collpoll.feedApplication.repository.PostRepo;
+import com.collpoll.feedApplication.service.IPostService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class PostService {
+public class PostServiceImpl implements IPostService {
 
-    final UserService userService;
+    final UserServiceImpl userServiceImpl;
 
     final PostRepo postRepo;
 
 
-    public PostService(UserService userService, PostRepo postRepo) {
-        this.userService = userService;
+    public PostServiceImpl(UserServiceImpl userServiceImpl, PostRepo postRepo) {
+        this.userServiceImpl = userServiceImpl;
         this.postRepo = postRepo;;
     }
 
 
     public Post createPost(String userName, PostType postType, String postData) {
-        if (!userService.userExists(userName)) {
-            userService.createNewUser(userName);
+        if (!userServiceImpl.userExists(userName)) {
+            userServiceImpl.createNewUser(userName);
         }
 
         Post newPost = new Post(userName, userName.hashCode(), postType, postData);

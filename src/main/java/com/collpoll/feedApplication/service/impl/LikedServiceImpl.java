@@ -1,9 +1,10 @@
-package com.collpoll.feedApplication.service;
+package com.collpoll.feedApplication.service.impl;
 
 import com.collpoll.feedApplication.entity.Liked;
 import com.collpoll.feedApplication.entity.LikedPrimaryKey;
 import com.collpoll.feedApplication.entity.Post;
 import com.collpoll.feedApplication.repository.LikedRepo;
+import com.collpoll.feedApplication.service.ILikedService;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -11,14 +12,14 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class LikedService {
+public class LikedServiceImpl implements ILikedService {
 
-    final PostService postService;
+    final PostServiceImpl postServiceImpl;
 
     final LikedRepo likedRepo;
 
-    public LikedService(PostService postService, LikedRepo likedRepo) {
-        this.postService = postService;
+    public LikedServiceImpl(PostServiceImpl postServiceImpl, LikedRepo likedRepo) {
+        this.postServiceImpl = postServiceImpl;
         this.likedRepo = likedRepo;
     }
 
@@ -37,7 +38,7 @@ public class LikedService {
         List<Post> allPostsLikedByUser = new ArrayList<>();
 
         for (Liked like : allLikes) {
-            Optional<Post> post = postService.getPost(like.getLikedPrimaryKey().getPostId());
+            Optional<Post> post = postServiceImpl.getPost(like.getLikedPrimaryKey().getPostId());
             post.ifPresent(allPostsLikedByUser::add);
         }
         return allPostsLikedByUser;

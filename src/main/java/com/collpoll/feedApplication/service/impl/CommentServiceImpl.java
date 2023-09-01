@@ -1,7 +1,8 @@
-package com.collpoll.feedApplication.service;
+package com.collpoll.feedApplication.service.impl;
 
 import com.collpoll.feedApplication.entity.Comment;
-import com.collpoll.feedApplication.repository.CommentRepo;
+import com.collpoll.feedApplication.repository.CommentRepoImpl;
+import com.collpoll.feedApplication.service.ICommentService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -9,11 +10,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Service @Transactional
-public class CommentService {
+public class CommentServiceImpl implements ICommentService {
 
-    final CommentRepo commentRepo;
+    final CommentRepoImpl commentRepo;
 
-    public CommentService( CommentRepo commentRepo) {
+    public CommentServiceImpl(CommentRepoImpl commentRepo) {
         this.commentRepo = commentRepo;
     }
 
@@ -29,8 +30,6 @@ public class CommentService {
 
         List<Comment> allComments = commentRepo.findAllByCreatedByIdOrderByCreatedAt(userId);
         return allComments;
-
-
     }
 
     public List<Comment> getAllCommentsForPost(Long postId) {
@@ -43,6 +42,7 @@ public class CommentService {
         Optional<Comment> comment = commentRepo.findById(id);
         if (comment.isPresent())
             newComment = comment.get();
+
         assert newComment != null;
         newComment.setBody(newBody);
 
@@ -58,7 +58,6 @@ public class CommentService {
     }
 
     public void deleteCommentsOfPost(Long postId) {
-
         int count = commentRepo.countCommentsByPostId(postId);
         if (count == 0)
             return;

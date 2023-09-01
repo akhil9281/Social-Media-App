@@ -1,16 +1,16 @@
-package com.collpoll.feedApplication.service;
+package com.collpoll.feedApplication.service.impl;
 
 import com.collpoll.feedApplication.entity.User;
 import com.collpoll.feedApplication.repository.UserRepo;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.collpoll.feedApplication.service.IUserService;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserService {
+public class UserServiceImpl implements IUserService {
 
     final UserRepo userRepo;
 
-    public UserService(UserRepo userRepo) {
+    public UserServiceImpl(UserRepo userRepo) {
         this.userRepo = userRepo;
     }
 

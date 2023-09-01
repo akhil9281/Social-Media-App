@@ -5,36 +5,37 @@ import com.collpoll.feedApplication.entity.Comment;
 import com.collpoll.feedApplication.entity.Liked;
 import com.collpoll.feedApplication.entity.Post;
 import com.collpoll.feedApplication.entity.PostType;
-import com.collpoll.feedApplication.service.CommentService;
-import com.collpoll.feedApplication.service.LikedService;
-import com.collpoll.feedApplication.service.PostService;
-import com.collpoll.feedApplication.service.UserService;
+import com.collpoll.feedApplication.service.impl.CommentServiceImpl;
+import com.collpoll.feedApplication.service.impl.LikedServiceImpl;
+import com.collpoll.feedApplication.service.impl.PostServiceImpl;
+import com.collpoll.feedApplication.service.impl.UserServiceImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@RestController
+@RestController @Transactional
 @RequestMapping("/feed")
 @CrossOrigin(origins = {"http://127.0.0.1:5500/", "http://127.0.0.1:5501/"})
 public class FeedController {
 
-    final PostService postService;
+    final PostServiceImpl postServiceImpl;
 
-    final LikedService likedService;
+    final LikedServiceImpl likedServiceImpl;
 
-    final UserService userService;
+    final UserServiceImpl userServiceImpl;
 
-    final CommentService commentService;
+    final CommentServiceImpl commentServiceImpl;
 
-    public FeedController(PostService postService, LikedService likedService, UserService userService,
-                          CommentService commentService) {
-        this.postService = postService;
-        this.likedService = likedService;
-        this.userService = userService;
-        this.commentService = commentService;
+    public FeedController(PostServiceImpl postServiceImpl, LikedServiceImpl likedServiceImpl, UserServiceImpl userServiceImpl,
+                          CommentServiceImpl commentServiceImpl) {
+        this.postServiceImpl = postServiceImpl;
+        this.likedServiceImpl = likedServiceImpl;
+        this.userServiceImpl = userServiceImpl;
+        this.commentServiceImpl = commentServiceImpl;
     }
 
     /**  POST Methods
@@ -46,7 +47,7 @@ public class FeedController {
     @GetMapping("/allPosts")
     public ResponseEntity<Object> getAllPosts(@RequestParam Integer loadNumber) {
         try {
-            List<Post> allPostList = postService.getFeed(loadNumber);
+            List<Post> allPostList = postServiceImpl.getFeed(loadNumber);
             return ResponseHandler.generateResponse("List of all the Posts in descending order by creation time", HttpStatus.OK, allPostList);
         }
         catch (Exception e) {
@@ -58,10 +59,10 @@ public class FeedController {
     @GetMapping("/allPostsByUser")
     public ResponseEntity<Object> getAllPostsByUser(@RequestParam String userName) {
         try {
-            if (!userService.userExists(userName)) {
+            if (!userServiceImpl.userExists(userName)) {
                 return ResponseHandler.generateResponse("no such User found", HttpStatus.OK, new ArrayList<Post>());
             }
-            List<Post> allPostsByUser = postService.getAllPostsByUser(userName);
+            List<Post> allPostsByUser = postServiceImpl.getAllPostsByUser(userName);
             return ResponseHandler.generateResponse("List of all the Posts by user - " + userName, HttpStatus.OK, allPostsByUser);
         }
 
@@ -73,7 +74,7 @@ public class FeedController {
     @PostMapping("/createPost")
     public ResponseEntity<Object> createPost(@RequestParam String userName, @RequestParam PostType postType, @RequestParam String postData) {
         try {
-            Post newPost = postService.createPost(userName, postType, postData);
+            Post newPost = postServiceImpl.createPost(userName, postType, postData);
             return ResponseHandler.generateResponse("Post created successfully", HttpStatus.OK, newPost);
         }
         catch (Exception e) {
@@ -84,12 +85,12 @@ public class FeedController {
     @DeleteMapping("/deletePost")
     public ResponseEntity<Object> deletePost(@RequestParam Long postId) {
         try {
-            if (!postService.postExists((postId)))
+            if (!postServiceImpl.postExists((postId)))
                 return ResponseHandler.generateResponse("No such post exists", HttpStatus.BAD_REQUEST);
 
-            postService.deletePost(postId);
-            likedService.deleteLikesOfPost(postId);
-            commentService.deleteCommentsOfPost(postId);
+            likedServiceImpl.deleteLikesOfPost(postId);
+            commentServiceImpl.deleteCommentsOfPost(postId);
+            postServiceImpl.deletePost(postId);
 
             return ResponseHandler.generateResponse("Successfully Deleted Post", HttpStatus.OK);
         }
@@ -101,11 +102,11 @@ public class FeedController {
     @GetMapping("/mostLikedPost")
     public ResponseEntity<Object> getMostLikePost() {
         try {
-            List<Post> postList = postService.getAllPosts();
+            List<Post> postList = postServiceImpl.getAllPosts();
             Post mostLikePost = null;
             int max = -1;
             for (Post post: postList) {
-                int countOfLikes = likedService.getCountOfLikesForPost(post.getId());
+                int countOfLikes = likedServiceImpl.getCountOfLikesForPost(post.getId());
                 if (countOfLikes > max) {
                     max = countOfLikes;
                     mostLikePost = post;
@@ -122,11 +123,11 @@ public class FeedController {
     @GetMapping("/mostDiscussedQuestion")
     public ResponseEntity<Object> getMostDiscussedQuestion() {
         try {
-            List<Post> postList = postService.getAllQuestions();
+            List<Post> postList = postServiceImpl.getAllQuestions();
             Post mostDiscussedQuestion = null;
             int max = -1;
             for (Post post: postList) {
-                int countOfComments = commentService.getCountOfCommentsForPost(post.getId());
+                int countOfComments = commentServiceImpl.getCountOfCommentsForPost(post.getId());
                 if (countOfComments > max) {
                     max = countOfComments;
                     mostDiscussedQuestion = post;
@@ -149,10 +150,10 @@ public class FeedController {
     @GetMapping("/allCommentsByUser")
     public ResponseEntity<Object> getAllCommentsByUserByUser(@RequestParam String userName) {
         try {
-            if (!userService.userExists(userName)) {
+            if (!userServiceImpl.userExists(userName)) {
                 return ResponseHandler.generateResponse(HttpStatus.BAD_REQUEST, "no such user found");
             }
-            List<Comment> allCommentsByUser = commentService.getAllCommentsByUser(userName);
+            List<Comment> allCommentsByUser = commentServiceImpl.getAllCommentsByUser(userName);
             return ResponseHandler.generateResponse("List of all the Comments by user - " + userName, HttpStatus.OK, allCommentsByUser);
         }
 
@@ -165,10 +166,10 @@ public class FeedController {
     @GetMapping("/allCommentsForPost")
     public ResponseEntity<Object> getAllCommentsForPost(@RequestParam Long postId) {
         try {
-            if (!postService.postExists(postId)) {
+            if (!postServiceImpl.postExists(postId)) {
                 return ResponseHandler.generateResponse(HttpStatus.BAD_REQUEST, "no such post found");
             }
-            List<Comment> allCommentsByUser = commentService.getAllCommentsForPost(postId);
+            List<Comment> allCommentsByUser = commentServiceImpl.getAllCommentsForPost(postId);
             return ResponseHandler.generateResponse("List of all the Comments for Post - " + postId, HttpStatus.OK, allCommentsByUser);
         }
 
@@ -181,14 +182,14 @@ public class FeedController {
     public ResponseEntity<Object> createComment(@RequestParam String userName, @PathVariable Long postId, @RequestParam String commentData) {
         Integer userId = userName.hashCode();
 
-        if(!postService.postExists(postId))
+        if(!postServiceImpl.postExists(postId))
             return ResponseHandler.generateResponse("Invalid PostID, no such post exists", HttpStatus.BAD_REQUEST);
 
         try {
-            if (!userService.existsById(userId)) {
-                userService.createNewUser(userName);
+            if (!userServiceImpl.existsById(userId)) {
+                userServiceImpl.createNewUser(userName);
             }
-            Comment newComment = commentService.createComment(userName, postId, commentData);
+            Comment newComment = commentServiceImpl.createComment(userName, postId, commentData);
             return ResponseHandler.generateResponse("Comment made successfully", HttpStatus.OK, newComment);
         }
         catch (Exception e) {
@@ -201,10 +202,10 @@ public class FeedController {
     @DeleteMapping("/deleteComment/{commentId}")
     public ResponseEntity<Object> deleteComment(@PathVariable Long commentId) {
         try {
-            if (!commentService.commentExists((commentId)))
+            if (!commentServiceImpl.commentExists((commentId)))
                 return ResponseHandler.generateResponse("No such Comment exists", HttpStatus.BAD_REQUEST);
 
-            commentService.deleteComment(commentId);
+            commentServiceImpl.deleteComment(commentId);
             return ResponseHandler.generateResponse("Successfully Deleted Comment", HttpStatus.OK);
         }
         catch (Exception e) {
@@ -221,11 +222,11 @@ public class FeedController {
     @GetMapping("/allLikesByUser")
     public ResponseEntity<Object> getAllLikesByUser(@RequestParam String userName) {
         try {
-            if (!userService.userExists(userName)) {
+            if (!userServiceImpl.userExists(userName)) {
                 return ResponseHandler.generateResponse(HttpStatus.BAD_REQUEST, "no such user found");
             }
 
-            List<Post> allPostsLikedByUser = likedService.getAllLikesByUser(userName);
+            List<Post> allPostsLikedByUser = likedServiceImpl.getAllLikesByUser(userName);
             return ResponseHandler.generateResponse("List of all the Posts liked by user - " + userName, HttpStatus.OK, allPostsLikedByUser);
         }
         catch (Exception e) {
@@ -235,15 +236,15 @@ public class FeedController {
 
     @PostMapping("/createLike/{postId}")
     public ResponseEntity<Object> createLike(@RequestBody String userName, @PathVariable Long postId) {
-        if(!postService.postExists(postId))
+        if(!postServiceImpl.postExists(postId))
             return ResponseHandler.generateResponse(HttpStatus.BAD_REQUEST, "no such Post found");
 
         try {
-            if (!userService.userExists(userName)) {
-                userService.createNewUser(userName);
+            if (!userServiceImpl.userExists(userName)) {
+                userServiceImpl.createNewUser(userName);
             }
 
-            Liked newLiked = likedService.createLike(userName, postId);
+            Liked newLiked = likedServiceImpl.createLike(userName, postId);
 
             return ResponseHandler.generateResponse("List of all Likes by user - " + userName, HttpStatus.OK, newLiked);
         }
@@ -255,10 +256,10 @@ public class FeedController {
     @GetMapping("/getLikes")
     public ResponseEntity<Object> getLikesForPost(@RequestParam Long postId) {
         try {
-            if (!postService.postExists((postId)))
+            if (!postServiceImpl.postExists((postId)))
                 return ResponseHandler.generateResponse("No such post exists", HttpStatus.BAD_REQUEST);
 
-            int num = likedService.getCountOfLikesForPost(postId);
+            int num = likedServiceImpl.getCountOfLikesForPost(postId);
             return ResponseHandler.generateResponse("Successfully retrieved number of likes for Post", HttpStatus.OK, num);
         }
         catch (Exception e) {
@@ -269,10 +270,10 @@ public class FeedController {
     @PutMapping("/updateComment/{commentId}")
     public ResponseEntity<Object> updateComment(@PathVariable Long commentId, @RequestBody String commentBody) {
         try {
-            if (!commentService.commentExists((commentId)))
+            if (!commentServiceImpl.commentExists((commentId)))
                 return ResponseHandler.generateResponse("No such post exists", HttpStatus.BAD_REQUEST);
 
-            Comment comment = commentService.updateComment(commentId, commentBody);
+            Comment comment = commentServiceImpl.updateComment(commentId, commentBody);
             return ResponseHandler.generateResponse("Successfully updated Comment - " + commentId, HttpStatus.OK, comment);
         }
         catch (Exception e) {
