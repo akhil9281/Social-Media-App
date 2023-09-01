@@ -95,7 +95,7 @@ public class FeedController {
             return ResponseHandler.generateResponse("Successfully Deleted Post", HttpStatus.OK);
         }
         catch (Exception e) {
-            return ResponseHandler.generateResponse("Unable to delete Post", HttpStatus.INTERNAL_SERVER_ERROR, e.getStackTrace());
+            return ResponseHandler.generateResponse("Unable to delete Post", HttpStatus.INTERNAL_SERVER_ERROR, (Object[]) e.getStackTrace());
         }
     }
 
@@ -223,7 +223,7 @@ public class FeedController {
     public ResponseEntity<Object> getAllLikesByUser(@RequestParam String userName) {
         try {
             if (!userServiceImpl.userExists(userName)) {
-                return ResponseHandler.generateResponse(HttpStatus.BAD_REQUEST, "no such user found");
+                return ResponseHandler.generateResponse("no such user found", HttpStatus.OK, new ArrayList<>());
             }
 
             List<Post> allPostsLikedByUser = likedServiceImpl.getAllLikesByUser(userName);

@@ -34,7 +34,6 @@
                             Comment
                         </button>
                     </div>
-                    <!-- <div class="col-6"></div> -->
                     <div class="col-2">   
                         <div class="row align-end">             
                             <button class="btn btn-danger" style="padding: 6px;" ng-click="delete()">
@@ -81,15 +80,15 @@
                         <textarea class="form-control textArea" id="commentData" placeholder="What are your thoughts on this??" ng-model="newComment.commentData" rows="3" required>                       
                         </textarea>
                         
-                        <div class="row justify-content-end m-6 p-2">
+                        <div class="row justify-content-md-end m-6 p-2">
                             <div class="col-2" ng-click="newComment.userName = ''; newComment.commentData = '';">
                                 <button class="btn btn-danger">
                                     Cancel
                                 </button>
                             </div>
-                            <div class="col-3" ng-click="makeComment(newComment);">
-                                <button class="btn btn-primary">
-                                    Post Comment
+                            <div class="col-2" ng-click="makeComment(newComment);">
+                                <button class="btn btn-success">
+                                    Post
                                 </button>
                             </div>
                         </div>
@@ -97,29 +96,6 @@
                     </form>
                 </div>
             </div>
-
-            <div > YG
-                <form class="textBox" name="feedForm" novalidate> 
-                    <textarea class="form-control textArea" id="commentUserName" placeholder="Enter username" ng-model="newComment.userName" rows="1" required>                           
-                    </textarea>
-                    
-                    <textarea class="form-control textArea" id="commentData" rows="3" placeholder="What are your thoughts on this?" ng-model="newComment.commentData" required>                            
-                    </textarea>
-
-                    <div class="row" style="width: 100%; margin: 0.5rem">
-                        <div class="col-6"></div>
-                        <div class="col-6 text-end">
-                            <button type="button" class="col btn btn-danger" ng-click="newComment.userName = ''; newComment.commentData = '';">
-                            Cancel
-                            </button>
-                            <button type="button" class="col btn btn-primary" ng-click="makeComment(newComment);">                        
-                            Post                            
-                            </button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <!-- FORM END -->
         </div>
     </div>
 

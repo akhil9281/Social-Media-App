@@ -44,9 +44,39 @@
 }
 
 .bg-secondary-fade {
-	background: rgb(21, 34, 46); 
+	background: cornflowerblue; 
 }
 
 ul {
 	list-style-type: none;
 } 
+
+.material-symbols-outlined sad{
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 50
+}
+
+  
+/* .infy-img {
+	overflow: hidden;
+	height: 600px;
+}
+  
+.sliding-background {
+	--imageHeight: 900px;
+	background: url("https://images.fineartamerica.com/images/artworkimages/mediumlarge/2/a-dramatic-image-of-a-tall-tree-sitting-against-moody-skies-in-the-background-with-blue-and-yellow-tones-chris-cook.jpg") repeat-y;
+	height: calc(var(--imageHeight) * 2);
+	animation: slideInfy 4s linear infinite;
+}
+  
+@keyframes slideInfy { 
+	from {
+		transform: translateY(0px);
+	}
+	to {
+		transform: translateY(calc(var(--imageHeight) * -1));
+	}
+} */

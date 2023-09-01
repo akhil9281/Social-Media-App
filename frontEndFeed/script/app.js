@@ -22,7 +22,7 @@ myApp.config(['$routeProvider', '$locationProvider', ($routeProvider, $locationP
         controller: 'getLikeController'
     })
     .otherwise({
-        redirectTo: '/home'
+        redirectTo: '/feed'
     })
 
 }])

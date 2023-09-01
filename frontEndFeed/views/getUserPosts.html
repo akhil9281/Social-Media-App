@@ -1,12 +1,12 @@
 <div class="feed" ng-controller="getUserPostController">
     
-    <div class="container" >
+    <div class="container min-vh-100">
         <div class="row align-center">
-            <div class="col-2 sidebar-first">
-                
+            <div class="col-3 sidebar-first">
+                <div ng-include="'views/sidebarLeft.html'"> </div>
             </div>
 
-            <div class="col-8 main-bar" style="display: flexbox;">
+            <div class="col-6 main-bar" style="display: flexbox;">
                 <!-- POST BOX -->
                 <div style="margin: 0.5em; border: 2px solid red; padding: 1em; background-color: orange; border-radius: 1.5em;">
                     <form class="textBox" name="feedForm" novalidate>
@@ -14,17 +14,12 @@
                         </textarea>
                         
                         <div class="row text-end" style="width: 100%; margin-left: 0.5rem; margin-right: 1rem">
-                        
-                            <!-- <div class="col-6"></div> -->
-                            <div class="col text-end">
-                                <button type="button" class="col btn btn-danger" ng-click="userName = ''">
-                                Clear
+                            <div class="col text-end pt-3">
+                                <button type="button" class="col-2 btn btn-danger" ng-click="userName = ''">
+                                    Clear
                                 </button>
-                                <button type="button" class="col btn btn-info" ng-click="getPostsByUser(userName)">                        
-                                Search
-                                    <div ng-show="isLoading" class="small-loader">
-                                        <div class="spinner"></div>
-                                    </div>                            
+                                <button type="button" class="col-2 btn btn-info" ng-click="getPostsByUser(userName)">                        
+                                    Search                           
                                 </button>
                             </div>
                         </div>
@@ -33,7 +28,7 @@
                 <br style="height: 25%;">
                 <!-- POST FEED -->
                 <div class="h2">
-                    <span>All Posts User - &nbsp <strong>{{userName}}</strong> : </span>
+                    <span> &nbsp; &nbsp; All Posts by the User - &nbsp; <strong>{{userName}}</strong> : </span>
                 </div>
                 <br> <br>
                 <div>
@@ -45,15 +40,12 @@
                 </div>
                 <br><br>
                 <div name="zeroPostsCard" class="container text-center" ng-show="zeroPost">
-                    <div class="row">
-                        <div class="col" style="width: 50%;">
-                            <div class="col justify-content-end align-items-baseline">
-                                <span class="material-symbols-outlined">
-                                    sentiment_very_dissatisfied
-                                </span>
+                    <div class="row justify-content-center">
+                            <div class="col-1 align-items-end">
+                                <img src="img/sadImg.jpeg" class="img-thumbnail"  alt="sentiment_very_dissatisfied">
+                               
                             </div>
-                        </div>
-                        <div class="col-md-auto">
+                        <div class="col-5">
                             <span style="font-size: 2em;">WOW.. Such empty !!</span>
                         </div>
                     </div>
@@ -61,8 +53,8 @@
                 </div>
             </div>
 
-            <div class="col-2 sidebar-second">
-
+            <div class="col-3 sidebar-second">
+                <div ng-include="'views/sidebarRight.html'"> </div>
             </div>
         </div>
     </div>      

@@ -7,7 +7,7 @@ angular.module("feedApp")
 
     $scope.init = function() {
 
-    }
+    };
 
     $scope.getPostsByUser = function(userName) {
         $scope.isLoading = true;

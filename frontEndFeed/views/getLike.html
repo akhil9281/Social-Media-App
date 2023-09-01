@@ -2,11 +2,11 @@
     
     <div class="container min-vh-100">
         <div class="row align-center">
-            <div class="col-2 sidebar-first">
-                
+            <div class="col-3 sidebar-first">
+                <div ng-include="'views/sidebarLeft.html'"> </div>
             </div>
 
-            <div class="col-8 main-bar" style="display: flexbox;">
+            <div class="col-6 main-bar" style="display: flexbox;">
                 <!-- POST BOX -->
                 <div style="margin: 0.5em; border: 2px solid red; padding: 1em; background-color: orange; border-radius: 1.5em;">
                     <form class="textBox" name="feedForm" novalidate>
@@ -16,15 +16,12 @@
                         <div class="row text-end" style="width: 100%; margin-left: 0.5rem; margin-right: 1rem">
                         
                             <!-- <div class="col-6"></div> -->
-                            <div class="col text-end">
-                                <button type="button" class="col btn btn-danger" ng-click="userName = ''">
-                                Clear
+                            <div class="col text-end pt-3">
+                                <button type="button" class="col-2 btn btn-danger" ng-click="userName = ''">
+                                    Clear
                                 </button>
-                                <button type="button" class="col btn btn-info" ng-click="getPostsLikedByUser(userName)">                        
-                                Search
-                                    <div ng-show="isLoading" class="small-loader">
-                                        <div class="spinner"></div>
-                                    </div>                            
+                                <button type="button" class="col-2 btn btn-info" ng-click="getPostsLikedByUser(userName)">                        
+                                    Search                            
                                 </button>
                             </div>
                         </div>
@@ -33,24 +30,24 @@
                 <br style="height: 25%;">
                 <!-- POST FEED -->
                 <div class="h2">
-                    <span>All Posts Liked By User - &nbsp <strong>{{userName}}</strong> : </span>
+                    <span>&nbsp; &nbsp; All Posts Liked by the User - &nbsp; <strong>{{userName}}</strong> : </span>
                 </div>
                 <div>
-                    <ul class="hide" ng-repeat="post in feed track by post.id">
+                    <ul class="hide" ng-repeat="post in userLikedfeed track by post.id">
                         <li >
                             <post-card post="post">  </post-card>
                         </li>
                     </ul>
                 </div>
 
+                <br><br>
                 <div name="zeroPostsCard" class="container text-center" ng-show="zeroPost">
-                    <div class="row">
-                        <div class="col justify-content-md-center" style="size: 2em;">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-emoji-dizzy-fill" viewBox="0 0 16 16">
-                                <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zM4.146 5.146a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 1 1 .708.708l-.647.646.647.646a.5.5 0 1 1-.708.708L5.5 7.207l-.646.647a.5.5 0 1 1-.708-.708l.647-.646-.647-.646a.5.5 0 0 1 0-.708zm5 0a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .708.708l-.647.646.647.646a.5.5 0 0 1-.708.708l-.646-.647-.646.647a.5.5 0 1 1-.708-.708l.647-.646-.647-.646a.5.5 0 0 1 0-.708zM8 13a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/>
-                              </svg>
-                        </div>
-                        <div class="col-md-auto">
+                    <div class="row justify-content-center">
+                            <div class="col-1 align-items-end">
+                                <img src="img/sadImg.jpeg" class="img-thumbnail"  alt="sentiment_very_dissatisfied">
+                               
+                            </div>
+                        <div class="col-5">
                             <span style="font-size: 2em;">WOW.. Such empty !!</span>
                         </div>
                     </div>
@@ -58,8 +55,8 @@
                 </div>
             </div>
 
-            <div class="col-2 sidebar-second">
-
+            <div class="col-3 sidebar-second">
+                <div ng-include="'views/sidebarRight.html'"> </div>
             </div>
         </div>
     </div>      
