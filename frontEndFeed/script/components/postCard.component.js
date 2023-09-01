@@ -16,6 +16,7 @@ angular.module("feedApp")
                 $scope.showComments = false;
                 $scope.loadingComment = false;
                 $scope.comment = {};
+                $scope.newComment = {};
 
                 $scope.start = function() {
                     console.log("in postCard init");
@@ -43,8 +44,8 @@ angular.module("feedApp")
                 $scope.getComments = function() {
                     console.log("in postCard getComments");
                     $scope.commentList = [];
-                    $scope.comment.userName = "";
-                    $scope.comment.commentData = "";
+                    $scope.newComment.userName = "";
+                    $scope.newComment.commentData = "";
                     feedService.getComments($scope.post.id)
                         .then(function(value) {
                             console.log("postCarController-getComments:", value);

@@ -23,9 +23,10 @@ angular.module("feedApp")
                         })
                 };
 
-                $scope.delete = function() {
+                $scope.deleteComment = function() {
                     feedService.deleteComment($scope.comment.id)
                     .then(function(value) {
+                        $scope.$parent.getComments();
                         alert("Successfully deleted Comment");
                     })
                 };

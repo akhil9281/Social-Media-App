@@ -57,27 +57,49 @@
         </div>
         <!-- All Comments -->
         <div class="row" id="commentsFeed" ng-show="showComments">
-            <div style="background: rgb(108, 117, 125); background-clip: padding-box;">
+            <div class="row m-0 p-0">
+                <div class="bg-secondary" style="background-clip: padding-box;">
 
-                <!-- <post-card-replica comment="comment" ng-repeat="comment in commentList">
-                    <comment-card >
-
-                    </comment-card>
-                </post-card-replica> -->
-
-
-                <ul style="padding: 0;" ng-repeat="comment in commentList track by comment.id">
-                    
-                    <li style="padding: 0.5em 0em;">
+                    <ul style="padding: 0;" ng-repeat="comment in commentList track by comment.id">
                         
-                        <comment-card comment="comment">
-                        </comment-card>
-                        
-                    </li>
-                </ul>
+                        <li style="padding: 0.5em 0em;">
+                            
+                            <comment-card comment="comment">
+                            </comment-card>
+                            
+                        </li>
+                    </ul>
+                </div>
             </div>
+            <!-- FORM STARTS -->
+            <div class="row m-0 p-0 pt-2 bg-secondary-fade">
+                <div>
+                    <form class="textBox">
+                        <textarea class="form-control textArea" id="commentUserName" placeholder="Enter username" ng-model="newComment.userName" rows="1" required>                       
+                        </textarea>
+    
+                        <textarea class="form-control textArea" id="commentData" placeholder="What are your thoughts on this??" ng-model="newComment.commentData" rows="3" required>                       
+                        </textarea>
+                        
+                        <div class="row justify-content-end m-6 p-2">
+                            <div class="col-2" ng-click="newComment.userName = ''; newComment.commentData = '';">
+                                <button class="btn btn-danger">
+                                    Cancel
+                                </button>
+                            </div>
+                            <div class="col-3" ng-click="makeComment(newComment);">
+                                <button class="btn btn-primary">
+                                    Post Comment
+                                </button>
+                            </div>
+                        </div>
+    
+                    </form>
+                </div>
+            </div>
+
             <div > YG
-                <form class="textBox" name="feedForm" novalidate>
+                <form class="textBox" name="feedForm" novalidate> 
                     <textarea class="form-control textArea" id="commentUserName" placeholder="Enter username" ng-model="newComment.userName" rows="1" required>                           
                     </textarea>
                     
@@ -96,7 +118,8 @@
                         </div>
                     </div>
                 </form>
-            </div> 
+            </div>
+            <!-- FORM END -->
         </div>
     </div>
 

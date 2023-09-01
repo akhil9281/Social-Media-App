@@ -5,40 +5,52 @@
             <div class="col-3 sidebar-first">
               <!-- <div ng-include="'views/sidebarLeft.html'"></div> -->
 
-              <div class="col">
+                <div class="col">
                 <!-- My Card -->
 
-                <div class="row">
-                    <div class="col">
-                        <div class="single_advisor_profile wow fadeInUp" data-wow-delay="0.3s" style="visibility: visible; animation-delay: 0.3s; animation-name: fadeInUp;">
-                          <!-- Team Thumb-->
-                          <div class="advisor_thumb"><img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="">
-                            <!-- Social Info-->
-                            <div class="social-info"><a href="#"><i class="fa fa-facebook"></i></a><a href="#"><i class="fa fa-twitter"></i></a><a href="#"><i class="fa fa-linkedin"></i></a></div>
-                          </div>
-                          <!-- Team Details-->
-                          <div class="single_advisor_details_info">
-                            <h6>Akhil</h6>
-                            <p class="designation">Product Engineer Intern</p>
-                          </div>
-                        </div>
-                      </div>
-                </div>
+                    <div class="row first-card m-0 px-0">
+                        <div class="col p-0">
+                            <div class="single_advisor_profile m-0 wow fadeInUp" data-wow-delay="0.3s" style="visibility: visible; animation-delay: 0.3s; animation-name: fadeInUp;">
+                            <!-- Team Thumb-->
+                            <div class="advisor_thumb"><img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="">
+                                <!-- Social Info-->
+                                <div class="social-info">
+                                    <a href="https://www.linkedin.com/in/akhil-kumar2712/" target="_blank">
+                                        <i class="fa fa-linkedin"></i>
+                                    </a>
 
-                <div class="row">
-                    <br>
-                </div>
+                                    <a href="https://twitter.com/AkhilK9281" target="_blank">
+                                        <i class="fa fa-twitter"></i>
+                                    </a>
 
-                <div class="row"> <!-- Post CARD -->
-                    <div class="card" style="padding: 0;">
-                        <div class="card-header bg-black text-light">
-                            <span>Most Liked Post !!</span>
-                                <post-card post="mostLikedPost">
-        
-                                </post-card>
+                                    <a href="https://www.instagram.com/akhil_9281/" target="_blank">
+                                        <i class="fa fa-instagram"></i>
+                                    </a>                                    
+                                </div>
+                            </div>
+                            <!-- Team Details-->
+                            <div class="single_advisor_details_info">
+                                <h6>Akhil Kumar</h6>
+                                <p class="designation">Product Engineer Intern</p>
+                            </div>
+                            </div>
                         </div>
                     </div>
-                </div>
+    <!-- 
+                    <div class="row">
+                        <br>
+                    </div> -->
+
+                    <div class="row"> <!-- Post CARD -->
+                        <div class="card" style="padding: 0;">
+                            <div class="card-header bg-black text-light">
+                                <span>Most Liked Post !!</span>
+                                    <post-card post="mostLikedPost">
+            
+                                    </post-card>
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="row"> <!-- Question CARD -->
                         <div class="card" style="padding: 0;">
@@ -50,14 +62,14 @@
                             </div>
                         </div>
                     </div>
-                        
-            </div>
+                            
+                </div>
 
             </div>
 
             <div class="col-6 main-bar container">
                 <!-- POST BOX -->
-                <div style="margin: 0.5em; border: 2px solid red; padding: 1em; background-color: orange; border-radius: 1.5em;">
+                <div class="first-card post-form">
                     <form class="textBox" name="feedForm" novalidate>
                         <textarea class="form-control textArea" id="feedPostUserName" placeholder="Enter user name" ng-model="postUserName" rows="1"required>
                         </textarea>
@@ -133,7 +145,7 @@
             </div>
 
             <div class="col-3 sidebar-second">
-                <div class="row">
+                <div class="row first-card">
                     <div class="card bg-danger card-hover mb-9">
                       <div class="card-body text-center px-md-5 px-lg-6 my-2">
                         <div class="card-icon-border-large border-danger mtn-80">
