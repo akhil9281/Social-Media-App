@@ -15,7 +15,7 @@ angular.module("feedApp").service("feedService", ["$http","$rootScope", function
                 })
                 .catch(function(error) {
                     console.error("An error occurred while making the request.", error);
-                    alert("An error occurred while making the request.");
+                     
                 })
         },
 
@@ -54,7 +54,7 @@ angular.module("feedApp").service("feedService", ["$http","$rootScope", function
                     } 
                     else {
                         console.error("An error occurred while making the request.", error);
-                        alert("An error occurred while making the request.");
+                         
                     }
                 });
         },
@@ -93,7 +93,7 @@ angular.module("feedApp").service("feedService", ["$http","$rootScope", function
                     } 
                     else {
                         console.error("An error occurred while making the request.", error);
-                        alert("An error occurred while making the request.");
+                         
                     }
                 });
         },
@@ -126,7 +126,7 @@ angular.module("feedApp").service("feedService", ["$http","$rootScope", function
                     } 
                     else {
                         console.error("An error occurred while making the request.", error);
-                        alert("An error occurred while making the request.");
+                         
                     }
                 });
         },
@@ -158,7 +158,7 @@ angular.module("feedApp").service("feedService", ["$http","$rootScope", function
                     } 
                     else {
                         console.error("An error occurred while making the request.", error);
-                        alert("An error occurred while making the request.");
+                         
                     }
                 });
         },
@@ -193,7 +193,7 @@ angular.module("feedApp").service("feedService", ["$http","$rootScope", function
                     } 
                     else {
                         console.error("An error occurred while making the request.", error);
-                        alert("An error occurred while making the request.");
+                         
                     }
                 });
         },
@@ -228,7 +228,7 @@ angular.module("feedApp").service("feedService", ["$http","$rootScope", function
                     } 
                     else {
                         console.error("An error occurred while making the request.", error);
-                        alert("An error occurred while making the request.");
+                         
                     }
                 });
         },
@@ -267,7 +267,7 @@ angular.module("feedApp").service("feedService", ["$http","$rootScope", function
                     } 
                     else {
                         console.error("An error occurred while making the request.", error);
-                        alert("An error occurred while making the request.");
+                         
                     }
                 });
         },
@@ -300,7 +300,7 @@ angular.module("feedApp").service("feedService", ["$http","$rootScope", function
                     } 
                     else {
                         console.error("An error occurred while making the request.", error);
-                        alert("An error occurred while making the request.");
+                         
                     }
                 });
         },
@@ -333,7 +333,7 @@ angular.module("feedApp").service("feedService", ["$http","$rootScope", function
                     } 
                     else {
                         console.error("An error occurred while making the request.", error);
-                        alert("An error occurred while making the request.");
+                         
                     }
                 })
         },
@@ -365,7 +365,7 @@ angular.module("feedApp").service("feedService", ["$http","$rootScope", function
                     } 
                     else {
                         console.error("An error occurred while making the request.", error);
-                        alert("An error occurred while making the request.");
+                         
                     }
                 });
         },
@@ -398,7 +398,7 @@ angular.module("feedApp").service("feedService", ["$http","$rootScope", function
                     } 
                     else {
                         console.error("An error occurred while making the request.", error);
-                        alert("An error occurred while making the request.");
+                         
                     }
                 });
         },
@@ -439,7 +439,7 @@ angular.module("feedApp").service("feedService", ["$http","$rootScope", function
                     } 
                     else {
                         console.error("An error occurred while making the request.", error);
-                        alert("An error occurred while making the request.");
+                         
                     }
                 });
         },
@@ -477,7 +477,7 @@ angular.module("feedApp").service("feedService", ["$http","$rootScope", function
                     } 
                     else {
                         console.error("An error occurred while making the request.", error);
-                        alert("An error occurred while making the request.");
+                         
                     }
                 });
         },
