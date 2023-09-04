@@ -46,6 +46,9 @@ public class FeedController {
 
     @GetMapping("/allPosts")
     public ResponseEntity<Object> getAllPosts(@RequestParam Integer loadNumber) {
+        if (loadNumber == null)
+            loadNumber = 0;
+
         try {
             List<Post> allPostList = postServiceImpl.getFeed(loadNumber);
             return ResponseHandler.generateResponse("List of all the Posts in descending order by creation time", HttpStatus.OK, allPostList);
@@ -58,6 +61,9 @@ public class FeedController {
 
     @GetMapping("/allPostsByUser")
     public ResponseEntity<Object> getAllPostsByUser(@RequestParam String userName) {
+        if(userName.isBlank())
+            return ResponseHandler.generateResponse("empty requestParams", HttpStatus.BAD_REQUEST, new ArrayList<Post>());
+
         try {
             if (!userServiceImpl.userExists(userName)) {
                 return ResponseHandler.generateResponse("no such User found", HttpStatus.OK, new ArrayList<Post>());
@@ -73,6 +79,9 @@ public class FeedController {
 
     @PostMapping("/createPost")
     public ResponseEntity<Object> createPost(@RequestParam String userName, @RequestParam PostType postType, @RequestParam String postData) {
+        if (userName.isBlank() || postType == null || postData.isBlank())
+            return ResponseHandler.generateResponse("empty requestParams", HttpStatus.BAD_REQUEST);
+
         try {
             Post newPost = postServiceImpl.createPost(userName, postType, postData);
             return ResponseHandler.generateResponse("Post created successfully", HttpStatus.OK, newPost);
@@ -84,6 +93,9 @@ public class FeedController {
 
     @DeleteMapping("/deletePost")
     public ResponseEntity<Object> deletePost(@RequestParam Long postId) {
+        if (postId == null)
+            return ResponseHandler.generateResponse("empty requestParams", HttpStatus.BAD_REQUEST);
+
         try {
             if (!postServiceImpl.postExists((postId)))
                 return ResponseHandler.generateResponse("No such post exists", HttpStatus.BAD_REQUEST);
@@ -149,6 +161,9 @@ public class FeedController {
 
     @GetMapping("/allCommentsByUser")
     public ResponseEntity<Object> getAllCommentsByUserByUser(@RequestParam String userName) {
+        if (userName.isBlank())
+            return ResponseHandler.generateResponse("empty requestParams", HttpStatus.BAD_REQUEST, new ArrayList<Post>());
+
         try {
             if (!userServiceImpl.userExists(userName)) {
                 return ResponseHandler.generateResponse(HttpStatus.BAD_REQUEST, "no such user found");
@@ -165,6 +180,9 @@ public class FeedController {
 
     @GetMapping("/allCommentsForPost")
     public ResponseEntity<Object> getAllCommentsForPost(@RequestParam Long postId) {
+        if (postId == null)
+            return ResponseHandler.generateResponse("empty requestParams", HttpStatus.BAD_REQUEST, new ArrayList<Post>());
+
         try {
             if (!postServiceImpl.postExists(postId)) {
                 return ResponseHandler.generateResponse(HttpStatus.BAD_REQUEST, "no such post found");
@@ -180,13 +198,14 @@ public class FeedController {
 
     @PostMapping("/createComment/{postId}")
     public ResponseEntity<Object> createComment(@RequestParam String userName, @PathVariable Long postId, @RequestParam String commentData) {
-        Integer userId = userName.hashCode();
-
-        if(!postServiceImpl.postExists(postId))
-            return ResponseHandler.generateResponse("Invalid PostID, no such post exists", HttpStatus.BAD_REQUEST);
+        if (userName.isBlank() || postId == null)
+            return ResponseHandler.generateResponse("empty requestParams", HttpStatus.BAD_REQUEST);
 
         try {
-            if (!userServiceImpl.existsById(userId)) {
+            if(!postServiceImpl.postExists(postId))
+                return ResponseHandler.generateResponse("Invalid PostID, no such post exists", HttpStatus.BAD_REQUEST);
+
+            if (!userServiceImpl.userExists(userName)) {
                 userServiceImpl.createNewUser(userName);
             }
             Comment newComment = commentServiceImpl.createComment(userName, postId, commentData);
@@ -198,9 +217,11 @@ public class FeedController {
     }
 
 
-
     @DeleteMapping("/deleteComment/{commentId}")
     public ResponseEntity<Object> deleteComment(@PathVariable Long commentId) {
+        if (commentId == null)
+            return ResponseHandler.generateResponse("empty requestParams", HttpStatus.BAD_REQUEST);
+
         try {
             if (!commentServiceImpl.commentExists((commentId)))
                 return ResponseHandler.generateResponse("No such Comment exists", HttpStatus.BAD_REQUEST);
@@ -221,6 +242,9 @@ public class FeedController {
 
     @GetMapping("/allLikesByUser")
     public ResponseEntity<Object> getAllLikesByUser(@RequestParam String userName) {
+        if(userName.isBlank())
+            return ResponseHandler.generateResponse("empty requestParams", HttpStatus.BAD_REQUEST, new ArrayList<Post>());
+
         try {
             if (!userServiceImpl.userExists(userName)) {
                 return ResponseHandler.generateResponse("no such user found", HttpStatus.OK, new ArrayList<>());
@@ -236,10 +260,13 @@ public class FeedController {
 
     @PostMapping("/createLike/{postId}")
     public ResponseEntity<Object> createLike(@RequestBody String userName, @PathVariable Long postId) {
-        if(!postServiceImpl.postExists(postId))
-            return ResponseHandler.generateResponse(HttpStatus.BAD_REQUEST, "no such Post found");
+        if (userName.isBlank() || postId == null)
+            return ResponseHandler.generateResponse("empty requestParams", HttpStatus.BAD_REQUEST);
 
         try {
+            if(!postServiceImpl.postExists(postId))
+                return ResponseHandler.generateResponse(HttpStatus.BAD_REQUEST, "no such Post found");
+
             if (!userServiceImpl.userExists(userName)) {
                 userServiceImpl.createNewUser(userName);
             }
@@ -255,6 +282,9 @@ public class FeedController {
 
     @GetMapping("/getLikes")
     public ResponseEntity<Object> getLikesForPost(@RequestParam Long postId) {
+        if (postId == null)
+            return ResponseHandler.generateResponse("empty requestParams", HttpStatus.BAD_REQUEST);
+
         try {
             if (!postServiceImpl.postExists((postId)))
                 return ResponseHandler.generateResponse("No such post exists", HttpStatus.BAD_REQUEST);
@@ -269,6 +299,9 @@ public class FeedController {
 
     @PutMapping("/updateComment/{commentId}")
     public ResponseEntity<Object> updateComment(@PathVariable Long commentId, @RequestBody String commentBody) {
+        if (commentId == null || commentBody.isBlank())
+            return ResponseHandler.generateResponse("empty requestParams", HttpStatus.BAD_REQUEST, new ArrayList<Post>());
+
         try {
             if (!commentServiceImpl.commentExists((commentId)))
                 return ResponseHandler.generateResponse("No such post exists", HttpStatus.BAD_REQUEST);
