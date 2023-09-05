@@ -9,19 +9,125 @@
 	padding: 1em; 
 }
 
+.navBar {
+	padding: 0;
+	margin: 0;
+	list-style: none;
+	position: relative;
+	background-color: #BC4B51;
+}
+
+.navItem {
+	display:inline-block;
+}
+
+.navItem a {
+	display:block;
+	padding:0 10px;	
+	color:#FFF;
+	font-size:20px;
+	line-height: 60px;
+	text-decoration:none;
+}
+
+.navItem ul {
+	display: none;
+	position: absolute; 
+	top: 60px; /* the height of the main nav */
+}
+
+.navItem:hover ul {
+	display: inherit;
+}
+
+.navItem .navBar .navItem {
+	width:170px;
+	float:none;
+	display:list-item;
+	position: relative;
+}
+
+nav a:hover { 
+	background-color: #000000; 
+}
+
+/* .navItem {
+	white-space: nowrap;
+	margin-right: 1rem;
+	padding-left: 0.75rem;
+	padding-right: 0.75rem;	
+	flex-basis: 2rem;
+	color: white;
+} */
+
+.Card {
+	padding: 1rem; background-color: black; color: white;
+	position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+	border-radius: 0.5rem;
+	margin: 1 rem;
+}
+
 .post-form {
-	border: 2px solid red; 
-	background-color: orange;
+	border: 2px solid #BC4B51; 
+	background-color: #F4A259;
 	border-radius: 1.5em;
 }
 
 .postCard {
+	background-color: #F4A259;
 	border-radius: 2.5em;
+	margin: 0; 
+	padding: 0;
+}
+
+.commentCard {
+	background-color: #F4E285;
+}
+
+.quoteBox {
+	padding-left: 1em;
+	padding-right: 1em;
+	text-align: center;
+	margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+	background-color: #F4E285;
+	border-radius: 1.5rem;
+	border: 2px solid #BC4B51;
+}
+
+.quote {
+	margin-top: 0.5rem;
+	margin-bottom: 1rem;
+    font-size: 1.25rem;
+	padding: 1rem;
+}
+
+.quoteText {
+	margin-bottom: 3rem;
+	font-family: 'Pacifico', cursive;
+}
+
+.quoteAuthor {
+	margin-top: -1rem;
+	margin-bottom: 0;
+	text-transform: uppercase;
+	font-style: italic;
+}
+
+.secondaryColor {
+	background-color: #F4E285;
+}
+
+.primaryColor {
+	background-color: #F4A259;
 }
 
 .feed {
 	height: 100%;
-	background-color: burlywood;
+	background-color: #f4efd9;
 }
 	
 .postUser {

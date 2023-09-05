@@ -4,6 +4,10 @@ angular.module("feedApp").service("feedService", ["$http","$rootScope", function
 
     return {
 
+        getLoggedUserName : function() {
+            return "AkhilK";
+        },
+
         getQuote: function() {
             return $http
                 .get("https://api.quotable.io/quotes/random?tags=technology|famous-quotes|character|courage|failure|future|history|leadership|mathematics|perseverance|power-quotes|science|success|wisdom", {

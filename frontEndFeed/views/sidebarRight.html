@@ -1,13 +1,13 @@
 <div ng-controller="sideBarController" ng-init="init()">
-    <div class="row first-card mx-0">
-        <div class="card bg-danger card-hover mb-9">
-            <div class="card-body text-center px-md-3 px-lg-4 my-2">
-                <div class="card-icon-border-large border-danger mtn-80">
-                    <i class="fa fa-quote-left text-danger" aria-hidden="true"></i>
-                </div>
-                <blockquote class="blockquote blockquote-sm mt-2">
-                    <p class="font-normal mb-5"> {{quote.content}} </p>
-                    <footer class="blockquote-footer text-uppercase text-white fst-italic"> <cite>{{quote.author}}</cite></footer>
+    <div class="row first-card" style="margin-left: 0; margin-right: 0;">
+        <div class="quoteBox">
+            <div>
+                <!-- <div>
+                    <i class="fa fa-quote-left" aria-hidden="true"></i>
+                </div> -->
+                <blockquote class="quote">
+                    <p class="quoteText"> {{quote.content}} </p>
+                    <footer class="quoteAuthor"> <cite> - {{quote.author}}</cite></footer>
                 </blockquote>
             </div>
         </div>
