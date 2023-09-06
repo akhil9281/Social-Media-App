@@ -1,30 +1,51 @@
-<div class="row card border-warning container" style="margin: 0; padding: 0; border-left: 0; border-right: 0;">
+<div class="row card container" style="margin: 0; padding: 0; border-left: 0; border-right: 0;">
     <div class="col">
         
-        <div class="row">
-            <div class="card-header container-space-between">
-                <div class="row">
-                    <div class="col-6 postUser d-flex align-items-baseline">
+        <div class="row commentCard">
+            <div class="commentHeader container-space-between">
+                <div class="commentUser">
+                    <!-- <div class="col-6 postUser d-flex align-items-baseline"> -->
                         <span class="material-symbols-outlined">
                                 account_box 
                         </span>
-                        <span class="align-self-start"> &nbsp; {{comment.createdBy}} </span>
-                    </div>
+                        <i> {{comment.createdBy}} </i>
+                    <!-- </div> -->
                 </div>
+
+                <div class="navItem" >
+                    <div class="dots">
+                        <span class="material-symbols-outlined">
+                            more_horiz
+                        </span>
+                        <ul class="navBar">
+                            <li class="navItem">
+                                <div style="padding: 6px;" ng-click="edit()">
+                                    Edit
+                                </div>
+                            </li>
+
+                            <li class="navItem">
+                                <div style="padding: 6px;" ng-click="delete()">
+                                    Delete
+                                </div>
+                            </li>
+                        </ul>
+                    </div>                        
+                </div>  
             </div>
-            <div class="card-body">
+            <div class="commentBody">
                 <p id="content" class="card-text">
-                    &nbsp;&nbsp;{{comment["body"]}}
+                    {{comment["body"]}}
                 </p>
             </div>
-            <div class="card-footer container">
-                <div class="d-flex justify-content-around" style="margin: 0;">
-                    <div class="col">                     
+            <!-- <div class="commentFooter container">
+                <div class="d-flex justify-content-around" >
+                    <div class="col" style="margin: 0;">                     
                         <button class="btn btn-outline-primary" type="button" id="editButton" ng-click="showEditForm = !showEditForm;">
                             Edit
                         </button>
                     </div>
-                    <!-- <div class="col-6"></div> -->
+                    <div class="col-6"></div>
                     <div class="col-3">   
                         <div class="row align-end">             
                             <button class="btn btn-danger" ng-click="deleteComment()">
@@ -33,7 +54,7 @@
                         </div>  
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
 
         <div class="row" id="commentsFeed" ng-show="showEditForm">

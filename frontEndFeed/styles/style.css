@@ -9,6 +9,10 @@
 	padding: 1em; 
 }
 
+nav .navItem {
+	font-family: 'Acme', sans-serif;
+}
+
 .navBar {
 	padding: 0;
 	margin: 0;
@@ -19,6 +23,17 @@
 
 .navItem {
 	display:inline-block;
+}
+
+.navItem button {
+	border: 0;
+	width: 100%;
+	display: inline-block;
+	padding:0 10px;	
+	color:#FFF;
+	text-decoration:none;
+	border-radius: 0.85rem;
+	background-color: #BC4B51;
 }
 
 .navItem a {
@@ -41,7 +56,7 @@
 }
 
 .navItem .navBar .navItem {
-	width:170px;
+	width:auto;
 	float:none;
 	display:list-item;
 	position: relative;
@@ -85,20 +100,255 @@ nav a:hover {
 }
 
 .post-form {
-	border: 2px solid #BC4B51; 
+	border: 1.7px solid black; 
 	background-color: #F4A259;
 	border-radius: 1.5em;
 }
 
 .postCard {
 	background-color: #F4A259;
-	border-radius: 2.5em;
+	margin: 0; 
+	padding: 0;
+	border: none;
+	border-top-left-radius: 0.5rem !important;
+	border-top-right-radius: 0.5rem !important;
+}
+
+.postCard .postHeader .col{
+	display: flex;
+	align-items: start;
+	justify-content: space-between;
+}
+	
+.postUser {
+	display: inline-flex;
+	align-items: start;
+	size: 1.5rem;
+	
+}
+
+.postUser .material-symbols-outlined {
+	font-variation-settings:
+  'FILL' 1
+}
+
+.postUser i {
+	font-family: 'Dekko', cursive;
+	font-size: 1.2rem;
+}
+
+.postCard .postType {
+	border-radius: 1rem;
+	min-width: 4rem;
+}
+
+.postType button {
+	border-radius: 1rem;
+	min-width: 4rem;
+	max-height: 1.5rem;
+	left: 5rem;
+	font-family: 'Caesar Dressing', cursive;
+}
+
+.postCard .postFooter .col {
+	display: flex;
+	align-items: start;
+	justify-content: space-between;
+	margin: 0 0.5rem !important;
+}
+
+.postHeader {
+	margin-bottom: 0;
+	padding: 0.5rem 1rem;
+	display: flex;
+	justify-content: space-between;
+	align-items: end;
+}
+
+.postBody {
+	flex: 1 1 auto;
+	background-color: white;
+	padding: 1rem 1.5rem !important;
+	
+}
+
+.postCard .navItem .dots{
+	max-height: 24px;
+	position: static;
+}
+
+.dots .material-symbols-outlined {
+	font-variation-settings:
+  'FILL' 0,
+  'wght' 700,
+  'GRAD' 50,
+  'opsz' 48;
+}
+
+.postCard .navItem div {
+	display:block;
+	padding:0 10px;	
+	color:#FFF;
+	font-size:20px;
+	text-decoration:none;
+}
+
+.postCard .navItem ul {
+	display: none;
+	position:relative; 
+	border-radius: 0.85rem;
+	top: 0 !important;  /*the height of the main nav */
+}
+
+.postCard .navItem:hover ul {
+	display: inherit;
+}
+
+.postCard .navItem .navBar .navItem {
+	width:auto;
+	display:list-item;
+}
+
+.textBox {
+	background-color: #F4E285;
+	border-radius: 0.5rem;
+	/* padding-top: 0.5rem; */
+}
+
+.textBox button {
+	text-shadow: #BC4B51;
+	border: none;
+	padding: 0.25rem 0.75rem;
+	background-color: #F4A259;
+	margin: 0.5rem 0;
+	border-radius: 0.5rem;
+	font-family: 'Metal Mania', cursive;
+	color: black;
+}
+
+.textBox button:hover {
+	text-shadow: black;
+	color: #BC4B51;
+	background-color: #000000;
+}
+
+.commentForm {
+	margin: 0 !important;
+	padding: 0 !important;
+	background-color: #F4A259;
+}
+
+
+.commentFormFooter {
+	justify-content: flex-end !important;
+	padding: 0.5rem!important;
+	margin: 0 0 0.5rem 0 !important;
+}
+
+.postFooter {
+	padding: 0 !important;
+	margin: 0 1rem;
+	border-bottom-left-radius: 0.5rem;	
+	border-bottom-right-radius: 0.5rem;
+}
+
+.postFooter .navItem {
+	text-align: center;
+}
+
+div .row.card.container {
+	border-bottom-left-radius: 0.5rem;	
+	border-bottom-right-radius: 0.5rem;
+}
+
+
+.commentCard {
+	background-color: #F4E285;
 	margin: 0; 
 	padding: 0;
 }
 
-.commentCard {
-	background-color: #F4E285;
+
+.likeButton {
+	display: inline-block;
+	text-align: center;
+    text-decoration: none;
+    vertical-align: middle;
+	border: none;
+	padding: 0.5rem;
+	background-color: #F4A259;
+	color: red;
+	align-items: baseline;
+	
+}
+
+.commentButton {
+	display: inline-block;
+	text-align: center;
+    text-decoration: none;
+    vertical-align: middle;
+	border: none;
+	padding: 0.5rem;
+	background-color: #F4A259;
+	color: red;
+}
+
+ .material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 500,
+  'GRAD' 40,
+  'opsz' 48;
+}
+
+.material-symbols-outlined:hover{
+	font-variation-settings:
+  'FILL' 1
+}
+
+.commentHeader {
+	margin-bottom: 0;
+	padding: 0.5rem 1rem;
+	display: flex;
+	justify-content: space-between;
+	align-items: end;
+}
+
+.commentUser {
+	display: inline-flex;
+	align-items: start;
+	size: 1.5rem;
+	
+}
+
+.commentUser .material-symbols-outlined {
+	font-variation-settings:
+  'FILL' 1
+}
+
+.commentUser i {
+	font-family: 'Dekko', cursive;
+	font-size: 1.2rem;
+}
+
+.commentBody {
+	flex: 1 1 auto;
+	background-color: white;
+	padding: 1rem 1.5rem !important;
+	
+}
+
+.commentFooter {
+	padding: 0 !important;
+	margin: 0 1rem;
+	border-bottom-left-radius: 0.5rem;	
+	border-bottom-right-radius: 0.5rem;
+}
+
+.commentFooter .col {
+	display: flex;
+	align-items: start;
+	justify-content: space-between;
 }
 
 .quoteBox {
@@ -109,7 +359,7 @@ nav a:hover {
     margin-bottom: 0.5rem;
 	background-color: #F4E285;
 	border-radius: 1.5rem;
-	border: 2px solid #BC4B51;
+	border: 1.8px solid black;
 }
 
 .quote {
@@ -128,6 +378,7 @@ nav a:hover {
 	margin-top: -1rem;
 	margin-bottom: 0;
 	text-transform: uppercase;
+	font-family: 'Aladin', cursive;
 	font-style: italic;
 }
 
@@ -143,10 +394,6 @@ nav a:hover {
 	height: 100%;
 	background-color: #f4efd9;
 }
-	
-.postUser {
-	size: 1.5em;
-}
 
 .card-header {
 	size: 1em;
@@ -161,10 +408,6 @@ nav a:hover {
 }
 .p-0 {
 	padding: 0;
-}
-
-.bg-secondary-fade {
-	background: cornflowerblue; 
 }
 
 ul {
