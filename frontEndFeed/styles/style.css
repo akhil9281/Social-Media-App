@@ -47,6 +47,20 @@
 	position: relative;
 }
 
+.navSearch {
+	left: 100px;
+}
+
+.navSearch form input {
+	border-radius: 1rem;
+	min-height: 2rem;
+}
+
+.navSearch form button {
+	border-radius: 1rem;
+	width: 5rem;
+}
+
 nav a:hover { 
 	background-color: #000000; 
 }
