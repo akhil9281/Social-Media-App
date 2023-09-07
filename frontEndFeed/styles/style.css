@@ -89,6 +89,10 @@ nav a:hover {
 	color: white;
 } */
 
+.main-bar post-card .shadow {
+	box-shadow: -2px 3px 9px 1px #ffb907 !important;
+}
+
 .Card {
 	padding: 1rem; background-color: black; color: white;
 	position: relative;
@@ -179,10 +183,17 @@ nav a:hover {
 
 .dots .material-symbols-outlined {
 	font-variation-settings:
-  'FILL' 0,
-  'wght' 700,
-  'GRAD' 50,
-  'opsz' 48;
+  	'FILL' 0,
+  	'wght' 700,
+  	'GRAD' 50,
+  	'opsz' 48;
+	position: static;
+}
+
+.dots .navBar {
+	top: 30px;
+	text-align: center;
+	
 }
 
 .postCard .navItem div {
@@ -312,6 +323,7 @@ div .row.card.container {
 	display: flex;
 	justify-content: space-between;
 	align-items: end;
+	max-height: 50px;
 }
 
 .commentUser {

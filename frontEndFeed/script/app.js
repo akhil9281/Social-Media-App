@@ -13,11 +13,15 @@ myApp.config(['$routeProvider', '$locationProvider', ($routeProvider, $locationP
         templateUrl: 'views/feed.html'/* ,
         controller: 'feedController' */
     })
-    .when('/post', {
+    .when('/posts', {
         templateUrl: 'views/getUserPosts.html',
         controller: 'getUserPostController'
     })
-    .when('/like', {
+    .when('/questions', {
+        templateUrl: 'views/getUserQuestions.html',
+        controller: 'getUserQuestionController'
+    })
+    .when('/likes', {
         templateUrl: 'views/getLike.html',
         controller: 'getLikeController'
     })

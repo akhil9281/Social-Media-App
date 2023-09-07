@@ -102,6 +102,45 @@ angular.module("feedApp").service("feedService", ["$http","$rootScope", function
                 });
         },
 
+        getQuestionsByUser: function(username) {
+            return $http
+                .get(baseUrl + "/allQuestionsByUser", {
+                    cache: false,
+                    params: {
+                        userName: username
+                    }
+                })
+                .then(function (response) {
+                    console.log(response.data);
+                    console.log("successfully FOUND the Feed Data");
+                    return response.data;
+                })
+                .catch(function(error) {
+                    if (error.response) {
+                        if (error.response.status === 500) {
+                          console.error("Unable to get Comments due to Internal Error", error);
+                          alert("Unable to get Comments due to Internal Error");
+                        }
+                        else if (error.response.status === 400) {
+                            console.error("Bad Request, no such post exists");
+                            alert("Bad Request, no such post exists");
+                        }
+                        else {
+                            console.error("An error occurred while getting Comments", error);
+                            alert("An error occurred while getting Comments");
+                        }
+                    } 
+                    else if (error.request) {
+                        console.error("No response received from the server.", error);
+                        alert("No response received from the server.");
+                    } 
+                    else {
+                        console.error("An error occurred while making the request.", error);
+                         
+                    }
+                });
+        },
+
         addPost: function(post) {
             return $http
                 .post(baseUrl + "/createPost?userName=" + post.userName + "&postType=" + post.postType + "&postData="+ post.postData)

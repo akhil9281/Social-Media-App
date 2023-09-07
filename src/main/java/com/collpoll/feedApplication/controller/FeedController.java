@@ -77,6 +77,24 @@ public class FeedController {
         }
     }
 
+    @GetMapping("/allQuestionsByUser")
+    public ResponseEntity<Object> getAllQuestionsByUser(@RequestParam String userName) {
+        if(userName.isBlank())
+            return ResponseHandler.generateResponse(ErrorMessage.Error400.toString(), HttpStatus.BAD_REQUEST, new ArrayList<Post>());
+
+        try {
+            if (!userServiceImpl.userExists(userName)) {
+                return ResponseHandler.generateResponse("No such User found", HttpStatus.OK, new ArrayList<Post>());
+            }
+            List<Post> allPostsByUser = postServiceImpl.getAllQuestionsByUser(userName);
+            return ResponseHandler.generateResponse("List of all the Questions by user - " + userName, HttpStatus.OK, allPostsByUser);
+        }
+
+        catch (Exception e) {
+            return ResponseHandler.generateResponse(ErrorMessage.Error500.toString(), HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), e.getCause());
+        }
+    }
+
     @PostMapping("/createPost")
     public ResponseEntity<Object> createPost(@RequestParam String userName, @RequestParam PostType postType, @RequestParam String postData) {
         if (userName.isBlank() || postType == null || postData.isBlank())

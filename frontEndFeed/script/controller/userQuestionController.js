@@ -1,7 +1,7 @@
 angular.module("feedApp")
-.controller("getLikeController", ['feedService', '$scope', function(feedService, $scope) {
+.controller("getUserQuestionController", ['feedService', '$scope', function(feedService, $scope) {
 
-    $scope.userLikedfeed = [];
+    $scope.userPostFeed = [];
     $scope.isLoading = false;
     $scope.zeroPost = false;
 
@@ -9,12 +9,12 @@ angular.module("feedApp")
 
     };
 
-    $scope.getPostsLikedByUser = function(userName) {
+    $scope.getPostsByUser = function(userName) {
         $scope.isLoading = true;
-        feedService.likesByUser(userName)
+        feedService.getQuestionsByUser(userName)
         .then(function(value) {
-            $scope.userLikedfeed = [];
-            $scope.userLikedfeed = value.data[0];
+            $scope.userPostFeed = [];
+            $scope.userPostFeed = value.data[0];
             $scope.isLoading = false;
             if (value.data[0].length == 0) {
                 $scope.zeroPost = true;
@@ -23,6 +23,6 @@ angular.module("feedApp")
                 $scope.zeroPost = false;
             }
         })
-    };
+    }
 
 }])

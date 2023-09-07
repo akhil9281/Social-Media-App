@@ -18,6 +18,8 @@ public interface PostRepo extends JpaRepository<Post, Long> {
 
     List<Post> findAllByCreatedByIdOrderByCreatedAtDesc(Integer userId);
 
+    List<Post> findAllByCreatedByIdAndTypeOrderByCreatedAtDesc(Integer userId, PostType type);
+
     List<Post> findAllByType(PostType postType);
 }
 

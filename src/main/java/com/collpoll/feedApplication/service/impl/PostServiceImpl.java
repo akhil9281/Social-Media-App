@@ -56,7 +56,14 @@ public class PostServiceImpl implements IPostService {
     public List<Post> getAllPostsByUser(String userName) {
         Integer userId = userName.hashCode();
 
-        List<Post> allPosts = postRepo.findAllByCreatedByIdOrderByCreatedAtDesc(userId);
+        List<Post> allPosts = postRepo.findAllByCreatedByIdAndTypeOrderByCreatedAtDesc(userId, PostType.Post);
+        return allPosts;
+    }
+
+    public List<Post> getAllQuestionsByUser(String userName) {
+        Integer userId = userName.hashCode();
+
+        List<Post> allPosts = postRepo.findAllByCreatedByIdAndTypeOrderByCreatedAtDesc(userId, PostType.Question);
         return allPosts;
     }
 
