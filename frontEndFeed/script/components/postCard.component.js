@@ -87,8 +87,13 @@ angular.module("feedApp")
                 };
 
                 $scope.delete = function() {
-                    console.log("in postCard delete");
+                    if ($scope.post.createdBy === feedService.getLoggedUserName()) {
+                        console.log("in postCard delete");
                     feedService.deletePost($scope.post.id);
+                    }
+                    else {
+                        alert("Unaurthorised to delete Post");
+                    }
                 };
                 
             }]

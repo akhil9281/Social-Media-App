@@ -18,7 +18,8 @@ nav .navItem {
 	margin: 0;
 	list-style: none;
 	position: relative;
-	background-color: #BC4B51;
+	background-color: rgba(255, 255, 255, 0.774);
+	z-index: 5;
 }
 
 .navItem {
@@ -39,10 +40,11 @@ nav .navItem {
 .navItem a {
 	display:block;
 	padding:0 10px;	
-	color:#FFF;
+	color: black;
 	font-size:20px;
 	line-height: 60px;
 	text-decoration:none;
+	
 }
 
 .navItem ul {
@@ -77,7 +79,8 @@ nav .navItem {
 }
 
 nav a:hover { 
-	background-color: #000000; 
+	background-color: #000000;
+	color: #fff;
 }
 
 /* .navItem {
@@ -94,7 +97,9 @@ nav a:hover {
 }
 
 .Card {
-	padding: 1rem; background-color: black; color: white;
+	padding: 1rem; 
+	background-color: #f4efd9; 
+	color: black;
 	position: relative;
     display: flex;
     flex-direction: column;
@@ -103,14 +108,16 @@ nav a:hover {
 	margin: 1 rem;
 }
 
+.Card .postFooter {
+	display: none;
+}
+
 .post-form {
-	border: 1.7px solid black; 
-	background-color: #F4A259;
 	border-radius: 1.5em;
 }
 
 .postCard {
-	background-color: #F4A259;
+	background-color: #D8FFE5;
 	margin: 0; 
 	padding: 0;
 	border: none;
@@ -221,16 +228,16 @@ nav a:hover {
 }
 
 .textBox {
-	background-color: #F4E285;
+	
 	border-radius: 0.5rem;
 	/* padding-top: 0.5rem; */
 }
 
 .textBox button {
-	text-shadow: #BC4B51;
+	/* text-shadow: #BC4B51; */
 	border: none;
 	padding: 0.25rem 0.75rem;
-	background-color: #F4A259;
+	background-color: #C1C8E4;
 	margin: 0.5rem 0;
 	border-radius: 0.5rem;
 	font-family: 'Metal Mania', cursive;
@@ -245,8 +252,9 @@ nav a:hover {
 
 .commentForm {
 	margin: 0 !important;
-	padding: 0 !important;
-	background-color: #F4A259;
+	padding: 0.5rem !important;
+	background-color: #D8FFE5;
+	/* border-radius: 1rem; */
 }
 
 
@@ -274,7 +282,7 @@ div .row.card.container {
 
 
 .commentCard {
-	background-color: #F4E285;
+	background-color: #eaccee;
 	margin: 0; 
 	padding: 0;
 }
@@ -287,7 +295,7 @@ div .row.card.container {
     vertical-align: middle;
 	border: none;
 	padding: 0.5rem;
-	background-color: #F4A259;
+	background-color: #D8FFE5;
 	color: red;
 	align-items: baseline;
 	
@@ -300,7 +308,7 @@ div .row.card.container {
     vertical-align: middle;
 	border: none;
 	padding: 0.5rem;
-	background-color: #F4A259;
+	background-color: #D8FFE5;
 	color: red;
 }
 
@@ -369,9 +377,9 @@ div .row.card.container {
 	text-align: center;
 	margin-top: 0.5rem;
     margin-bottom: 0.5rem;
-	background-color: #F4E285;
+	background-color: #eaccee;
 	border-radius: 1.5rem;
-	border: 1.8px solid black;
+	border: none;
 }
 
 .quote {
@@ -395,11 +403,11 @@ div .row.card.container {
 }
 
 .secondaryColor {
-	background-color: #F4E285;
+	background-color: #F4E285, #D8FFE5, #C8E4C1;
 }
 
 .primaryColor {
-	background-color: #F4A259;
+	background-color: #F4A259, #CAB1FF, #C1C8E4, #d8fbff;
 }
 
 .feed {
@@ -426,7 +434,7 @@ ul {
 	list-style-type: none;
 } 
 
-.material-symbols-outlined sad{
+.material-symbols-outlined .sad{
   font-variation-settings:
   'FILL' 0,
   'wght' 400,
@@ -434,24 +442,66 @@ ul {
   'opsz' 50
 }
 
-  
-/* .infy-img {
-	overflow: hidden;
-	height: 600px;
+.form-check {
+	padding: 0 0.75rem !important;
 }
+
+.styled-checkbox {
+	position: absolute; /* take it out of document flow */
+	opacity: 0; /* hide it */
   
-.sliding-background {
-	--imageHeight: 900px;
-	background: url("https://images.fineartamerica.com/images/artworkimages/mediumlarge/2/a-dramatic-image-of-a-tall-tree-sitting-against-moody-skies-in-the-background-with-blue-and-yellow-tones-chris-cook.jpg") repeat-y;
-	height: calc(var(--imageHeight) * 2);
-	animation: slideInfy 4s linear infinite;
-}
+	& + label {
+	  position: relative;
+	  cursor: pointer;
+	  padding: 0;
+	}
   
-@keyframes slideInfy { 
-	from {
-		transform: translateY(0px);
+	/* Box. */
+	& + label:before {
+	  content: '';
+	  margin-right: 10px;
+	  display: inline-block;
+	  vertical-align: text-top;
+	  width: 20px;
+	  height: 20px;
+	  background: white;
 	}
-	to {
-		transform: translateY(calc(var(--imageHeight) * -1));
+  
+	/* Box hover */
+	&:hover + label:before {
+	  background: #f35429;
 	}
-} */
+	
+	/* Box focus */
+	&:focus + label:before {
+	  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.12);
+	}
+  
+	/* Box checked */
+	&:checked + label:before {
+	  background: #f35429;
+	}
+	  
+	/* Checkmark. Could be replaced with an image */
+	&:checked + label:after {
+	  content: '';
+	  position: absolute;
+	  left: 5px;
+	  top: 9px;
+	  background: white;
+	  width: 2px;
+	  height: 2px;
+	  box-shadow: 
+		2px 0 0 white,
+		4px 0 0 white,
+		4px -2px 0 white,
+		4px -4px 0 white,
+		4px -6px 0 white,
+		4px -8px 0 white;
+	  transform: rotate(45deg);
+	}
+  }
+
+  .styled-checkbox:hover + lable:before {
+	background-color: magenta !important;
+  }

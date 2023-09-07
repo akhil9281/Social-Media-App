@@ -19,15 +19,19 @@
                         </span>
                         <ul class="navBar" >
                             <li class="navItem">
-                                <div style="padding: 6px;" ng-click="edit()">
-                                    Edit
-                                </div>
+                                <button ng-click="edit()">
+                                    <div style="padding: 6px;">
+                                        Edit
+                                    </div>
+                                </button>
                             </li>
 
                             <li class="navItem">
-                                <div style="padding: 6px;" ng-click="delete()">
-                                    Delete
-                                </div>
+                                <button  ng-click="deleteComment()">
+                                    <div style="padding: 6px;">
+                                        Delete
+                                    </div>
+                                </button>
                             </li>
                         </ul>
                     </div>                        
@@ -58,7 +62,7 @@
         </div>
 
         <div class="row" id="commentsFeed" ng-show="showEditForm">
-            <div class="bg-info-subtle">
+            <div style="background-color: #eaccee;">
                 <form class="textBox" name="editForm" novalidate>
                     
                     <input style="margin-left: 10px;" type="text" readonly class="form-control-plaintext" id="staticUserName" value={{comment.createdBy}}>
@@ -68,7 +72,7 @@
 
                     <div class="row justify-content-flex-end">
                         <div class="col">
-                            <button type="button" class="col btn btn-danger" ng-click="; editCommentData = '';">
+                            <button type="button" class="col btn btn-danger" ng-click="showEditForm = false; editCommentData = '';">
                                 Cancel
                             </button>
                             <button type="button" class="col btn btn-warning" ng-click="updateComment(editCommentData)">                        

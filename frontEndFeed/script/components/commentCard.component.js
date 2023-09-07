@@ -16,11 +16,11 @@ angular.module("feedApp")
                 $scope.editCommentData = "";
 
                 $scope.updateComment = function(editedCommentData) {
-                    $scope.showEditForm = false;
-                    feedService.updateComment($scope.comment.id, editedCommentData)
-                        .then(function(value) {
-                            $scope.comment.body = value.body;
-                        })
+                        $scope.showEditForm = false;
+                        feedService.updateComment($scope.comment.id, editedCommentData)
+                            .then(function(value) {
+                                $scope.comment.body = value.body;
+                            })
                 };
 
                 $scope.deleteComment = function() {
@@ -30,6 +30,16 @@ angular.module("feedApp")
                         alert("Successfully deleted Comment");
                     })
                 };
+
+                $scope.edit = function() {
+                    console.log("inside log");
+                    if (feedService.getLoggedUserName() === $scope.comment.createdBy) {
+                        $scope.showEditForm = true;
+                    }
+                    else {
+                        alert("Unauthorised to update comment");
+                    }
+                }
 
 
 

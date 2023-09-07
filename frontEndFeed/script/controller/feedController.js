@@ -12,10 +12,6 @@ angular.module("feedApp")
     
 
     $scope.init = function() {
-        /* $scope.getMostLikedPost();
-        $scope.getMostDiscussedQuestion();
-        $scope.getQuote(); */
-
         if (!$scope.isLoading) {
             $scope.isLoading = true;
             $scope.feedLoadNumber = 0;
