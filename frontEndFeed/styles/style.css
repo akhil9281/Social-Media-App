@@ -236,17 +236,19 @@ nav a:hover {
 .textBox button {
 	/* text-shadow: #BC4B51; */
 	border: none;
+	font-size: 20px;
 	padding: 0.25rem 0.75rem;
-	background-color: #C1C8E4;
+	background-color: #eaccee;
 	margin: 0.5rem 0;
 	border-radius: 0.5rem;
 	font-family: 'Metal Mania', cursive;
 	color: black;
+	text-shadow: #BC4B51;
 }
 
 .textBox button:hover {
 	text-shadow: black;
-	color: #BC4B51;
+	color: #D8FFE5;
 	background-color: #000000;
 }
 
@@ -469,7 +471,7 @@ ul {
   
 	/* Box hover */
 	&:hover + label:before {
-	  background: #f35429;
+	  background: #eaccee;
 	}
 	
 	/* Box focus */
@@ -479,7 +481,7 @@ ul {
   
 	/* Box checked */
 	&:checked + label:before {
-	  background: #f35429;
+	  background: #eaccee;
 	}
 	  
 	/* Checkmark. Could be replaced with an image */
@@ -488,20 +490,26 @@ ul {
 	  position: absolute;
 	  left: 5px;
 	  top: 9px;
-	  background: white;
+	  background: black;
 	  width: 2px;
 	  height: 2px;
 	  box-shadow: 
-		2px 0 0 white,
-		4px 0 0 white,
-		4px -2px 0 white,
-		4px -4px 0 white,
-		4px -6px 0 white,
-		4px -8px 0 white;
+		2px 0 0 black,
+		4px 0 0 black,
+		4px -2px 0 black,
+		4px -4px 0 black,
+		4px -6px 0 black,
+		4px -8px 0 black;
 	  transform: rotate(45deg);
 	}
   }
 
-  .styled-checkbox:hover + lable:before {
+.textArea {
+    border-radius: 2rem !important;
+    margin: 0.25rem 0;
+    padding: 0.75rem 1.5rem !important;
+}
+
+  /* .styled-checkbox:hover + lable:before {
 	background-color: magenta !important;
-  }
+  } */

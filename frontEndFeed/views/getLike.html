@@ -6,31 +6,30 @@
                 <div ng-include="'views/sidebarLeft.html'"> </div>
             </div>
 
-            <div class="col-6 main-bar" style="display: flexbox;">
-                <!-- POST BOX -->
-                <div style="margin: 0.5em; border: 2px solid red; padding: 1em; background-color: orange; border-radius: 1.5em;">
+            <div class="col-6 main-bar container">
+
+                <div class="first-card post-form">
                     <form class="textBox" name="feedForm" novalidate>
                         <textarea class="form-control textArea" id="likeUserName" placeholder="Enter user name" ng-model="userName" rows="1"required>                           
                         </textarea>
                         
-                        <div class="row text-end" style="width: 100%; margin-left: 0.5rem; margin-right: 1rem">
-                        
+                        <div class="row mx-2" style="width: 100%;">                        
                             <!-- <div class="col-6"></div> -->
-                            <div class="col text-end pt-3">
-                                <button type="button" class="col-2 btn btn-danger" ng-click="userName = ''">
+                            <div class="col text-end">
+                                <button type="button" class="col" ng-click="userName = ''">
                                     Clear
                                 </button>
-                                <button type="button" class="col-2 btn btn-info" ng-click="getPostsLikedByUser(userName)">                        
+                                <button type="button" class="col" ng-click="getPostsLikedByUser(userName)">                        
                                     Search                            
                                 </button>
                             </div>
                         </div>
-                      </form>      
+                    </form>      
                 </div>
                 <br style="height: 25%;">
                 <!-- POST FEED -->
                 <div class="h2">
-                    <span>&nbsp; &nbsp; All Posts Liked by the User - &nbsp; <strong>{{userName}}</strong> : </span>
+                    <span style="font-family: 'Gluten', cursive;">&nbsp; &nbsp; All Posts Liked by the User - &nbsp; <strong>{{userName}}</strong> : </span>
                 </div>
                 <div>
                     <ul class="hide" ng-repeat="post in userLikedfeed track by post.id">

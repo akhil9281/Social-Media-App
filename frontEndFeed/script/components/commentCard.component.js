@@ -20,15 +20,76 @@ angular.module("feedApp")
                         feedService.updateComment($scope.comment.id, editedCommentData)
                             .then(function(value) {
                                 $scope.comment.body = value.body;
+
+                                toastr.options = {
+                                    "closeButton": true,
+                                    "debug": false,
+                                    "newestOnTop": true,
+                                    "progressBar": true,
+                                    "positionClass": "toast-top-right",
+                                    "preventDuplicates": false,
+                                    "onclick": null,
+                                    "showDuration": "300",
+                                    "hideDuration": "1000",
+                                    "timeOut": "5000",
+                                    "extendedTimeOut": "1000",
+                                    "showEasing": "swing",
+                                    "hideEasing": "linear",
+                                    "showMethod": "fadeIn",
+                                    "hideMethod": "fadeOut"
+                                }
+                                toastr["success"]("Successfully to updated the Comment", "AkhilK says - ");
                             })
                 };
 
                 $scope.deleteComment = function() {
-                    feedService.deleteComment($scope.comment.id)
-                    .then(function(value) {
-                        $scope.$parent.getComments();
-                        alert("Successfully deleted Comment");
-                    })
+                    if (feedService.getLoggedUserName() === $scope.comment.createdBy) {
+                        feedService.deleteComment($scope.comment.id)
+                        .then(function(value) {
+                            toastr.options = {
+                                "closeButton": true,
+                                "debug": false,
+                                "newestOnTop": true,
+                                "progressBar": true,
+                                "positionClass": "toast-top-right",
+                                "preventDuplicates": false,
+                                "onclick": null,
+                                "showDuration": "300",
+                                "hideDuration": "1000",
+                                "timeOut": "5000",
+                                "extendedTimeOut": "1000",
+                                "showEasing": "swing",
+                                "hideEasing": "linear",
+                                "showMethod": "fadeIn",
+                                "hideMethod": "fadeOut"
+                              }
+                            toastr["success"]("Successfully to deleted the Comment", "AkhilK says - ");
+                            $scope.$parent.getComments();
+                            console.log("Successfully deleted Comment");
+                        })
+                    }
+                    else {
+                        toastr.options = {
+                            "closeButton": true,
+                            "debug": false,
+                            "newestOnTop": true,
+                            "progressBar": true,
+                            "positionClass": "toast-top-right",
+                            "preventDuplicates": false,
+                            "onclick": null,
+                            "showDuration": "300",
+                            "hideDuration": "1000",
+                            "timeOut": "5000",
+                            "extendedTimeOut": "1000",
+                            "showEasing": "swing",
+                            "hideEasing": "linear",
+                            "showMethod": "fadeIn",
+                            "hideMethod": "fadeOut"
+                        }
+                          
+                        toastr.error("Unauthorised to delete the Comment!", "AkhilK says - ");
+                        console.log("Unauthorised to delete the comment");
+                    }
                 };
 
                 $scope.edit = function() {
@@ -37,7 +98,26 @@ angular.module("feedApp")
                         $scope.showEditForm = true;
                     }
                     else {
-                        alert("Unauthorised to update comment");
+                        toastr.options = {
+                            "closeButton": true,
+                            "debug": false,
+                            "newestOnTop": true,
+                            "progressBar": true,
+                            "positionClass": "toast-top-right",
+                            "preventDuplicates": false,
+                            "onclick": null,
+                            "showDuration": "300",
+                            "hideDuration": "1000",
+                            "timeOut": "5000",
+                            "extendedTimeOut": "1000",
+                            "showEasing": "swing",
+                            "hideEasing": "linear",
+                            "showMethod": "fadeIn",
+                            "hideMethod": "fadeOut"
+                        }
+                          
+                        toastr.error("Unauthorised to update Comment!", "AkhilK says - ");
+                        console.log("Unauthorised to update comment");
                     }
                 }
 

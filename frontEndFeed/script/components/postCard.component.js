@@ -89,10 +89,49 @@ angular.module("feedApp")
                 $scope.delete = function() {
                     if ($scope.post.createdBy === feedService.getLoggedUserName()) {
                         console.log("in postCard delete");
-                    feedService.deletePost($scope.post.id);
+                        feedService.deletePost($scope.post.id)
+                            .then(function(value) {
+                                toastr.options = {
+                                    "closeButton": true,
+                                    "debug": false,
+                                    "newestOnTop": true,
+                                    "progressBar": true,
+                                    "positionClass": "toast-top-right",
+                                    "preventDuplicates": false,
+                                    "onclick": null,
+                                    "showDuration": "300",
+                                    "hideDuration": "1000",
+                                    "timeOut": "5000",
+                                    "extendedTimeOut": "1000",
+                                    "showEasing": "swing",
+                                    "hideEasing": "linear",
+                                    "showMethod": "fadeIn",
+                                    "hideMethod": "fadeOut"
+                                }
+                                toastr["success"]("Successfully to deleted the Post", "AkhilK says - ")
+                            });
                     }
                     else {
-                        alert("Unaurthorised to delete Post");
+                        toastr.options = {
+                            "closeButton": true,
+                            "debug": false,
+                            "newestOnTop": true,
+                            "progressBar": true,
+                            "positionClass": "toast-top-right",
+                            "preventDuplicates": false,
+                            "onclick": null,
+                            "showDuration": "300",
+                            "hideDuration": "1000",
+                            "timeOut": "5000",
+                            "extendedTimeOut": "1000",
+                            "showEasing": "swing",
+                            "hideEasing": "linear",
+                            "showMethod": "fadeIn",
+                            "hideMethod": "fadeOut"
+                        }
+                          
+                        toastr.error("Unaurthorised to delete Post!", "AkhilK says - ");
+                        console.log("Unaurthorised to delete Post");
                     }
                 };
                 
