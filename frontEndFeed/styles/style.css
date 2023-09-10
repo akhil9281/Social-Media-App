@@ -92,13 +92,20 @@ nav a:hover {
 	color: white;
 } */
 
-.main-bar post-card .shadow {
-	box-shadow: -2px 3px 9px 1px #ffb907 !important;
+post-card .shadow {
+	box-shadow: -1px 1px 5px 0 #0714ff !important;
+	border-radius: 0.75rem;
+	background: 
+	/* -webkit-linear-gradient(270deg, var(--bs-orange) 0%, hsla(60, 89%, 72%, 1) 100%); */
+	/* -webkit-linear-gradient(90deg, hsl(332deg 69.58% 67.9%) 0%, hsl(176deg 70.81% 66.55%) 100%);  */
+	/* linear-gradient(180deg, #efd5ff 0%, #515ada 100%); */
+	/* linear-gradient(180deg, #fcff9e 0%, #c67700 100%); */
+	-webkit-linear-gradient(90deg, hsla(57, 100%, 84%, 1) 0%, hsla(280, 84%, 55%, 0.67) 100%);
 }
 
 .Card {
 	padding: 1rem; 
-	background-color: #f4efd9; 
+	/* background-color: #f4efd9;  */
 	color: black;
 	position: relative;
     display: flex;
@@ -112,13 +119,18 @@ nav a:hover {
 	display: none;
 }
 
+.Card hr {
+	display: none;
+}
+
 .post-form {
 	border-radius: 1.5em;
+	margin: 1.5rem;
 }
 
 .postCard {
-	background-color: #D8FFE5;
-	margin: 0; 
+	background-color: inherit;
+	margin: 1rem !important; 
 	padding: 0;
 	border: none;
 	border-top-left-radius: 0.5rem !important;
@@ -153,12 +165,13 @@ nav a:hover {
 	min-width: 4rem;
 }
 
-.postType button {
+.postType {
 	border-radius: 1rem;
 	min-width: 4rem;
 	max-height: 1.5rem;
 	left: 5rem;
-	font-family: 'Caesar Dressing', cursive;
+	font-family: 'Artifika', cursive;
+	/* font-size: 20px; */
 }
 
 .postCard .postFooter .col {
@@ -178,8 +191,8 @@ nav a:hover {
 
 .postBody {
 	flex: 1 1 auto;
-	background-color: white;
-	padding: 1rem 1.5rem !important;
+	/* background-color: white; */
+	padding: 1rem 1rem !important;
 	
 }
 
@@ -228,7 +241,6 @@ nav a:hover {
 }
 
 .textBox {
-	
 	border-radius: 0.5rem;
 	/* padding-top: 0.5rem; */
 }
@@ -255,7 +267,7 @@ nav a:hover {
 .commentForm {
 	margin: 0 !important;
 	padding: 0.5rem !important;
-	background-color: #D8FFE5;
+	/* background-color: #D8FFE5; */
 	/* border-radius: 1rem; */
 }
 
@@ -291,27 +303,28 @@ div .row.card.container {
 
 
 .likeButton {
-	display: inline-block;
+	display: inline-flex;
+    padding-top: 0 !important;
 	text-align: center;
     text-decoration: none;
     vertical-align: middle;
 	border: none;
 	padding: 0.5rem;
-	background-color: #D8FFE5;
+	background-color: inherit;
 	color: red;
-	align-items: baseline;
 	
 }
 
 .commentButton {
-	display: inline-block;
+	display: inline-flex;
+	padding-top: 0 !important;
 	text-align: center;
     text-decoration: none;
     vertical-align: middle;
 	border: none;
 	padding: 0.5rem;
-	background-color: #D8FFE5;
-	color: red;
+	background-color: inherit;
+	color: black;
 }
 
  .material-symbols-outlined {
@@ -413,8 +426,12 @@ div .row.card.container {
 }
 
 .feed {
+	--primaryColor: lavender;
+	--secondaryColor: mistyrose;
+
 	height: 100%;
-	background-color: #f4efd9;
+	background-color: #efeded;
+	
 }
 
 .card-header {
@@ -505,8 +522,8 @@ ul {
   }
 
 .textArea {
-    border-radius: 2rem !important;
-    margin: 0.25rem 0;
+    border: 0 !important;
+    /* margin: 0.25rem 0; */
     padding: 0.75rem 1.5rem !important;
 }
 

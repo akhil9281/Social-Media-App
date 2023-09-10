@@ -198,14 +198,15 @@ public class FeedController {
     @GetMapping("/allCommentsForPost")
     public ResponseEntity<Object> getAllCommentsForPost(@RequestParam Long postId) {
         if (postId == null)
-            return ResponseHandler.generateResponse(ErrorMessage.Error400.toString(), HttpStatus.BAD_REQUEST, new ArrayList<Post>());
+            return ResponseHandler.generateResponse(ErrorMessage.Error400.toString(), HttpStatus.BAD_REQUEST);
 
         try {
             if (!postServiceImpl.postExists(postId)) {
                 return ResponseHandler.generateResponse(ErrorMessage.Error400.toString(), HttpStatus.BAD_REQUEST);
             }
             List<Comment> allCommentsByUser = commentServiceImpl.getAllCommentsForPost(postId);
-            return ResponseHandler.generateResponse("List of all the Comments for Post - " + postId, HttpStatus.OK, allCommentsByUser);
+            Integer countOfComments = commentServiceImpl.getCountOfCommentsForPost(postId);
+            return ResponseHandler.generateResponse("List of all the Comments for Post - " + postId, HttpStatus.OK, allCommentsByUser, countOfComments);
         }
 
         catch (Exception e) {

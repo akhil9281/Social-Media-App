@@ -285,9 +285,8 @@ angular.module("feedApp").service("feedService", ["$http","$rootScope", function
                     cache: false
                 })
                 .then(function(response) {
-                    console.log("inside getComments service");
-                    console.log(response.data.data[0]);
-                    return response.data.data[0];
+                    console.log("inside getComments service", response.data.data);
+                    return response.data.data;
                 })
                 .catch(function(error) {
                     if (error.response) {

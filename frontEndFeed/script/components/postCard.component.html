@@ -1,5 +1,5 @@
 <div class="row card container" style="margin: 0; padding: 0;" ng-init="start()">
-    <div class="col shadow" style="border-bottom-left-radius: 0.5rem; border-bottom-right-radius: 0.5rem;">
+    <div class="col shadow">
         <div class="row postCard">
             <div class="postHeader container-space-between" >
                 <!-- <div class="col"> -->
@@ -10,9 +10,9 @@
                         <i> {{post["createdBy"]}} </i>
                     </div>
                     <div class="postType">
-                        <button type="button">  <!-- style="outline-color: BC4B51;" -->
-                            {{post.type || uppercase}}
-                        </button>
+                        <em type="button">  <!-- style="outline-color: BC4B51;" -->
+                            <strong> {{post.type || uppercase}} </strong>
+                        </em>
                     </div>
                 <!-- </div> -->
             </div>
@@ -21,28 +21,33 @@
                     {{post["body"]}}
                 </p>
             </div>
+            <hr>
             <div class="postFooter container">
                 <div class="col"> <!-- LIKE BUTTON -->
-                    <div class="">
+                    <div>
                         <button class="likeButton" type="button" id="likeButton" ng-click="likeClicked()">
                             <span class="material-symbols-outlined">
                                 favorite
                             </span> 
                             <span> {{ countOfLikes}} </span>
                         </button>
+                    </div>
 
+                    <div>
                         <button class="commentButton" type="button" id="commentButton" ng-click="commentClicked()">
                             <span class="material-symbols-outlined">
-                                chat_bubble
+                                comment<!-- chat_bubble -->
                             </span>
+                            <span> {{ countOfComments}} </span>
                         </button>
                     </div>
-                    <div style="max-height: 30px;">
-                        <div class="commentButton" type="button" id="deletebutton" ng-click="delete()">
+
+                    <div>
+                        <button class="commentButton" type="button" id="deletebutton" ng-click="delete()">
                             <span class="material-symbols-outlined">
                                 delete
                             </span>
-                        </div>   
+                        </button>   
                         <!-- <div class="navItem" >
                             <div class="dots">
                                 <span class="material-symbols-outlined">
@@ -73,7 +78,7 @@
             </div>
         </div>
 
-        <div class="row" style="background-color: #D8FFE5;" ng-show="showLikeForm">
+        <div class="row" style="/* background-color: #D8FFE5; */" ng-show="showLikeForm">
             <form class="textBox" id="likeForm" novalidate>
                 <textarea class="form-control textArea" id="commentUserName" placeholder="Enter username" ng-model="like.userName" rows="1" required>                           
                 </textarea>

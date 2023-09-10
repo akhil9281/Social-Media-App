@@ -12,6 +12,7 @@ angular.module("feedApp")
 
                 $scope.commentList = [];
                 $scope.countOfLikes = 0;
+                $scope.countOfComments = 0;
                 $scope.showLikeForm = false; 
                 $scope.showComments = false;
                 $scope.loadingComment = false;
@@ -49,7 +50,8 @@ angular.module("feedApp")
                     feedService.getComments($scope.post.id)
                         .then(function(value) {
                             console.log("postCarController-getComments:", value);
-                            $scope.commentList = value;
+                            $scope.commentList = value[0];
+                            $scope.countOfComments = value[1];
                             return $scope.commentList;
                         });
                     $scope.loadingComment = false;
