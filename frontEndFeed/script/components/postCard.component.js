@@ -74,6 +74,7 @@ angular.module("feedApp")
                             $scope.likeClicked();
                             $scope.getLikes();
                     });
+                    like.userName = "";
                     
                 };
 

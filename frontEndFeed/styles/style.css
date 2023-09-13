@@ -5,7 +5,7 @@
 }
 
 .container {
-	max-width: 1500px !important;
+	max-width: 1450px !important;
 }
 
 .first-card {
@@ -107,7 +107,7 @@ post-card .shadow {
 	/* -webkit-linear-gradient(270deg, hsla(50, 68%, 93%, 1) 0%, hsla(18, 88%, 66%, 1) 50%, hsla(288, 55%, 55%, 1) 100%); */
 	/* -webkit-linear-gradient(90deg, hsla(57, 100%, 84%, 1) 0%, hsla(280, 84%, 55%, 0.67) 100%); */
 	/* -webkit-linear-gradient(90deg, hsla(50, 68%, 93%, 1) 0%, hsla(18, 88%, 66%, 1) 100%); */
-	-webkit-linear-gradient(90deg, hsla(136, 82%, 72%, 1) 0%, hsla(205, 84%, 36%, 1) 100%);
+	-webkit-linear-gradient(270deg, hsla(136, 82%, 72%, 1) 0%, hsla(205, 84%, 36%, 1) 100%);
 }
 
 .Card {
