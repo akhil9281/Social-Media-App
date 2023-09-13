@@ -107,7 +107,9 @@ post-card .shadow {
 	/* -webkit-linear-gradient(270deg, hsla(50, 68%, 93%, 1) 0%, hsla(18, 88%, 66%, 1) 50%, hsla(288, 55%, 55%, 1) 100%); */
 	/* -webkit-linear-gradient(90deg, hsla(57, 100%, 84%, 1) 0%, hsla(280, 84%, 55%, 0.67) 100%); */
 	/* -webkit-linear-gradient(90deg, hsla(50, 68%, 93%, 1) 0%, hsla(18, 88%, 66%, 1) 100%); */
-	-webkit-linear-gradient(270deg, hsla(136, 82%, 72%, 1) 0%, hsla(205, 84%, 36%, 1) 100%);
+	/* -webkit-linear-gradient(270deg, hsla(136, 82%, 72%, 1) 0%, hsla(205, 84%, 36%, 1) 100%); */
+	/* -webkit-linear-gradient(hsla(50, 68%, 93%, 1) 0%, hsla(18, 88%, 66%, 1) 100%); */
+	-webkit-linear-gradient(hsla(18, 88%, 66%, 0.54) 0%, hsla(288, 55%, 55%, 0.91) 100%);
 }
 
 .Card {
@@ -165,11 +167,8 @@ post-card .shadow {
 .postUser i {
 	font-family: 'Dekko', cursive;
 	font-size: 1.2rem;
-}
-
-.postCard .postType {
-	border-radius: 1rem;
-	min-width: 4rem;
+	padding-left: 0.2rem;
+    font-weight: bold;
 }
 
 .postType {
@@ -178,7 +177,8 @@ post-card .shadow {
 	max-height: 1.5rem;
 	left: 5rem;
 	font-family: 'Artifika', cursive;
-	/* font-size: 20px; */
+	display: inline-flex;
+    justify-content: flex-end;
 }
 
 .postCard .postFooter .col {
@@ -255,12 +255,12 @@ post-card .shadow {
 .textBox button {
 	/* text-shadow: #BC4B51; */
 	border: none;
-	font-size: 20px;
+	font-size: 18px;
+	font-weight: bold;
 	padding: 0.25rem 0.75rem;
 	background-color: #eaccee;
 	margin: 0.5rem 0;
 	border-radius: 0.5rem;
-	font-family: 'Metal Mania', cursive;
 	color: black;
 	text-shadow: #BC4B51;
 }
@@ -399,7 +399,7 @@ div .row.card.container {
 	text-align: center;
 	margin-top: 0.5rem;
     margin-bottom: 0.5rem;
-	background-color: #eaccee;
+	background-color: rgb(255 175 143);
 	border-radius: 1.5rem;
 	border: none;
 }
@@ -424,18 +424,7 @@ div .row.card.container {
 	font-style: italic;
 }
 
-.secondaryColor {
-	background-color: #F4E285, #D8FFE5, #C8E4C1;
-}
-
-.primaryColor {
-	background-color: #F4A259, #CAB1FF, #C1C8E4, #d8fbff;
-}
-
 .feed {
-	--primaryColor: lavender;
-	--secondaryColor: mistyrose;
-
 	height: 100%;
 	background-color: #efeded;
 	
@@ -495,7 +484,7 @@ ul {
   
 	/* Box hover */
 	&:hover + label:before {
-	  background: #eaccee;
+	  background: rgb(255 175 143);
 	}
 	
 	/* Box focus */
@@ -505,7 +494,7 @@ ul {
   
 	/* Box checked */
 	&:checked + label:before {
-	  background: #eaccee;
+	  background: rgb(255 175 143);
 	}
 	  
 	/* Checkmark. Could be replaced with an image */
@@ -540,7 +529,8 @@ ul {
 	box-shadow: 0 0 15px rgba(0,0,0, 0.5);
 	padding: 1em;
 	margin: 0.2rem !important;
-	background: -webkit-linear-gradient(90deg, hsla(50, 68%, 93%, 1) 0%, hsla(18, 88%, 66%, 1) 50%, hsla(288, 55%, 55%, 1) 100%);
+	margin-bottom: 1rem !important;
+	background: -webkit-linear-gradient(90deg, hsla(50, 68%, 93%, 1) 0%, hsla(18, 88%, 66%, 1) 50%, hsla(288, 55%, 55%, 0.85) 100%);
 }
 
 .newUsersCard h4 {
@@ -566,12 +556,50 @@ ul {
 }
 
 .newUserCardBody .newUser p {
-	margin: 0.25rem 1rem !important;
+	margin: 0 1rem !important;
 }
 
 .newUserCardBody .newUser .name {
 	text-transform: uppercase;
 	font-weight: bold;
+}
+
+.horizontalCards {
+	flex-direction: column;
+	border-radius: 0.5rem;
+	box-shadow: 0 0 15px rgba(0,0,0, 0.5);
+	padding: 1em;
+	margin: 0.2rem !important;
+	background: -webkit-linear-gradient(90deg, hsla(50, 68%, 93%, 1) 0%, hsla(18, 88%, 66%, 1) 50%, hsla(288, 55%, 55%, 0.85) 100%);
+
+	h4 {
+		text-align: center;
+	}
+ 
+}
+
+.scrollCardWrapper {
+	overflow-x: scroll;
+	overflow-y: hidden;
+	white-space: nowrap;
+	
+	margin-bottom: 10px;
+	width: 100%;
+	-webkit-overflow-scrolling: touch;
+	&::-webkit-scrollbar {
+	  display: none;
+	}
+}
+
+.scrollCard {
+	display: inline-block;
+	width: 300px;
+	height: 400px;
+	background: brown;
+
+	color: white;
+	font-weight: bold;
+	
 }
 
 

@@ -10,7 +10,7 @@
                         <i> {{post["createdBy"]}} </i>
                     </div>
                     <div class="postType">
-                        <em type="button">  <!-- style="outline-color: BC4B51;" -->
+                        <em>  <!-- style="outline-color: BC4B51;" -->
                             <strong> {{post.type || uppercase}} </strong>
                         </em>
                     </div>
@@ -38,7 +38,7 @@
                             <span class="material-symbols-outlined">
                                 comment<!-- chat_bubble -->
                             </span>
-                            <span> {{ countOfComments}} </span>
+                            <span style="padding-left: 2px;"> {{ countOfComments}} </span>
                         </button>
                     </div>
 
@@ -78,7 +78,7 @@
             </div>
         </div>
 
-        <div class="row" style="/* background-color: #D8FFE5; */" ng-show="showLikeForm">
+        <div class="row" ng-show="showLikeForm">
             <form class="textBox" id="likeForm" novalidate>
                 <textarea class="form-control textArea" id="commentUserName" placeholder="Enter username" ng-model="like.userName" rows="1" required>                           
                 </textarea>
@@ -114,12 +114,12 @@
                         </textarea>
                         
                         <div class="row commentFormFooter">
-                            <div class="col-3" ng-click="newComment.userName = ''; newComment.commentData = '';">
+                            <div class="col-2" ng-click="newComment.userName = ''; newComment.commentData = '';">
                                 <button>
                                     Cancel
                                 </button>
                             </div>
-                            <div class="col-3" ng-click="makeComment(newComment);">
+                            <div class="col-2" ng-click="makeComment(newComment);">
                                 <button>
                                     Post
                                 </button>
