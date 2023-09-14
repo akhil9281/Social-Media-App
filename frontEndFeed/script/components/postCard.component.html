@@ -10,9 +10,8 @@
                         <i> {{post["createdBy"]}} </i>
                     </div>
                     <div class="postType">
-                        <em>  <!-- style="outline-color: BC4B51;" -->
-                            <strong> {{post.type || uppercase}} </strong>
-                        </em>
+                        <!-- style="outline-color: BC4B51;" -->
+                            <div class="ribbon"> {{post.type || uppercase}} </div>
                     </div>
                 <!-- </div> -->
             </div>
@@ -107,11 +106,13 @@
             <div class="row commentForm">
                 <div>
                     <form class="textBox">
-                        <textarea class="form-control textArea" id="commentUserName" placeholder="Enter username" ng-model="newComment.userName" rows="1" required>                       
+                        <textarea class="form-control textArea" style="margin-bottom: 5px;" id="commentUserName" ng-model="newComment.userName" rows="1" required>                       
                         </textarea>
-    
-                        <textarea class="form-control textArea" id="commentData" placeholder="What are your thoughts on this??" ng-model="newComment.commentData" rows="3" required>                       
+                        <label class="floating-label"> Enter user name</label>
+
+                        <textarea class="form-control textArea" id="commentData" ng-model="newComment.commentData" rows="3" required>                       
                         </textarea>
+                        <label class="floating-label-post"> What are your thoughts on this?</label>
                         
                         <div class="row commentFormFooter">
                             <div class="col-2" ng-click="newComment.userName = ''; newComment.commentData = '';">

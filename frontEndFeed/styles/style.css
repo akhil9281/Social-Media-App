@@ -167,8 +167,7 @@ post-card .shadow {
 }
 
 .postUser i {
-	font-family: 'Dekko', cursive;
-	font-size: 1.2rem;
+	font-style: normal;
 	padding-left: 0.2rem;
     font-weight: bold;
 }
@@ -178,9 +177,25 @@ post-card .shadow {
 	min-width: 4rem;
 	max-height: 1.5rem;
 	left: 5rem;
-	font-family: 'Artifika', cursive;
 	display: inline-flex;
     justify-content: flex-end;
+}
+
+.postType .ribbon {
+	--f: 10px; /* control the folded part*/
+	--r: 15px; /* control the ribbon shape */
+	--t: 10px; /* the top offset */
+	
+	position: absolute;
+	inset: var(--t) calc(-1*var(--f)) auto auto;
+	padding: 0 10px var(--f) calc(10px + var(--r));
+	clip-path: 
+	  polygon(0 0,100% 0,100% calc(100% - var(--f)),calc(100% - var(--f)) 100%,
+		calc(100% - var(--f)) calc(100% - var(--f)),0 calc(100% - var(--f)),
+		var(--r) calc(50% - var(--f)/2));
+	background: #68ffe3; /* #ff9dea  */
+	font-family: 'Artifika', cursive;
+	box-shadow: 0 calc(-1*var(--f)) 0 inset #0005;
 }
 
 .postCard .postFooter .col {
@@ -273,6 +288,47 @@ post-card .shadow {
 	background-color: #000000;
 }
 
+.textBox .floating-label {
+	display: block;
+	color: #cccccc;
+    position: relative;
+    pointer-events: none;
+    top: -43px;
+    left: 26px;
+    transition: all 0.5s ease;
+	height: 0;
+}
+
+.textBox .floating-label-post {
+	display: block;
+	color: #cccccc;
+    position: relative;
+    pointer-events: none;
+    top: -87px;
+    left: 26px;
+    transition: all 0.5s ease;
+	height: 0;
+}
+
+.textBox textarea:focus ~ .floating-label, textarea:not(:focus):valid ~ .floating-label {
+	top: -56px;
+	bottom: 0px;
+	left: 5px;
+	font-size: 12px;
+	opacity: 1;
+	color: #909090;
+}
+
+#feedPostData:focus ~ .floating-label-post, #feedPostData:not(:focus):valid ~ .floating-label-post,
+#commentData:focus ~ .floating-label-post, #commentData:not(:focus):valid ~ .floating-label-post {
+	top: -100px;
+	bottom: 0px;
+	left: 5px;
+	font-size: 12px;
+	opacity: 1;
+	color: #909090;
+}
+
 .commentForm {
 	margin: 0 !important;
 	padding: 0.5rem !important;
@@ -299,8 +355,7 @@ post-card .shadow {
 }
 
 div .row.card.container {
-	border-bottom-left-radius: 0.5rem;	
-	border-bottom-right-radius: 0.5rem;
+	border-radius: 0.75rem;
 }
 
 
@@ -486,7 +541,7 @@ ul {
   
 	/* Box hover */
 	&:hover + label:before {
-	  background: rgb(255 175 143);
+	  background: #eaccee;
 	}
 	
 	/* Box focus */
@@ -496,7 +551,7 @@ ul {
   
 	/* Box checked */
 	&:checked + label:before {
-	  background: rgb(255 175 143);
+	  background: #eaccee;
 	}
 	  
 	/* Checkmark. Could be replaced with an image */
@@ -520,7 +575,7 @@ ul {
   }
 
 .textArea {
-    border: 0 !important;
+    /* border: 0 !important; */
     /* margin: 0.25rem 0; */
     padding: 0.75rem 1.5rem !important;
 }

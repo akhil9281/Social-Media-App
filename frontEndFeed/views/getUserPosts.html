@@ -9,8 +9,9 @@
             <div class="col-6 main-bar container">
                 <div class="first-card post-form">
                     <form class="textBox" name="feedForm" novalidate>
-                        <textarea class="form-control textArea" id="likeUserName" placeholder="Enter user name" ng-model="userName" rows="1"required>                           
+                        <textarea class="form-control textArea" style="margin-bottom: 5px;" id="likeUserName" ng-model="userName" rows="1"required>                           
                         </textarea>
+                        <label for="likeUserName" class="floating-label"> Enter user name</label>
                         
                         <div class="row mx-2" style="width: 100%;">                        
                             <!-- <div class="col-6"></div> -->
@@ -28,7 +29,7 @@
                 <br style="height: 25%;">
                 <!-- POST FEED -->
                 <div class="h2">
-                    <span style="font-family: 'Gluten', cursive;"> &nbsp; &nbsp; All Posts by the User - &nbsp; <strong>{{userName}}</strong> : </span>
+                    <span style="font-family: cursive;"> &nbsp; &nbsp; All Posts by the User - <strong>{{userName}}</strong> : </span>
                 </div>
                 <br> <br>
                 <div>

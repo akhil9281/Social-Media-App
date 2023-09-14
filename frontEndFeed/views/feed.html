@@ -10,11 +10,14 @@
                 <!-- POST BOX -->
                 <div class="first-card post-form" style="box-shadow: -1px 1px 3px #6b36b8d1;">
                     <form class="textBox" name="feedForm" novalidate>
-                        <div style="border-radius: 0.5rem;">
-                            <textarea class="form-control textArea" id="feedPostUserName" placeholder="Enter user name" ng-model="postUserName" rows="1"required>
+                        <div >
+                            <textarea class="form-control textArea" style="margin-bottom: 5px;" id="feedPostUserName" ng-model="postUserName" rows="1"required>
                             </textarea>
-                            <textarea class="form-control textArea" id="feedPostData" rows="3" placeholder="What are you sharing today?" ng-model="postData" required>                            
+                            <label class="floating-label"> Enter user name</label>
+
+                            <textarea class="form-control textArea" id="feedPostData" rows="3" ng-model="postData" required>                            
                             </textarea>
+                            <label class="floating-label-post"> What are you sharing today?</label>
                         </div>
 
                         <div class="row mx-2" style="width: 100%;">
