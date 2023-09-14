@@ -10,11 +10,14 @@
                 <!-- POST BOX -->
                 <div class="first-card post-form" style="box-shadow: -1px 1px 3px #6b36b8d1;">
                     <form class="textBox" name="feedForm" novalidate>
-                        <div style="border-radius: 0.5rem;">
-                            <textarea class="form-control textArea" id="feedPostUserName" placeholder="Enter user name" ng-model="postUserName" rows="1"required>
+                        <div >
+                            <textarea class="form-control textArea" style="margin-bottom: 5px;" id="feedPostUserName" ng-model="postUserName" rows="1"required>
                             </textarea>
-                            <textarea class="form-control textArea" id="feedPostData" rows="3" placeholder="What are you sharing today?" ng-model="postData" required>                            
+                            <label class="floating-label"> Enter user name</label>
+
+                            <textarea class="form-control textArea" id="feedPostData" rows="3" ng-model="postData" required>                            
                             </textarea>
+                            <label class="floating-label-post"> What are you sharing today?</label>
                         </div>
 
                         <div class="row mx-2" style="width: 100%;">
@@ -78,19 +81,15 @@
 
                 <div name="zeroPostsCard" class="container text-center" ng-show="!morePosts">
                     <div class="row justify-content-md-center" style="size: 2em;">
-                        <div class="col text-end">
+                        <!-- <div class="col text-end"> -->
                             <span class="material-symbols-outlined" style="font-size: 300%;">
                                 sentiment_sad
                             </span>
-                        </div>
-                        <div class="col text-start">
+                        <!-- </div> -->
+                        <!-- <div class="col text-start"> -->
                             <span style="font-size: 2em;">No More Posts !!</span>
-                        </div>
+                        <!-- </div> -->
                     </div>
-                    <div class="col-md-auto">
-                        
-                    </div>
-
                 </div>
 
             </div>
