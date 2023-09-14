@@ -109,7 +109,9 @@ post-card .shadow {
 	/* -webkit-linear-gradient(90deg, hsla(50, 68%, 93%, 1) 0%, hsla(18, 88%, 66%, 1) 100%); */
 	/* -webkit-linear-gradient(270deg, hsla(136, 82%, 72%, 1) 0%, hsla(205, 84%, 36%, 1) 100%); */
 	/* -webkit-linear-gradient(hsla(50, 68%, 93%, 1) 0%, hsla(18, 88%, 66%, 1) 100%); */
-	-webkit-linear-gradient(hsla(18, 88%, 66%, 0.54) 0%, hsla(288, 55%, 55%, 0.91) 100%);
+	/* -webkit-linear-gradient(hsla(18, 88%, 66%, 0.54) 0%, hsla(288, 55%, 55%, 0.91) 100%); */
+	-webkit-linear-gradient(#fcd0db 0%, #8cfff0 100%);
+
 }
 
 .Card {
@@ -399,7 +401,7 @@ div .row.card.container {
 	text-align: center;
 	margin-top: 0.5rem;
     margin-bottom: 0.5rem;
-	background-color: rgb(255 175 143);
+	background-color: #fcd0db;
 	border-radius: 1.5rem;
 	border: none;
 }
@@ -530,7 +532,8 @@ ul {
 	padding: 1em;
 	margin: 0.2rem !important;
 	margin-bottom: 1rem !important;
-	background: -webkit-linear-gradient(90deg, hsla(50, 68%, 93%, 1) 0%, hsla(18, 88%, 66%, 1) 50%, hsla(288, 55%, 55%, 0.85) 100%);
+	background: /* -webkit-linear-gradient(90deg, hsla(50, 68%, 93%, 1) 0%, hsla(18, 88%, 66%, 1) 50%, hsla(288, 55%, 55%, 0.85) 100%); */
+	-webkit-linear-gradient(#8cfff0 0%, #fcd0db 70%);
 }
 
 .newUsersCard h4 {
@@ -557,6 +560,7 @@ ul {
 
 .newUserCardBody .newUser p {
 	margin: 0 1rem !important;
+	text-transform: capitalize;
 }
 
 .newUserCardBody .newUser .name {
@@ -570,7 +574,7 @@ ul {
 	box-shadow: 0 0 15px rgba(0,0,0, 0.5);
 	padding: 1em;
 	margin: 0.2rem !important;
-	background: -webkit-linear-gradient(90deg, hsla(50, 68%, 93%, 1) 0%, hsla(18, 88%, 66%, 1) 50%, hsla(288, 55%, 55%, 0.85) 100%);
+	background: -webkit-linear-gradient(270deg,#8cfff0 0%, #fcd0db 100%);
 
 	h4 {
 		text-align: center;
