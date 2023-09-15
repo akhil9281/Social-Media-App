@@ -30,7 +30,7 @@ nav .navItem {
 	display:inline-block;
 }
 
-.navItem button {
+/* .navItem button {
 	border: 0;
 	width: 100%;
 	display: inline-block;
@@ -39,7 +39,7 @@ nav .navItem {
 	text-decoration:none;
 	border-radius: 0.85rem;
 	background-color: #BC4B51;
-}
+} */
 
 .navItem a {
 	display:block;
@@ -363,6 +363,18 @@ div .row.card.container {
 	background-color: #eaccee;
 	margin: 0; 
 	padding: 0;
+}
+
+.commentCard .navBar {
+	left: 555px;
+    border-radius: 0.5rem;
+}
+
+.commentCard button {
+	position: relative;
+    border-radius: 0.5rem;
+    border: none;
+    width: 100%;
 }
 
 
