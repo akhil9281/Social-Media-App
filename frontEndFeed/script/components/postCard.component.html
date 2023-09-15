@@ -2,7 +2,6 @@
     <div class="col shadow">
         <div class="row postCard">
             <div class="postHeader container-space-between" >
-                <!-- <div class="col"> -->
                     <div class="postUser">
                         <span class="material-symbols-outlined">
                             person
@@ -10,10 +9,8 @@
                         <i> {{post["createdBy"]}} </i>
                     </div>
                     <div class="postType">
-                        <!-- style="outline-color: BC4B51;" -->
                             <div class="ribbon"> {{post.type || uppercase}} </div>
                     </div>
-                <!-- </div> -->
             </div>
             <div class="postBody">
                 <p id="content" class="card-text">
@@ -35,7 +32,7 @@
                     <div>
                         <button class="commentButton" type="button" id="commentButton" ng-click="commentClicked()">
                             <span class="material-symbols-outlined">
-                                comment<!-- chat_bubble -->
+                                comment
                             </span>
                             <span style="padding-left: 2px;"> {{ countOfComments}} </span>
                         </button>
@@ -46,32 +43,7 @@
                             <span class="material-symbols-outlined">
                                 delete
                             </span>
-                        </button>   
-                        <!-- <div class="navItem" >
-                            <div class="dots">
-                                <span class="material-symbols-outlined">
-                                    more_horiz
-                                </span>
-                                <ul class="navBar">
-
-                                    !!!-- <li class="navItem">
-                                        <button>
-                                            <div style="padding: 6px;" ng-click="edit()">
-                                                Edit
-                                            </div>
-                                        </button>
-                                    </li> --!!!
-
-                                    <li class="navItem">
-                                        <button>
-                                            <div style="padding: 6px;" ng-click="delete()">
-                                                Delete
-                                            </div>
-                                        </button>
-                                    </li>
-                                </ul>
-                            </div>                        
-                        </div>   -->
+                        </button>
                     </div>
                 </div>
             </div>

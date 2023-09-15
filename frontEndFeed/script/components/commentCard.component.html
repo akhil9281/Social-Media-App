@@ -4,12 +4,10 @@
         <div class="row commentCard">
             <div class="commentHeader container-space-between">
                 <div class="commentUser">
-                    <!-- <div class="col-6 postUser d-flex align-items-baseline"> -->
                         <span class="material-symbols-outlined">
                                 account_box 
                         </span>
                         <i> {{comment.createdBy}} </i>
-                    <!-- </div> -->
                 </div>
 
                 <div class="navItem" >
@@ -42,23 +40,6 @@
                     {{comment["body"]}}
                 </p>
             </div>
-            <!-- <div class="commentFooter container">
-                <div class="d-flex justify-content-around" >
-                    <div class="col" style="margin: 0;">                     
-                        <button class="btn btn-outline-primary" type="button" id="editButton" ng-click="showEditForm = !showEditForm;">
-                            Edit
-                        </button>
-                    </div>
-                    <div class="col-6"></div>
-                    <div class="col-3">   
-                        <div class="row align-end">             
-                            <button class="btn btn-danger" ng-click="deleteComment()">
-                                Delete
-                            </button>
-                        </div>  
-                    </div>
-                </div>
-            </div> -->
         </div>
 
         <div class="row" id="commentsFeed" ng-show="showEditForm">
