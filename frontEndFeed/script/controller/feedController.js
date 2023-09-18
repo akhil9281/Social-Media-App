@@ -76,21 +76,40 @@ angular.module("feedApp")
 // ALL POST CRUD
 
     //ADD Posts
-    $scope.addPost = function(postType) {
-        let newPost = {
-            userName: $scope.postUserName,
-            postType: postType,
-            postData: $scope.postData
-        };
-        feedService.addPost(newPost)
-            .then(function(newPost) {
-                console.log("new Post successfully added - " + newPost);
-                $scope.init();
-            })
-            .catch(function(error) {
-                throw new Error("Failed to create new Post");
-            })
-    }
+    $scope.addToFeed = function(postType) {
+        if (postType == Question) {
+            let newQuestion = {
+                userName: $scope.postUserName,
+                postType: postType,
+                postData: $scope.postData,
+                optionsList: $scope.optionsList
+            };
+            feedService.addQuestion(newQuestion)
+                .then(function(value) {
+                    console.log("new Post successfully added - " + newQuestion);
+                    $scope.init();
+                })
+                .catch(function(error) {
+                    throw new Error("Failed to create new Question");
+                })
+        }
+
+        else {
+            let newPost = {
+                userName: $scope.postUserName,
+                postType: postType,
+                postData: $scope.postData
+            };
+            feedService.addPost(newPost)
+                .then(function(newPost) {
+                    console.log("new Post successfully added - " + newPost);
+                    $scope.init();
+                })
+                .catch(function(error) {
+                    throw new Error("Failed to create new Post");
+                })
+            }
+    }   
 
     //DELETE Post
     $scope.deletePost = function(post) {
@@ -108,7 +127,7 @@ angular.module("feedApp")
 // ALL Comments CRUD
 
     //READ Comments
-    $scope.getComments = function(postID) {
+    /* $scope.getComments = function(postID) {
         $scope.comments = [];
         feedService.getComments(postID)
             .then( function(commentsData) {
@@ -118,10 +137,10 @@ angular.module("feedApp")
             .catch(function(error) {
                 throw new Error("Failed to get comments for the post!" + error);
             });
-    }
+    } */
 
     //Create Comments
-    $scope.createComment = function(newComment, postID) {
+    /* $scope.createComment = function(newComment, postID) {
 
         feedService.createComment(newComment, createComment)
             .then(function(responseData) {
@@ -131,12 +150,12 @@ angular.module("feedApp")
             .catch(function(error) {
                 throw new Error("Failed to create New Comment!" + error);
             });
-    }
+    } */
 
 // ALL Comments CRUD
 
     //Create LIKE
-    $scope.likePost = function(postID, userName) {
+    /* $scope.likePost = function(postID, userName) {
 
         feedService.likePost(postID, userName)
             .then(function(postID) {
@@ -145,9 +164,9 @@ angular.module("feedApp")
             .catch(function (error) {
                 throw new Error("Failed to likes the Post - " + error);
             });
-    }
+    } */
 
-    $scope.getLikes = function(postID) {
+    /* $scope.getLikes = function(postID) {
         feedService.numOfLikes(postID)
             .then(function(num) {
                 $scope.numLikes = num;
@@ -155,8 +174,8 @@ angular.module("feedApp")
             .catch(function (error) {
                 throw new Error("Failed to get likes for the post!" + error);
             });
-    }
-
+    } */
+/* 
     $scope.getPostsLikedByUser = function(userName) {
         $scope.isLoading = true;
         feedService.likesByUser(userName)
@@ -176,7 +195,7 @@ angular.module("feedApp")
                     throw new Error("Failed to getAll post");
                 });
                 
-    };
+    }; */
 
     $scope.checkScroll = function() {
         var windowHeight = 'innerHeight' in $window ? $window.innerHeight : document.documentElement.offsetHeight;

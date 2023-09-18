@@ -8,9 +8,9 @@ public interface IOptionService {
 
     public List<Option> getOptionsForPost(Long postId);
 
-    public Option addOptionToPost(Long postId, String body);
+    public void addOptionToPost(Long postId, List<String> optionList);
 
-    public void selectOption(Long optionId);
+    public Option selectOption(Long optionId);
 
     public Integer getOptionSelectCount(Long optionId);
 

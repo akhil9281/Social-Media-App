@@ -21,15 +21,17 @@ public class OptionServiceImpl implements IOptionService {
     }
 
     @Override
-    public Option addOptionToPost(Long postId, String body) {
-        Option newOption = new Option(postId, body);
-        return optionRepo.save(newOption);
+    public void addOptionToPost(Long postId, List<String> optionList) {
+        for (String optionBody : optionList) {
+            optionRepo.save(new Option(postId, optionBody));
+        }
     }
 
     @Override
-    public void selectOption(Long optionId) {
+    public Option selectOption(Long optionId) {
         Optional<Option> option = optionRepo.findById(optionId);
         option.ifPresent(value -> value.setSelectCount(value.getSelectCount() + 1));
+        return optionRepo.save(option.get());
     }
 
     @Override

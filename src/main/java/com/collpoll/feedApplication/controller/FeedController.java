@@ -1,15 +1,10 @@
 package com.collpoll.feedApplication.controller;
 
+import com.collpoll.feedApplication.DTO.QuestionRequest;
 import com.collpoll.feedApplication.Handler.ErrorMessage;
 import com.collpoll.feedApplication.Handler.ResponseHandler;
-import com.collpoll.feedApplication.entity.Comment;
-import com.collpoll.feedApplication.entity.Liked;
-import com.collpoll.feedApplication.entity.Post;
-import com.collpoll.feedApplication.entity.PostType;
-import com.collpoll.feedApplication.service.impl.CommentServiceImpl;
-import com.collpoll.feedApplication.service.impl.LikedServiceImpl;
-import com.collpoll.feedApplication.service.impl.PostServiceImpl;
-import com.collpoll.feedApplication.service.impl.UserServiceImpl;
+import com.collpoll.feedApplication.entity.*;
+import com.collpoll.feedApplication.service.impl.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,12 +26,15 @@ public class FeedController {
 
     final CommentServiceImpl commentServiceImpl;
 
+    final OptionServiceImpl optionService;
+
     public FeedController(PostServiceImpl postServiceImpl, LikedServiceImpl likedServiceImpl, UserServiceImpl userServiceImpl,
-                          CommentServiceImpl commentServiceImpl) {
+                          CommentServiceImpl commentServiceImpl, OptionServiceImpl optionService) {
         this.postServiceImpl = postServiceImpl;
         this.likedServiceImpl = likedServiceImpl;
         this.userServiceImpl = userServiceImpl;
         this.commentServiceImpl = commentServiceImpl;
+        this.optionService = optionService;
     }
 
     /**  POST Methods
@@ -109,6 +107,26 @@ public class FeedController {
         }
     }
 
+    @PostMapping("/createQues")
+    public ResponseEntity<Object> createQuestion(@RequestBody QuestionRequest questionRequest) {
+        PostType postType = PostType.Question;
+        if (questionRequest.getCreatedBy().isBlank() || questionRequest.getQuesBody().isBlank())
+            return ResponseHandler.generateResponse(ErrorMessage.Error400.toString(), HttpStatus.BAD_REQUEST);
+
+        /*if (questionRequest.getOptionsList().isEmpty())
+            this.createPost(questionRequest.getCreatedBy(), postType, questionRequest.getQuesBody());*/
+
+        try  {
+            Post newQuestion = postServiceImpl.createPost(questionRequest.getCreatedBy(), postType, questionRequest.getQuesBody());
+            optionService.addOptionToPost(newQuestion.getId(), questionRequest.getOptionsList());
+            return ResponseHandler.generateResponse("Successfully created Question with Options - " + newQuestion.getId(), HttpStatus.OK);
+
+        }
+        catch (Exception e) {
+            return ResponseHandler.generateResponse(ErrorMessage.Error500.toString(), HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), e.getCause());
+        }
+    }
+
     @DeleteMapping("/deletePost")
     public ResponseEntity<Object> deletePost(@RequestParam Long postId) {
         if (postId == null)
@@ -165,6 +183,43 @@ public class FeedController {
             }
 
             return ResponseHandler.generateResponse("Found the most liked post", HttpStatus.OK, mostDiscussedQuestion);
+        }
+        catch (Exception e) {
+            return ResponseHandler.generateResponse(ErrorMessage.Error500.toString(), HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+        }
+    }
+
+
+    /**
+     *  All OPTIONS Methods
+     *
+     */
+
+    @GetMapping("/allOptionsForQues")
+    public ResponseEntity<Object> getAllOptionsForQuestion(@RequestParam Long questionId) {
+        if (questionId == null)
+            return ResponseHandler.generateResponse(ErrorMessage.Error400.toString(), HttpStatus.BAD_REQUEST);
+
+        try {
+            List<Option> optionList = optionService.getOptionsForPost(questionId);
+            return ResponseHandler.generateResponse("Successfully retrieved Options for Question - " + questionId, HttpStatus.OK, optionList);
+        }
+        catch (Exception e) {
+            return ResponseHandler.generateResponse(ErrorMessage.Error500.toString(), HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+        }
+    }
+
+    @PutMapping("/optionSelect/{optionId}")
+    public ResponseEntity<Object> selectOption(@PathVariable Long optionId) {
+        if (optionId == null)
+            return ResponseHandler.generateResponse(ErrorMessage.Error400.toString(), HttpStatus.BAD_REQUEST);
+
+        try {
+           if(!optionService.optionExists(optionId))
+               return ResponseHandler.generateResponse(ErrorMessage.Error400.toString(), HttpStatus.BAD_REQUEST);
+
+           Option option = optionService.selectOption(optionId);
+           return ResponseHandler.generateResponse("Successfully selected Option - " + optionId, HttpStatus.OK, option);
         }
         catch (Exception e) {
             return ResponseHandler.generateResponse(ErrorMessage.Error500.toString(), HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());

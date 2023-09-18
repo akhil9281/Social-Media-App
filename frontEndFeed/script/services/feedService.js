@@ -174,6 +174,39 @@ angular.module("feedApp").service("feedService", ["$http","$rootScope", function
                 });
         },
 
+        addQuestion: function(question) {
+            return $http
+                .post(baseUrl + "/createQues", question)
+                .then(function(response) {
+                    console.log(response);
+                    return response.data;
+                })
+                .catch(function(error) {
+                    if (error.response) {
+                        if (error.response.status === 500) {
+                          console.error("Unable to get Comments due to Internal Error", error);
+                          alert("Unable to get Comments due to Internal Error");
+                        }
+                        else if (error.response.status === 400) {
+                            console.error("Bad Request, no such post exists");
+                            alert("Bad Request, no such post exists");
+                        }
+                        else {
+                            console.error("An error occurred while getting Comments", error);
+                            alert("An error occurred while getting Comments");
+                        }
+                    } 
+                    else if (error.request) {
+                        console.error("No response received from the server.", error);
+                        alert("No response received from the server.");
+                    } 
+                    else {
+                        console.error("An error occurred while making the request.", error);
+                         
+                    }
+                });
+        },
+
         deletePost: function(postId) {
             return $http
                 .delete(baseUrl + "/deletePost?postId=" + postId)
@@ -249,6 +282,77 @@ angular.module("feedApp").service("feedService", ["$http","$rootScope", function
                 .then(function(response) {
                     console.log("inside getMostDiscussedQuestion - ", response.data);
                     return response.data;
+                })
+                .catch(function(error) {
+                    if (error.response) {
+                        if (error.response.status === 500) {
+                          console.error("Unable to get Comments due to Internal Error", error);
+                          alert("Unable to get Comments due to Internal Error");
+                        }
+                        else if (error.response.status === 400) {
+                            console.error("Bad Request, no such post exists");
+                            alert("Bad Request, no such post exists");
+                        }
+                        else {
+                            console.error("An error occurred while getting Comments", error);
+                            alert("An error occurred while getting Comments");
+                        }
+                    } 
+                    else if (error.request) {
+                        console.error("No response received from the server.", error);
+                        alert("No response received from the server.");
+                    } 
+                    else {
+                        console.error("An error occurred while making the request.", error);
+                         
+                    }
+                });
+        },
+
+        getPolls: function(questionID) {
+            return $http
+                .get(baseUrl + "/allOptionsForQues", {
+                    params: {
+                        questionId: questionID
+                    },
+                    caches: false
+                })
+                .then(function(response) {
+                    console.log("inside getPolls service", response.data.data);
+                    return response.data.data;
+                })
+                .catch(function(error) {
+                    if (error.response) {
+                        if (error.response.status === 500) {
+                          console.error("Unable to get Comments due to Internal Error", error);
+                          alert("Unable to get Comments due to Internal Error");
+                        }
+                        else if (error.response.status === 400) {
+                            console.error("Bad Request, no such post exists");
+                            alert("Bad Request, no such post exists");
+                        }
+                        else {
+                            console.error("An error occurred while getting Comments", error);
+                            alert("An error occurred while getting Comments");
+                        }
+                    } 
+                    else if (error.request) {
+                        console.error("No response received from the server.", error);
+                        alert("No response received from the server.");
+                    } 
+                    else {
+                        console.error("An error occurred while making the request.", error);
+                         
+                    }
+                });
+        },
+
+        selectOption: function(optionID) {
+            return $http
+                .put(baseUrl + "/optionSelect/" + optionID)
+                .then(function(response) {
+                    console.log("inside selectOption service", response.data.data);
+                    return response.data.data;
                 })
                 .catch(function(error) {
                     if (error.response) {

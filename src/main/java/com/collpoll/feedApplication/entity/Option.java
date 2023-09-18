@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Date;
+
 @Entity
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor
 public class Option {
@@ -19,6 +21,15 @@ public class Option {
     private String body;
 
     private Integer selectCount;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(nullable = false, updatable = false)
+    private Date createdAt;
+
+    @PrePersist
+    protected void onCreate() {
+        createdAt = new Date();
+    }
 
     public Option(Long postId, String body) {
         this.postId = postId;
