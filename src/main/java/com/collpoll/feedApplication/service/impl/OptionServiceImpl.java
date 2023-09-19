@@ -5,16 +5,20 @@ import com.collpoll.feedApplication.repository.OptionRepo;
 import com.collpoll.feedApplication.service.IOptionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
-@Service
+@Service @Transactional
 public class OptionServiceImpl implements IOptionService {
     
-    @Autowired
-    OptionRepo optionRepo;
-    
+    final OptionRepo optionRepo;
+
+    public OptionServiceImpl(OptionRepo optionRepo) {
+        this.optionRepo = optionRepo;
+    }
+
     @Override
     public List<Option> getOptionsForPost(Long postId) {
         return optionRepo.findAllByPostId(postId);
@@ -31,6 +35,13 @@ public class OptionServiceImpl implements IOptionService {
     public Option selectOption(Long optionId) {
         Optional<Option> option = optionRepo.findById(optionId);
         option.ifPresent(value -> value.setSelectCount(value.getSelectCount() + 1));
+        return optionRepo.save(option.get());
+    }
+
+    @Override
+    public Option deselectOption(Long optionId) {
+        Optional<Option> option = optionRepo.findById(optionId);
+        option.ifPresent(value -> value.setSelectCount(value.getSelectCount() -1));
         return optionRepo.save(option.get());
     }
 

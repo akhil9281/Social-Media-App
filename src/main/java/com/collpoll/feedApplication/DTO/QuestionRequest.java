@@ -7,9 +7,9 @@ import java.util.List;
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor
 public class QuestionRequest {
 
-    String createdBy;
+    private String createdBy;
 
-    String quesBody;
+    private String quesBody;
 
-    List<String> optionsList;
+    private List<String> optionsList;
 }

@@ -12,6 +12,8 @@ public interface IOptionService {
 
     public Option selectOption(Long optionId);
 
+    Option deselectOption(Long optionId);
+
     public Integer getOptionSelectCount(Long optionId);
 
     public boolean optionExists(Long optionId);

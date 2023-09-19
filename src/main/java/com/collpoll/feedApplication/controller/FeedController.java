@@ -1,5 +1,6 @@
 package com.collpoll.feedApplication.controller;
 
+import com.collpoll.feedApplication.DTO.OptionSelectRequest;
 import com.collpoll.feedApplication.DTO.QuestionRequest;
 import com.collpoll.feedApplication.Handler.ErrorMessage;
 import com.collpoll.feedApplication.Handler.ResponseHandler;
@@ -28,13 +29,17 @@ public class FeedController {
 
     final OptionServiceImpl optionService;
 
+    final OptionSelectServiceImpl optionSelectService;
+
     public FeedController(PostServiceImpl postServiceImpl, LikedServiceImpl likedServiceImpl, UserServiceImpl userServiceImpl,
-                          CommentServiceImpl commentServiceImpl, OptionServiceImpl optionService) {
+                          CommentServiceImpl commentServiceImpl, OptionServiceImpl optionService,
+                          OptionSelectServiceImpl optionSelectService) {
         this.postServiceImpl = postServiceImpl;
         this.likedServiceImpl = likedServiceImpl;
         this.userServiceImpl = userServiceImpl;
         this.commentServiceImpl = commentServiceImpl;
         this.optionService = optionService;
+        this.optionSelectService = optionSelectService;
     }
 
     /**  POST Methods
@@ -209,18 +214,25 @@ public class FeedController {
         }
     }
 
-    @PutMapping("/optionSelect/{optionId}")
-    public ResponseEntity<Object> selectOption(@PathVariable Long optionId) {
-        if (optionId == null)
+    @PostMapping("/optionSelect")
+    public ResponseEntity<Object> selectOption(@RequestBody OptionSelectRequest optionSelectRequest) {
+        if (optionSelectRequest.getOptionId() == null)
             return ResponseHandler.generateResponse(ErrorMessage.Error400.toString(), HttpStatus.BAD_REQUEST);
 
         try {
-           if(!optionService.optionExists(optionId))
-               return ResponseHandler.generateResponse(ErrorMessage.Error400.toString(), HttpStatus.BAD_REQUEST);
+            OptionSelectPrimaryKey optionSelectPrimaryKey = new OptionSelectPrimaryKey(optionSelectRequest.getPostId(), optionSelectRequest.getUserId());
 
-           Option option = optionService.selectOption(optionId);
-           return ResponseHandler.generateResponse("Successfully selected Option - " + optionId, HttpStatus.OK, option);
+            if (optionSelectService.userSelectionDone(optionSelectPrimaryKey)) {
+               optionSelectService.changeSelectedOption(optionSelectPrimaryKey, optionSelectRequest.getOptionId());
+               Integer optionSelectCount = optionService.getOptionSelectCount(optionSelectRequest.getOptionId());
+               return ResponseHandler.generateResponse("Successfully selected Option - " + optionSelectRequest.getOptionId(), HttpStatus.OK, optionSelectCount);
+            }
+            
+            optionSelectService.selectOption(optionSelectPrimaryKey, optionSelectRequest.getOptionId());
+            Integer optionSelectCount = optionService.getOptionSelectCount(optionSelectRequest.getOptionId());
+            return ResponseHandler.generateResponse("Successfully selected Option - " + optionSelectRequest.getOptionId(), HttpStatus.OK, optionSelectCount);
         }
+
         catch (Exception e) {
             return ResponseHandler.generateResponse(ErrorMessage.Error500.toString(), HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
