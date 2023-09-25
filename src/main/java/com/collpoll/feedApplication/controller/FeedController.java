@@ -6,6 +6,7 @@ import com.collpoll.feedApplication.Handler.ErrorMessage;
 import com.collpoll.feedApplication.Handler.ResponseHandler;
 import com.collpoll.feedApplication.entity.*;
 import com.collpoll.feedApplication.service.impl.*;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 @RestController @Transactional
 @RequestMapping("/feed")
@@ -43,7 +45,6 @@ public class FeedController {
     }
 
     /**  POST Methods
-     *
      *
      */
 
@@ -138,11 +139,15 @@ public class FeedController {
             return ResponseHandler.generateResponse(ErrorMessage.Error400.toString(), HttpStatus.BAD_REQUEST);
 
         try {
+
             if (!postServiceImpl.postExists((postId)))
                 return ResponseHandler.generateResponse(ErrorMessage.Error400.toString(), HttpStatus.BAD_REQUEST);
 
             likedServiceImpl.deleteLikesOfPost(postId);
             commentServiceImpl.deleteCommentsOfPost(postId);
+            optionService.deleteOptionsOfPost(postId);
+            optionSelectService.deleteOptionsSelectedOfPost(postId);
+
             postServiceImpl.deletePost(postId);
 
             return ResponseHandler.generateResponse("Successfully Deleted Post", HttpStatus.OK);
@@ -206,8 +211,8 @@ public class FeedController {
             return ResponseHandler.generateResponse(ErrorMessage.Error400.toString(), HttpStatus.BAD_REQUEST);
 
         try {
-            List<Option> optionList = optionService.getOptionsForPost(questionId);
-            return ResponseHandler.generateResponse("Successfully retrieved Options for Question - " + questionId, HttpStatus.OK, optionList);
+            List<PollOption> pollOptionList = optionService.getOptionsForPost(questionId);
+            return ResponseHandler.generateResponse("Successfully retrieved Options for Question - " + questionId, HttpStatus.OK, pollOptionList);
         }
         catch (Exception e) {
             return ResponseHandler.generateResponse(ErrorMessage.Error500.toString(), HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
@@ -220,14 +225,14 @@ public class FeedController {
             return ResponseHandler.generateResponse(ErrorMessage.Error400.toString(), HttpStatus.BAD_REQUEST);
 
         try {
-            OptionSelectPrimaryKey optionSelectPrimaryKey = new OptionSelectPrimaryKey(optionSelectRequest.getPostId(), optionSelectRequest.getUserId());
+            OptionSelectPrimaryKey optionSelectPrimaryKey = new OptionSelectPrimaryKey(optionSelectRequest.getPostId(), optionSelectRequest.getUserName().hashCode());
 
             if (optionSelectService.userSelectionDone(optionSelectPrimaryKey)) {
                optionSelectService.changeSelectedOption(optionSelectPrimaryKey, optionSelectRequest.getOptionId());
                Integer optionSelectCount = optionService.getOptionSelectCount(optionSelectRequest.getOptionId());
                return ResponseHandler.generateResponse("Successfully selected Option - " + optionSelectRequest.getOptionId(), HttpStatus.OK, optionSelectCount);
             }
-            
+
             optionSelectService.selectOption(optionSelectPrimaryKey, optionSelectRequest.getOptionId());
             Integer optionSelectCount = optionService.getOptionSelectCount(optionSelectRequest.getOptionId());
             return ResponseHandler.generateResponse("Successfully selected Option - " + optionSelectRequest.getOptionId(), HttpStatus.OK, optionSelectCount);
@@ -336,6 +341,31 @@ public class FeedController {
 
             List<Post> allPostsLikedByUser = likedServiceImpl.getAllLikesByUser(userName);
             return ResponseHandler.generateResponse("List of all the Posts liked by user - " + userName, HttpStatus.OK, allPostsLikedByUser);
+        }
+        catch (Exception e) {
+            return ResponseHandler.generateResponse(ErrorMessage.Error500.toString(), HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), e.getCause());
+        }
+    }
+
+    @GetMapping("/isLikedByUser/{postId}")
+    public ResponseEntity<Object> isLikedByUser(@PathVariable Long postId, @RequestParam String userName) {
+        if(postId == null || userName.isBlank())
+            return ResponseHandler.generateResponse(ErrorMessage.Error400.toString(), HttpStatus.BAD_REQUEST, new ArrayList<Post>());
+
+        try {
+            if(!postServiceImpl.postExists(postId)) {
+                return ResponseHandler.generateResponse(ErrorMessage.Error400.toString(), HttpStatus.BAD_REQUEST, "no such Post found");
+            }
+
+            if (!userServiceImpl.userExists(userName)) {
+                userServiceImpl.createNewUser(userName);
+
+                return ResponseHandler.generateResponse("No such user found", HttpStatus.OK, false);
+            }
+
+            LikedPrimaryKey newKey = new LikedPrimaryKey(postId, userName.hashCode());
+            Boolean isLikeByUser = likedServiceImpl.isLikedByUser(newKey);
+            return ResponseHandler.generateResponse("Result whether Post is Liked by User", HttpStatus.OK, isLikeByUser);
         }
         catch (Exception e) {
             return ResponseHandler.generateResponse(ErrorMessage.Error500.toString(), HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), e.getCause());

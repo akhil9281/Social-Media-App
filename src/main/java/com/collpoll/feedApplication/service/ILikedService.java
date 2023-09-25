@@ -1,6 +1,7 @@
 package com.collpoll.feedApplication.service;
 
 import com.collpoll.feedApplication.entity.Liked;
+import com.collpoll.feedApplication.entity.LikedPrimaryKey;
 import com.collpoll.feedApplication.entity.Post;
 import org.springframework.stereotype.Service;
 
@@ -14,4 +15,7 @@ public interface ILikedService {
 
     public Integer getCountOfLikesForPost(Long postId);
     public void deleteLikesOfPost(Long postId);
+
+
+    public Boolean isLikedByUser(LikedPrimaryKey newKey);
 }

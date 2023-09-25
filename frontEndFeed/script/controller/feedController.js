@@ -9,7 +9,34 @@ angular.module("feedApp")
     $scope.mostLikedPost = {};
     $scope.mostDiscussedQuestion = {};
     $scope.quote = {};
+
+    $scope.postType = "Post";
+    $scope.showPostTypeForm = false;
+    $scope.showQuesTypeForm = false;
+    $scope.showPollForm = false;
+    $scope.showTemplates = true;
+    $scope.templateChosen = null;
+    $scope.showAddPollOption = false;
+    $scope.showPlusPoll = true;
+    $scope.optionsList = [];
     
+    toastr.options = {
+        "closeButton": true,
+        "debug": false,
+        "newestOnTop": true,
+        "progressBar": true,
+        "positionClass": "toast-top-right",
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": "5000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+    }
 
     $scope.init = function() {
         if (!$scope.isLoading) {
@@ -17,7 +44,7 @@ angular.module("feedApp")
             $scope.feedLoadNumber = 0;
 
             posts = feedService.getPosts($scope.feedLoadNumber)
-                .then( function(value) {
+                .then(function(value) {
                     console.log("feedController - INIT");
                     $scope.feedLoadNumber = $scope.feedLoadNumber+1;
                     console.log($scope.feedLoadNumber);
@@ -37,7 +64,8 @@ angular.module("feedApp")
                 .catch(function(error) {
                     throw new Error("Failed to getAll post");
                 });
-            $scope.postUserName = "";
+            $scope.postUserName = feedService.getLoggedUserName();
+            console.log("AAAAAAAAAAA", $scope.postUserName);
             $scope.postData = "";    
         }
         
@@ -73,55 +101,158 @@ angular.module("feedApp")
     $scope.noMorePosts = function() {
         $scope.morePosts = false;
     }
+
+    $scope.reset = function() {
+        $scope.postData = ''; 
+        $scope.templateChosen = null; 
+        $scope.showPlusPoll = true;
+        $scope.showPollForm = false;
+    }
+
+    $scope.addPollClicked = function() {
+        $scope.showPollForm = true;
+        $scope.showPlusPoll = false;
+    }
+
+    $scope.questionClicked = function() {
+        $scope.postType = "Question";
+        $scope.showPostTypeForm = false;
+        $scope.showQuesTypeForm = !$scope.showQuesTypeForm;
+    }
+
+    $scope.postClicked = function() {
+        $scope.postType = "Post";
+        $scope.showPostTypeForm = !$scope.showPostTypeForm;
+        $scope.showQuesTypeForm = false;
+    }
+
+    $scope.templateClicked = function() {
+        if ($scope.templateChosen === "TrueFalse") {
+            $scope.optionsList = ["True", "False"];
+            $scope.showAddPollOption = false;
+        }
+
+        else if ($scope.templateChosen === "RatingByFive") {
+            $scope.optionsList = ["1", "2", "3", "4", "5"];
+            $scope.showAddPollOption = true;
+        }
+
+        else {
+            $scope.showAddPollOption = true;
+            $scope.optionsList = [""];
+        }
+
+        setTimeout(function() {
+            $scope.showTemplates = true;
+        }, 100);
+    }
+
+    $scope.addNewOption = function() {
+        $scope.optionsList.push("New Option");
+        /* $scope.templateClicked(); */
+    }
+
 // ALL POST CRUD
 
     //ADD Posts
-    $scope.addToFeed = function(postType) {
-        if (postType == Question) {
+    $scope.addToFeed = function() {
+        if ($scope.postType === "Question") {
             let newQuestion = {
-                userName: $scope.postUserName,
-                postType: postType,
-                postData: $scope.postData,
+                createdBy: $scope.postUserName,
+                /* postType: postType, */
+                quesBody: $scope.postData,
                 optionsList: $scope.optionsList
             };
+            if ($scope.optionsList.length === 1) {
+                toastr.error("Can't create new Question with a single option", "AkhilK says - ");
+            }
             feedService.addQuestion(newQuestion)
                 .then(function(value) {
-                    console.log("new Post successfully added - " + newQuestion);
-                    $scope.init();
+                    if (value.status === 200) {
+                        console.log("new Post successfully added - " + value);
+                        toastr["success"]("Successfully created new Question", "AkhilK says - ");
+                        $scope.init();
+                    }
+                    else if (value.status === 500) {
+                        console.error("Internal Error, unable to create new Question", value.data.data);
+                        toastr.error("Internal Error, unable to create new Question", "AkhilK says - ");
+                    }
+                    else if (value.status === 400) {
+                        console.error("Bad Request, unable to create new Question", value.data.data);
+                        toastr.error("Bad Request, unable to create new Question", "AkhilK says - ");
+                    }
+                    else {
+                        console.error("An error occurred, unable to create new Question", error);
+                        toastr.error("An error occurred, unable to create new Question", "AkhilK says - ");
+                    }
                 })
                 .catch(function(error) {
-                    throw new Error("Failed to create new Question");
+                    throw console.log("Failed to create new Question", error);
                 })
         }
 
         else {
             let newPost = {
                 userName: $scope.postUserName,
-                postType: postType,
+                postType: $scope.postType,
                 postData: $scope.postData
             };
             feedService.addPost(newPost)
-                .then(function(newPost) {
-                    console.log("new Post successfully added - " + newPost);
-                    $scope.init();
+                .then(function(value) {
+                    if (value.status === 200){
+                        console.log("new Post successfully added - " + value);
+                        toastr["success"]("Successfully created new Post", "AkhilK says - ");
+                        $scope.init();
+                    }
+                    else if (value.status === 500) {
+                        console.error("Internal Error, unable to create new Post", value.data.data);
+                        toastr.error("Internal Error, unable to create new Post", "AkhilK says - ");
+                    }
+                    else if (value.status === 400) {
+                        console.error("Bad Request, unable to create new Post", value.data.data);
+                        toastr.error("Bad Request, unable to create new Post", "AkhilK says - ");
+                    }
+                    else {
+                        console.error("An error occurred, unable to create new Post", error);
+                        toastr.error("An error occurred, unable to create new Post", "AkhilK says - ");
+                    }
                 })
                 .catch(function(error) {
-                    throw new Error("Failed to create new Post");
+                    throw new Error("Failed to create new Post", error);
                 })
             }
-    }   
+            $scope.reset();
+            $scope.showPostTypeForm = false;
+            $scope.showQuesTypeForm = false;
+    }
 
     //DELETE Post
-    $scope.deletePost = function(post) {
+    /* $scope.deletePost = function(post) {
         feedService.deletePost(post)
-            .then(function() {
-                console.log("post deleted successfully");
-                $scope.init();
-            })
-            .catch(function(error) {
-                throw new Error("Error in deleting the post");
-            })
-    }
+            .then(function(value) {
+                    if (value.status === 200){
+                        console.log("Post successfully deleted - " + value);
+                        toastr["success"]("Successfully deleted Post", "AkhilK says - ");
+                        $scope.init();
+                    }
+                    else if (value.status === 500) {
+                        console.error("Internal Error, unable to delete Post", value.data.data);
+                        toastr.error("Internal Error, unable to delete Post", "AkhilK says - ");
+                    }
+                    else if (value.status === 400) {
+                        console.error("Bad Request, unable to delete Post", value.data.data);
+                        toastr.error("Bad Request, unable to delete Post", "AkhilK says - ");
+                    }
+                    else {
+                        console.error("An error occurred, unable to delete Post", error);
+                        toastr.error("An error occurred, unable to delete Post", "AkhilK says - ");
+                    }
+                })
+                .catch(function(error) {
+                    throw new Error("Failed to delete Post", error);
+                })
+            
+    } */
 
 
 // ALL Comments CRUD

@@ -6,25 +6,54 @@
                         <span class="material-symbols-outlined">
                             person
                         </span> 
-                        <i> {{post["createdBy"]}} </i>
+                        <i> {{post["createdBy"]}} • </i> <i style="font-weight: 500; color: #6e6363; font-size: 14px;"> {{post.createdAt | timeFilter}} </i>
                     </div>
                     <div class="postType">
-                            <div class="ribbon"> {{post.type || uppercase}} </div>
+                            <div class="ribbon"> {{post.type | uppercase}} </div>
                     </div>
+                    <!-- <div>
+                        <span>  </span>
+                    </div> -->
             </div>
             <div class="postBody">
                 <p id="content" class="card-text">
                     {{post["body"]}}
                 </p>
             </div>
+
+            <div class="poll" ng-show="numOfOptions > 0">
+                <div class="row">
+                    <ul ng-repeat="option in optionsList">
+                        <li class="row">
+                            <div class="col">
+                                <input class="styled-checkbox" type="radio" id="optionForQuestion_{{$index}}" ng-click="selectOption(option.id, post.id);" ng-checked="isSelected(option.id)">
+                                <label for="optionForQuestion_{{$index}}" > {{option.body}} </label>
+                            </div>
+                            <div class="col" style="display: inline-flex; justify-content: flex-end;" >
+                                <span> {{option.selectCount}} </span>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="row" style="justify-content: end;" ng-click="submitOption(post.id);">
+                        <button class="col-2" >SUBMIT</button>
+                    </div>
+                </div>
+                <br>
+            </div>
+
             <hr>
+            
+
             <div class="postFooter container">
                 <div class="col"> <!-- LIKE BUTTON -->
                     <div>
-                        <button class="commentButton" type="button" id="likeButton" ng-click="likeClicked()">
-                            <span class="material-symbols-outlined">
+                        <button class="commentButton" type="button" id="likeButton" ng-click="likePostDirect($event)">
+                            <span class="material-symbols-outlined" id="heart" ng-class="{ 'fill': isLikedByCurrentUser }">
                                 favorite
-                            </span> 
+                            </span>
+                            <!-- <span class="material-symbols-outlined" id="fill">
+                                favorite
+                            </span> --> 
                             <span> {{ countOfLikes}} </span>
                         </button>
                     </div>
@@ -78,16 +107,16 @@
             <div class="row commentForm">
                 <div>
                     <form class="textBox">
-                        <textarea class="form-control textArea" style="margin-bottom: 5px;" id="commentUserName" ng-model="newComment.userName" rows="1" required>                       
+                        <!-- <textarea class="form-control textArea" style="margin-bottom: 5px;" id="commentUserName" ng-model="newComment.userName" rows="1" required>                       
                         </textarea>
-                        <label class="floating-label"> Enter user name</label>
+                        <label class="floating-label"> Enter user name</label> -->
 
                         <textarea class="form-control textArea" id="commentData" ng-model="newComment.commentData" rows="3" required>                       
                         </textarea>
                         <label class="floating-label-post"> What are your thoughts on this?</label>
                         
                         <div class="row commentFormFooter">
-                            <div class="col-2" ng-click="newComment.userName = ''; newComment.commentData = '';">
+                            <div class="col-2" ng-click="newComment.commentData = '';">
                                 <button>
                                     Cancel
                                 </button>

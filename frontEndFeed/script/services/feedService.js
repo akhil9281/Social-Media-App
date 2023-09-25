@@ -102,6 +102,23 @@ angular.module("feedApp").service("feedService", ["$http","$rootScope", function
                 });
         },
 
+        isLikedByCurrentUser: function(postId, userName) {
+            return $http
+                .get(baseUrl + "/isLikedByUser/" + postId, {
+                    cache: false,
+                    params: {
+                        userName: userName
+                    }
+                })
+                .then(function (response) {
+                    console.log("successfully FOUND is Post is Liked by LoggedUser - ", response.data);
+                    return response.data;
+                })
+                .catch(function(error) {
+                    return error;
+                });
+        },
+
         getQuestionsByUser: function(username) {
             return $http
                 .get(baseUrl + "/allQuestionsByUser", {
@@ -111,33 +128,11 @@ angular.module("feedApp").service("feedService", ["$http","$rootScope", function
                     }
                 })
                 .then(function (response) {
-                    console.log(response.data);
-                    console.log("successfully FOUND the Feed Data");
+                    console.log("successfully FOUND the Feed Data", response.data);
                     return response.data;
                 })
                 .catch(function(error) {
-                    if (error.response) {
-                        if (error.response.status === 500) {
-                          console.error("Unable to get Comments due to Internal Error", error);
-                          alert("Unable to get Comments due to Internal Error");
-                        }
-                        else if (error.response.status === 400) {
-                            console.error("Bad Request, no such post exists");
-                            alert("Bad Request, no such post exists");
-                        }
-                        else {
-                            console.error("An error occurred while getting Comments", error);
-                            alert("An error occurred while getting Comments");
-                        }
-                    } 
-                    else if (error.request) {
-                        console.error("No response received from the server.", error);
-                        alert("No response received from the server.");
-                    } 
-                    else {
-                        console.error("An error occurred while making the request.", error);
-                         
-                    }
+                    return error;
                 });
         },
 
@@ -149,7 +144,8 @@ angular.module("feedApp").service("feedService", ["$http","$rootScope", function
                     return response.data;
                 })
                 .catch(function(error) {
-                    if (error.response) {
+                    return error;
+                    /* if (error.response) {
                         if (error.response.status === 500) {
                           console.error("Unable to get Comments due to Internal Error", error);
                           alert("Unable to get Comments due to Internal Error");
@@ -170,7 +166,7 @@ angular.module("feedApp").service("feedService", ["$http","$rootScope", function
                     else {
                         console.error("An error occurred while making the request.", error);
                          
-                    }
+                    } */
                 });
         },
 
@@ -182,7 +178,8 @@ angular.module("feedApp").service("feedService", ["$http","$rootScope", function
                     return response.data;
                 })
                 .catch(function(error) {
-                    if (error.response) {
+                    return error;
+                    /* if (error.response) {
                         if (error.response.status === 500) {
                           console.error("Unable to get Comments due to Internal Error", error);
                           alert("Unable to get Comments due to Internal Error");
@@ -203,7 +200,7 @@ angular.module("feedApp").service("feedService", ["$http","$rootScope", function
                     else {
                         console.error("An error occurred while making the request.", error);
                          
-                    }
+                    } */
                 });
         },
 
@@ -211,31 +208,11 @@ angular.module("feedApp").service("feedService", ["$http","$rootScope", function
             return $http
                 .delete(baseUrl + "/deletePost?postId=" + postId)
                 .then(function(response) {
+                    console.log(response);
                     return response.data;
                 })
                 .catch(function(error) {
-                    if (error.response) {
-                        if (error.response.status === 500) {
-                          console.error("Unable to get Comments due to Internal Error", error);
-                          alert("Unable to get Comments due to Internal Error");
-                        }
-                        else if (error.response.status === 400) {
-                            console.error("Bad Request, no such post exists");
-                            alert("Bad Request, no such post exists");
-                        }
-                        else {
-                            console.error("An error occurred while getting Comments", error);
-                            alert("An error occurred while getting Comments");
-                        }
-                    } 
-                    else if (error.request) {
-                        console.error("No response received from the server.", error);
-                        alert("No response received from the server.");
-                    } 
-                    else {
-                        console.error("An error occurred while making the request.", error);
-                         
-                    }
+                    return error;
                 });
         },
 
@@ -309,6 +286,7 @@ angular.module("feedApp").service("feedService", ["$http","$rootScope", function
                 });
         },
 
+        /* getOptions */
         getPolls: function(questionID) {
             return $http
                 .get(baseUrl + "/allOptionsForQues", {
@@ -347,36 +325,15 @@ angular.module("feedApp").service("feedService", ["$http","$rootScope", function
                 });
         },
 
-        selectOption: function(optionID) {
+        selectOption: function(optionSelectRequest) {
             return $http
-                .put(baseUrl + "/optionSelect/" + optionID)
+                .post(baseUrl + "/optionSelect", optionSelectRequest)
                 .then(function(response) {
-                    console.log("inside selectOption service", response.data.data);
-                    return response.data.data;
+                    console.log("inside selectOption service", response);
+                    return response.data;
                 })
                 .catch(function(error) {
-                    if (error.response) {
-                        if (error.response.status === 500) {
-                          console.error("Unable to get Comments due to Internal Error", error);
-                          alert("Unable to get Comments due to Internal Error");
-                        }
-                        else if (error.response.status === 400) {
-                            console.error("Bad Request, no such post exists");
-                            alert("Bad Request, no such post exists");
-                        }
-                        else {
-                            console.error("An error occurred while getting Comments", error);
-                            alert("An error occurred while getting Comments");
-                        }
-                    } 
-                    else if (error.request) {
-                        console.error("No response received from the server.", error);
-                        alert("No response received from the server.");
-                    } 
-                    else {
-                        console.error("An error occurred while making the request.", error);
-                         
-                    }
+                    return error;
                 });
         },
 

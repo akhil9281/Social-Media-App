@@ -7,4 +7,6 @@ public interface IOptionSelectService {
     public Integer changeSelectedOption(OptionSelectPrimaryKey optionSelectPrimaryKey, Long optionId);
 
     Integer selectOption(OptionSelectPrimaryKey optionSelectPrimaryKey, Long optionId);
+
+    void deleteOptionsSelectedOfPost(Long postId);
 }

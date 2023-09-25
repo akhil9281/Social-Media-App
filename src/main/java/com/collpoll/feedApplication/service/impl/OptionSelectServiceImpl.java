@@ -7,6 +7,8 @@ import com.collpoll.feedApplication.service.IOptionSelectService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service @Transactional
 public class OptionSelectServiceImpl implements IOptionSelectService {
 
@@ -44,5 +46,14 @@ public class OptionSelectServiceImpl implements IOptionSelectService {
         optionService.selectOption(optionId);
 
         return optionService.getOptionSelectCount(optionId);
+    }
+
+    @Override
+    public void deleteOptionsSelectedOfPost(Long postId) {
+        if (optionSelectRepo.countAllByOptionSelectPrimaryKey_PostId(postId) == 0)
+            return;
+
+        List<OptionSelect> optionSelectList = optionSelectRepo.findAllByOptionSelectPrimaryKey_PostId(postId);
+        optionSelectRepo.deleteAll(optionSelectList);
     }
 }

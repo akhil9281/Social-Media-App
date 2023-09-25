@@ -49,8 +49,15 @@ public class LikedServiceImpl implements ILikedService {
     }
 
     public void deleteLikesOfPost(Long postId) {
-        List<Liked> likedList = likedRepo.findAllByLikedPrimaryKeyPostId(postId);
-        for (Liked like: likedList)
-            likedRepo.deleteById(like.getId());
+        if  (likedRepo.countLikedByLikedPrimaryKey_PostId(postId) == 0)
+            return;
+
+        List<Liked> likedList = likedRepo.findAllByLikedPrimaryKey_PostId(postId);
+        likedRepo.deleteAll(likedList);
+    }
+
+    @Override
+    public Boolean isLikedByUser(LikedPrimaryKey newKey) {
+        return likedRepo.existsByLikedPrimaryKey(newKey);
     }
 }

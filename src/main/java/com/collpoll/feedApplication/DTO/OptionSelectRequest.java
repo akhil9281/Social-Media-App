@@ -7,7 +7,7 @@ public class OptionSelectRequest {
 
     private Long postId;
 
-    private Integer userId;
+    private String userName;
 
     private Long optionId;
 }

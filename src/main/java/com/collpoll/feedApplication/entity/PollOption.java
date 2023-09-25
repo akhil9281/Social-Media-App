@@ -10,7 +10,7 @@ import java.util.Date;
 
 @Entity
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor
-public class Option {
+public class PollOption {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
@@ -31,7 +31,7 @@ public class Option {
         createdAt = new Date();
     }
 
-    public Option(Long postId, String body) {
+    public PollOption(Long postId, String body) {
         this.postId = postId;
         this.body = body;
         this.selectCount = 0;

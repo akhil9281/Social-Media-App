@@ -1,9 +1,8 @@
 package com.collpoll.feedApplication.service.impl;
 
-import com.collpoll.feedApplication.entity.Option;
+import com.collpoll.feedApplication.entity.PollOption;
 import com.collpoll.feedApplication.repository.OptionRepo;
 import com.collpoll.feedApplication.service.IOptionService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,27 +19,27 @@ public class OptionServiceImpl implements IOptionService {
     }
 
     @Override
-    public List<Option> getOptionsForPost(Long postId) {
+    public List<PollOption> getOptionsForPost(Long postId) {
         return optionRepo.findAllByPostId(postId);
     }
 
     @Override
     public void addOptionToPost(Long postId, List<String> optionList) {
         for (String optionBody : optionList) {
-            optionRepo.save(new Option(postId, optionBody));
+            optionRepo.save(new PollOption(postId, optionBody));
         }
     }
 
     @Override
-    public Option selectOption(Long optionId) {
-        Optional<Option> option = optionRepo.findById(optionId);
+    public PollOption selectOption(Long optionId) {
+        Optional<PollOption> option = optionRepo.findById(optionId);
         option.ifPresent(value -> value.setSelectCount(value.getSelectCount() + 1));
         return optionRepo.save(option.get());
     }
 
     @Override
-    public Option deselectOption(Long optionId) {
-        Optional<Option> option = optionRepo.findById(optionId);
+    public PollOption deselectOption(Long optionId) {
+        Optional<PollOption> option = optionRepo.findById(optionId);
         option.ifPresent(value -> value.setSelectCount(value.getSelectCount() -1));
         return optionRepo.save(option.get());
     }
@@ -53,6 +52,15 @@ public class OptionServiceImpl implements IOptionService {
     @Override
     public boolean optionExists(Long optionId) {
         return optionRepo.existsById(optionId);
+    }
+
+    @Override
+    public void deleteOptionsOfPost(Long postId) {
+        if (optionRepo.countAllByPostId(postId) == 0)
+            return;
+
+        List<PollOption> optionList = optionRepo.findAllByPostId(postId);
+        optionRepo.deleteAll(optionList);
     }
 
 }
