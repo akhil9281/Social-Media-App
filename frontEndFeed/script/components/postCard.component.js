@@ -19,9 +19,11 @@ angular.module("feedApp")
                 $scope.comment = {};
                 $scope.newComment = {};
                 $scope.optionsList = [];
-                $scope.optionChosenId = null;
+                
                 $scope.loggedUserName = feedService.getLoggedUserName();
                 $scope.isLikedByCurrentUser = false;
+
+                let optionChosenId = null;
 
                 toastr.options = {
                     "closeButton": true,
@@ -103,31 +105,34 @@ angular.module("feedApp")
                     if (postId != $scope.post.id) {
                         return;
                     }
-                    $scope.optionChosenId = optionId;
+                    optionChosenId = optionId;
                 };
                   
                 $scope.isSelected = function(optionId) {
-                    return $scope.optionChosenId === optionId;
+                    return optionChosenId === optionId;
                 };
 
-                $scope.submitOption = function(postId) {
-                    if ($scope.optionChosenId === null) {
-                        toastr.warning("No option selected", "AkhilK says - ");
-                        return;
+                $scope.submitOption = function(optionId, event) {
+                    console.log("submitoption - ",$scope.post.id, optionId, event);
+                    optionChosenId = optionId;
+                    if (optionChosenId === null) {
+                        /* toastr.warning("No option selected", "AkhilK says - ");
+                        return; */
+                        
                     }
-                    if (postId != $scope.post.id) {
+                    /* if (postId != $scope.post.id) {
                         return;
-                    }
+                    } */
                     else {
-
+                        console.log("submitOption - chosen", optionChosenId);
                         let optionSelectRequest = {
                             postId: $scope.post.id,
                             userName: $scope.loggedUserName,
-                            optionId: $scope.optionChosenId
+                            optionId: optionChosenId
                         }
                         feedService.selectOption(optionSelectRequest)
                             .then(function(value) {
-                                console.log("bbbbbb", value);
+                                console.log("postController - selectOption", value);
                                 if (value.status === 200) {
                                     toastr.success("Successfully selected Option");
                                     $scope.getPollOptions();

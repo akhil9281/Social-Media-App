@@ -78,7 +78,7 @@
                                 <!-- Here will be our template shown -->
                                 <div class="template" ng-show="templateChosen != null"> <!-- templateChosen != null -->
                                 
-                                    <ul ng-repeat="option in optionsList">
+                                    <ul ng-repeat="option in optionsList track by $index">
                                         <li>
                                             <div>
                                                 <input type="text" ng-model="optionsList[$index]" placeholder="Enter your Option">
@@ -86,10 +86,10 @@
                                         </li>
 <!-- Todo .......... WORK on THIS! -->
                                         <br>
-                                        <div ng-if="templateChosen === 'Random'" type="button" ng-click="addNewOption()" role="button" ng-show="showAddPollOption">
-                                            <input type="text" placeholder="Click to add option" class="new-option-add">
-                                        </div>
                                     </ul>
+                                    <div ng-if="templateChosen === 'Random'" ng-show="showAddPollOption">
+                                        <button ng-click="addNewOption()"> Click to Add Option </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -127,9 +127,7 @@
                                     </div>                            
                                 </button>
                             </div>
-                        </div>
-
-                        
+                        </div>  
                     </form>
                 </div>
                 <div style="padding: 1rem; margin: 0 0.5rem">

@@ -23,20 +23,17 @@
 
             <div class="poll" ng-show="numOfOptions > 0">
                 <div class="row">
-                    <ul ng-repeat="option in optionsList">
+                    <ul ng-repeat="option in optionsList track by option.id">
                         <li class="row">
                             <div class="col">
-                                <input class="styled-checkbox" type="radio" id="optionForQuestion_{{$index}}" ng-click="selectOption(option.id, post.id);" ng-checked="isSelected(option.id)">
-                                <label for="optionForQuestion_{{$index}}" > {{option.body}} </label>
+                                <input class="styled-checkbox" type="radio" id="optionForQuestion_{{post.id}}_{{$index}}" ng-checked="isSelected(option.id)"> <!--  ng-click="selectOption(option.id, post.id);" -->
+                                <label for="optionForQuestion_{{post.id}}_{{$index}}"  ng-click="submitOption(option.id, $event);"> {{option.body}} </label>
                             </div>
                             <div class="col" style="display: inline-flex; justify-content: flex-end;" >
                                 <span> {{option.selectCount}} </span>
                             </div>
                         </li>
                     </ul>
-                    <div class="row" style="justify-content: end;" ng-click="submitOption(post.id);">
-                        <button class="col-2" >SUBMIT</button>
-                    </div>
                 </div>
                 <br>
             </div>

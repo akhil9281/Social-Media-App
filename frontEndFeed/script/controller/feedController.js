@@ -149,6 +149,8 @@ angular.module("feedApp")
 
     $scope.addNewOption = function() {
         $scope.optionsList.push("New Option");
+        console.log("OOOOOOO", $scope.optionsList);
+        
         /* $scope.templateClicked(); */
     }
 
@@ -165,6 +167,7 @@ angular.module("feedApp")
             };
             if ($scope.optionsList.length === 1) {
                 toastr.error("Can't create new Question with a single option", "AkhilK says - ");
+                return;
             }
             feedService.addQuestion(newQuestion)
                 .then(function(value) {
