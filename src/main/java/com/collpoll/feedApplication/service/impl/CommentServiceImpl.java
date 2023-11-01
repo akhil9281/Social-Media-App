@@ -58,19 +58,14 @@ public class CommentServiceImpl implements ICommentService {
     }
 
     public void deleteCommentsOfPost(Long postId) {
-        int count = commentRepo.countCommentsByPostId(postId);
-        if (count == 0)
+        if (commentRepo.countCommentsByPostId(postId) == 0)
             return;
 
         List<Comment> commentList = commentRepo.findAllByPostIdOrderByCreatedAt(postId);
-
-        for (Comment comment: commentList) {
-            commentRepo.deleteById((comment.getId()));
-        }
+        commentRepo.deleteAll(commentList);
     }
 
     public Integer getCountOfCommentsForPost(Long postId) {
-        int count = commentRepo.countCommentsByPostId(postId);
-        return count;
+        return commentRepo.countCommentsByPostId(postId);
     }
 }

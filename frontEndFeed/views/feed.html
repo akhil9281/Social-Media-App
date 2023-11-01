@@ -8,36 +8,34 @@
 
             <div class="col-6 main-bar container">
                 <!-- POST BOX -->
-                <div class="first-card post-form" style="box-shadow: -1px 1px 3px #6b36b8d1;">
-                    <form class="textBox" name="feedForm" novalidate>
-                        <div >
-                            <textarea class="form-control textArea" style="margin-bottom: 5px;" id="feedPostUserName" ng-model="postUserName" rows="1"required>
-                            </textarea>
-                            <label class="floating-label"> Enter user name</label>
+                <div class="first-card post-form">
+                    <!-- Selection between QUestion and Normal POST! -->
+                    <div class="row">
+                        <div type="button" class="col postTypeChoice" ng-click="questionClicked();">
+                            Question
+                        </div>
+                        
+                        <div type="button" class="col postTypeChoice" ng-click="postClicked()">
+                            Post
+                        </div>
+                    </div>
+                </div>
 
+                <div class="first-card post-form" style="box-shadow: -1px 1px 3px #6b36b8d1;" ng-show="showPostTypeForm"> <!-- showPostTypeForm -->
+
+                    <form class="textBox postForm" name="postForm" novalidate>
+                        <div>
                             <textarea class="form-control textArea" id="feedPostData" rows="3" ng-model="postData" required>                            
                             </textarea>
                             <label class="floating-label-post"> What are you sharing today?</label>
                         </div>
 
                         <div class="row mx-2" style="width: 100%;">
-                            <div class="col">                            
-                                <div class="row" style="padding-top: 1rem;">
-                                    <div class="form-check col">
-                                        <input class="styled-checkbox" type="radio" id="PostChoice" ng-model="postType" value="Post">
-                                        <label for="PostChoice">Post</label>
-                                    </div>
-                                    <div class="form-check col">
-                                        <input class="styled-checkbox" type="radio" id="QuestionChoice" ng-model="postType" value="Question">
-                                        <label for="QuestionChoice">Question</label>
-                                    </div>
-                                </div>
-                            </div>
                             <div class="col text-end">
-                                <button type="button" class="col" ng-click="postUserName = ''; postData = ''; postType = '';">
+                                <button type="button" class="col" ng-click="reset()">
                                     Reset
                                 </button>
-                                <button type="button" class="col" ng-click="addPost(postType)">                        
+                                <button type="button" class="col" ng-click="addToFeed()">                        
                                     Submit
                                     <div ng-show="isLoading" class="small-loader">
                                         <div class="spinner"></div>
@@ -45,7 +43,92 @@
                                 </button>
                             </div>
                         </div>
-                    </form>      
+                    </form>
+                </div>
+
+
+                <div class="first-card post-form" style="box-shadow: -1px 1px 3px #6b36b8d1;" ng-show="showQuesTypeForm"> <!-- showQuesTypeForm -->
+                    <form class="textBox quesForm" name="quesForm" novalidate>
+                        <div>
+                            <textarea class="form-control textArea" id="feedPostData" rows="3" ng-model="postData" required>                            
+                            </textarea>
+                            <label class="floating-label-post"> What is your Question?</label>
+                        </div>
+                        
+                        <div class="pollForm" ng-show="showPollForm" style="box-shadow: 0px 0px 5px brown;">
+                            <!-- Here will be our template selection options -->
+                            <div class="textBox templates row" ng-show="showTemplates">
+                                <div class="col">
+                                    <input class="styled-checkbox" id="TrueFalse" type="radio" ng-model="templateChosen" value="TrueFalse" ng-click="templateClicked();">
+                                    <label for="TrueFalse"> True/ False </label>    
+                                </div>
+                                <div class="col">
+                                    <input class="styled-checkbox" id="RatingByFive" type="radio" ng-model="templateChosen" value="RatingByFive" ng-click="templateClicked();">
+                                    <label for="RatingByFive"> Rating out of 5</label>
+                                    
+                                </div>
+
+                                <div class="col">
+                                    <input class="styled-checkbox" id="Random" type="radio" ng-model="templateChosen" value="Random" ng-click="templateClicked();">
+                                    <label for="Random">Random</label>
+                                </div>
+                            </div>
+    
+                            <div class="textBox row">
+                                <!-- Here will be our template shown -->
+                                <div class="template" ng-show="templateChosen != null"> <!-- templateChosen != null -->
+                                
+                                    <ul ng-repeat="option in optionsList track by $index">
+                                        <li>
+                                            <div>
+                                                <input type="text" ng-model="optionsList[$index]" placeholder="Enter your Option">
+                                            </div>
+                                        </li>
+<!-- Todo .......... WORK on THIS! -->
+                                        <br>
+                                    </ul>
+                                    <div ng-if="templateChosen === 'Random'" ng-show="showAddPollOption">
+                                        <button ng-click="addNewOption()"> Click to Add Option </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mx-2" style="width: 100%;">
+                            <div class="col">                            
+                                <!-- <div class="row" style="padding-top: 1rem;"> -->
+                                    <div type="button" id="addPolls" ng-click="addPollClicked();" ng-show="showPlusPoll">
+                                        <span class="material-symbols-outlined">
+                                            add_circle
+                                        </span>
+                                        <div style="margin: 0 0.5rem;">Add Polls</div>
+                                    </div>
+                                    <!-- <div class="form-check col">
+                                        <input class="styled-checkbox" type="radio" id="PostChoice" ng-model="postType" value="Post">
+                                        <label for="PostChoice">Post</label>
+                                    </div>
+                                    <div class="form-check col">
+                                        <input class="styled-checkbox" type="radio" id="QuestionChoice" ng-model="postType" value="Question">
+                                        <label for="QuestionChoice">Question</label>
+                                    </div> -->
+
+                                    <!-- There will be our Add Poll Option.. which will be hidden when clicked -->
+                                    
+                                <!-- </div> -->
+                            </div>
+                            <div class="col text-end">
+                                <button type="button" class="col" ng-click="reset()">
+                                    Reset
+                                </button>
+                                <button type="button" class="col" ng-click="addToFeed(postType)">                        
+                                    Submit
+                                    <div ng-show="isLoading" class="small-loader">
+                                        <div class="spinner"></div>
+                                    </div>                            
+                                </button>
+                            </div>
+                        </div>  
+                    </form>
                 </div>
                 <div style="padding: 1rem; margin: 0 0.5rem">
                     <ul style="padding-left: 0;" class="hide" ng-repeat="post in feed track by post.id">

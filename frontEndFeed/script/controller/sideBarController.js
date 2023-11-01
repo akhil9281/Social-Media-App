@@ -9,6 +9,7 @@ angular.module("feedApp")
         $scope.getMostLikedPost();
         $scope.getMostDiscussedQuestion();
         $scope.getQuote();
+        $scope.getLoggedUser();
     };
 
     $scope.getMostLikedPost = function() {
@@ -36,6 +37,13 @@ angular.module("feedApp")
                 console.log("Quote is - ", value);
                 $scope.quote = value[0];
             })
-    }
+    };
+
+    $scope.getLoggedUser = function() {
+        $scope.currentLoggedUser = "";
+        $scope.currentLoggedUser = feedService.getLoggedUserName()
+        console.log("sideBarController - getLoggedUser", currentLoggedUser);
+            
+    };
 
 }])

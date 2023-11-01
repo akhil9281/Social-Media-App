@@ -18,24 +18,45 @@ angular.module("feedApp")
                 $scope.loadingComment = false;
                 $scope.comment = {};
                 $scope.newComment = {};
+                $scope.optionsList = [];
+                
+                $scope.loggedUserName = feedService.getLoggedUserName();
+                $scope.isLikedByCurrentUser = false;
+
+                let optionChosenId = null;
+
+                toastr.options = {
+                    "closeButton": true,
+                    "debug": false,
+                    "newestOnTop": true,
+                    "progressBar": true,
+                    "positionClass": "toast-top-right",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                }
 
                 $scope.start = function() {
-                    console.log("in postCard init");
+                    console.log("postCard - init", $scope.post.id);
                     setTimeout(function() {
                         $scope.getLikes();
                         $scope.getComments();
+                        $scope.isLikedByLoggedUser();
+                        if ($scope.post.type === "Question") {
+                            $scope.getPollOptions();
+                        }
                     }, 2000);                    
                     console.log("start - commetlist", $scope.commentList);
                 };
 
-                $scope.likeClicked = function() {
-                    $scope.showComments = false; 
-                    $scope.showLikeForm = !$scope.showLikeForm; 
-                    
-                }
-
                 $scope.commentClicked = function() {
-                    console.log("Comment button clicked");
                     $scope.showLikeForm = false; 
                     $scope.showComments = !$scope.showComments;
                     console.log($scope.showComments);
@@ -43,47 +64,135 @@ angular.module("feedApp")
                 }
 
                 $scope.getComments = function() {
-                    console.log("in postCard getComments");
+                    $scope.loadingComment = true;
                     $scope.commentList = [];
-                    $scope.newComment.userName = "";
+                    $scope.newComment.userName = feedService.getLoggedUserName();
                     $scope.newComment.commentData = "";
                     feedService.getComments($scope.post.id)
                         .then(function(value) {
-                            console.log("postCarController-getComments:", value);
+                            console.log("postCarController-getComments:", $scope.post.id, value);
                             $scope.commentList = value[0];
                             $scope.countOfComments = value[1];
-                            return $scope.commentList;
+                            $scope.loadingComment = false;
                         });
-                    $scope.loadingComment = false;
-                    return $scope.commentList;
                 };
 
                 $scope.getLikes = function() {
-                    console.log("in postCard getLikes");
+                    console.log("postCard - getLikes", $scope.post.id);
                     feedService.numOfLikes($scope.post.id)
                         .then(function(value) {
                             $scope.countOfLikes = value;
                         });
                 };
 
+                $scope.isLikedByLoggedUser = function() {
+                    feedService.isLikedByCurrentUser($scope.post.id, $scope.loggedUserName)
+                        .then(function(value) {
+                            $scope.isLikedByCurrentUser = value.data[0];
+                        })
+                }
+
+                $scope.getPollOptions = function() {
+                    feedService.getPolls($scope.post.id)
+                        .then(function(value) {
+                            console.log("postCard - getPollOptions", $scope.post.id, value);
+                            $scope.optionsList = value[0];
+                            $scope.numOfOptions = value[0].length;
+                        });
+                }
+
+                $scope.selectOption = function(optionId, postId) {
+                    if (postId != $scope.post.id) {
+                        return;
+                    }
+                    optionChosenId = optionId;
+                };
+                  
+                $scope.isSelected = function(optionId) {
+                    return optionChosenId === optionId;
+                };
+
+                $scope.submitOption = function(optionId, event) {
+                    console.log("submitoption - ",$scope.post.id, optionId, event);
+                    optionChosenId = optionId;
+                    if (optionChosenId === null) {
+                        /* toastr.warning("No option selected", "AkhilK says - ");
+                        return; */
+                        
+                    }
+                    /* if (postId != $scope.post.id) {
+                        return;
+                    } */
+                    else {
+                        console.log("submitOption - chosen", optionChosenId);
+                        let optionSelectRequest = {
+                            postId: $scope.post.id,
+                            userName: $scope.loggedUserName,
+                            optionId: optionChosenId
+                        }
+                        feedService.selectOption(optionSelectRequest)
+                            .then(function(value) {
+                                console.log("postController - selectOption", value);
+                                if (value.status === 200) {
+                                    toastr.success("Successfully selected Option");
+                                    $scope.getPollOptions();
+                                }
+                                else if (value.status === 500) {
+                                    console.error("Internal Error, unable to select Option", value.data.data);
+                                    toastr.error("Internal Error, unable to select Option", "AkhilK says - ");
+                                }
+                                else if (value.status === 400) {
+                                    console.error("Bad Request, unable to select Option", value.data.data);
+                                    toastr.error("Bad Request, unable to select Option", "AkhilK says - ");
+                                }
+                                else {
+                                    console.error("An error occurred, unable to select Option", value);
+                                    toastr.error("An error occurred, unable to select Option", "AkhilK says - ");
+                                }
+                            })
+                    }
+                }
+
                 $scope.likePost = function(like) {
                     console.log("in postCard likePost");
+                    like.userName = $scope.loggedUserName;
                     feedService.likePost(like)
                         .then(function(value) {
                             console.log("Successfylly liked - " + $scope.post.id);
-                            $scope.likeClicked();
+                            /* $scope.likeClicked(); */
                             $scope.getLikes();
+                            /* $document.getElementById('heart').style.display = "none"; */
+                            /* $scope.document.getElementById('fill').style.display = "block"; */
+                            angular.element(document.querySelector('#heart'))[0].style.display = 'none';
+                            /* $scope.$document[0].querySelector('#heart') */
                     });
                     like.userName = "";
                     
                 };
 
+                $scope.likePostDirect = function(event) {
+                    console.log("in postCard likePost");
+                    let newLike = {
+                        postId: $scope.post.id,
+                        userName: $scope.loggedUserName
+                    }
+                    feedService.likePost(newLike)
+                        .then(function(value) {
+                            console.log("Successfylly liked - " + $scope.post.id);
+                            /* $scope.likeClicked(); */
+                            $scope.getLikes();
+                            event.target.classList.add('fill');
+                    });
+                                        
+                };
+
                 $scope.makeComment = function(newComment) {
-                    console.log("in postCard makeComment");
+                    console.log("postCard - makeComment");
                     $scope.loadingComment = true;
+                    newComment.userName = $scope.loggedUserName;
                     feedService.createComment(newComment, $scope.post.id)
                         .then(function(value) {
-                            console.log("response of makeComment", value);
+                            console.log("response of makeComment", $scope.post.id, value);
                             $scope.getComments();
                         });
                     
@@ -94,45 +203,25 @@ angular.module("feedApp")
                         console.log("in postCard delete");
                         feedService.deletePost($scope.post.id)
                             .then(function(value) {
-                                toastr.options = {
-                                    "closeButton": true,
-                                    "debug": false,
-                                    "newestOnTop": true,
-                                    "progressBar": true,
-                                    "positionClass": "toast-top-right",
-                                    "preventDuplicates": false,
-                                    "onclick": null,
-                                    "showDuration": "300",
-                                    "hideDuration": "1000",
-                                    "timeOut": "5000",
-                                    "extendedTimeOut": "1000",
-                                    "showEasing": "swing",
-                                    "hideEasing": "linear",
-                                    "showMethod": "fadeIn",
-                                    "hideMethod": "fadeOut"
+                                if (value.status === 200) {
+                                    toastr["success"]("Successfully to deleted the Post", "AkhilK says - ");
+                                    $scope.$parent.init();
                                 }
-                                toastr["success"]("Successfully to deleted the Post", "AkhilK says - ")
+                                else if (value.status === 500) {
+                                    console.error("Internal Error, unable to delete Post", value);
+                                    toastr.error("Internal Error, unable to delete Post", "AkhilK says - ");
+                                }
+                                else if (value.status === 400) {
+                                    console.error("Bad Request, unable to delete Post", value.data);
+                                    toastr.error("Bad Request, unable to delete Post", "AkhilK says - ");
+                                }
+                                else {
+                                    console.error("An error occurred, unable to delete Post", value);
+                                    toastr.error("An error occurred, unable to delete Post", "AkhilK says - ");
+                                }
                             });
                     }
                     else {
-                        toastr.options = {
-                            "closeButton": true,
-                            "debug": false,
-                            "newestOnTop": true,
-                            "progressBar": true,
-                            "positionClass": "toast-top-right",
-                            "preventDuplicates": false,
-                            "onclick": null,
-                            "showDuration": "300",
-                            "hideDuration": "1000",
-                            "timeOut": "5000",
-                            "extendedTimeOut": "1000",
-                            "showEasing": "swing",
-                            "hideEasing": "linear",
-                            "showMethod": "fadeIn",
-                            "hideMethod": "fadeOut"
-                        }
-                          
                         toastr.error("Unaurthorised to delete Post!", "AkhilK says - ");
                         console.log("Unaurthorised to delete Post");
                     }

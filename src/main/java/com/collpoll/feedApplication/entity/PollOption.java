@@ -6,9 +6,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Date;
+
 @Entity
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor
-public class Option {
+public class PollOption {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
@@ -20,7 +22,16 @@ public class Option {
 
     private Integer selectCount;
 
-    public Option(Long postId, String body) {
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(nullable = false, updatable = false)
+    private Date createdAt;
+
+    @PrePersist
+    protected void onCreate() {
+        createdAt = new Date();
+    }
+
+    public PollOption(Long postId, String body) {
         this.postId = postId;
         this.body = body;
         this.selectCount = 0;
